@@ -16,10 +16,26 @@ https://angel.co/klue
         <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets-home2/css-dist/main.css">
 
         <link href="<?php echo get_template_directory_uri() ?>/assets/css-standalone/plugin.css" rel="stylesheet">
+  
+<?php
+  // Output document title
+  if(defined("TITLE") && TITLE) {
+    echo '<title>' . htmlentities(TITLE) . '</title>';
+  }
+  else if(WP_DEBUG && !is_page()) {
+    echo "<h1>page needs TITLE</h1>";
+  } else {
+    echo '<title>';
+    wp_title();
+    echo '</title>';
+  }
+?>
 
-        <title>Klue - Intelligence that wins business.</title>
-        <meta name="description" content="Competitive intelligence collected effortlessly, curated painlessly, and delivered to your teams to win more deals.">
-
+<?php
+  if(defined("DESCRIPTION")) {
+    echo '<meta name="description" content="' . htmlentities(str_replace('"','\'', DESCRIPTION)) . '" />';
+  }
+?>
         <!-- wp_head -->
         <?php wp_head(); ?>
         <!-- /wp_head -->
