@@ -66,6 +66,12 @@ https://angel.co/klue
               <li class="header-nav__header-nav-item header-nav__header-nav-item--login"><a href="http://app.klue.com">Login</a></li>
               <li class="header-nav__header-nav-item"><a href="http://app.klue.com" class="button button--nav-item button--green-solid">Get Started</a></li>
             </ul>
+            <div class="navigation-top">
+              <div class="wrap">
+                <?php wp_nav_menu('Main Nav'); ?>
+              </div><!-- .wrap -->
+            </div><!-- .navigation-top -->
+           
           </div>
           <a href="#" class="button--nav button button--green-solid">Nav</a>
 
