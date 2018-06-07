@@ -1,0 +1,17 @@
+//@import "compass/css3/transition";
+//@import "compass/css3/animation";
+
+a {
+  transition-property: color, background-color;
+  transition-duration: .25s;
+}
+
+.header-corset__header-nav {
+  transition-property: opacity;
+  transition-duration: .5s;
+}
+
+a, input[type=submit] {
+  touch-action: manipulation;
+}
+

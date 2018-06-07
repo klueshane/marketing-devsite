@@ -1,0 +1,49 @@
+$font-sans:			'Open Sans', sans-serif;
+$font-serif:		'libre_baskervilleitalic', serif;
+$font-icons:		'Genericons';
+
+$black:				#000;
+$white:				#fff;
+$pampas:			#f0ece8;
+$bronco:			#a8a096;
+$sisal:				#DCD3C9;
+
+/* Theme Settings */
+$sidr-font-family: $font-sans;
+$sidr-font-size: 16px;
+
+// Colors
+$sidr-background : $bronco;
+$sidr-background-shadow-color : #222;
+$sidr-text-color: $pampas;
+
+
+// placeholder variables until they can be replaced with theme specific stuff
+$size__site-main: 100%;
+$size__site-sidebar: 25%;
+
+$color__background-body: #fff;
+$color__background-screen: #f1f1f1;
+$color__background-hr: #ccc;
+$color__background-button: #e6e6e6;
+$color__background-pre: #eee;
+$color__background-ins: #fff9c0;
+
+$color__text-screen: #21759b;
+$color__text-input: #666;
+$color__text-input-focus: #111;
+$color__link: royalblue;
+$color__link-visited: purple;
+$color__link-hover: midnightblue;
+$color__text-main: #404040;
+
+$color__border-button: #ccc #ccc #bbb;
+$color__border-button-hover: #ccc #bbb #aaa;
+$color__border-button-focus: #aaa #bbb #bbb;
+$color__border-input: #ccc;
+$color__border-abbr: #666;
+
+$font__code: Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
+$font__pre: "Courier 10 Pitch", Courier, monospace;
+$font__line-height-body: 1.5;
+$font__line-height-pre: 1.6;

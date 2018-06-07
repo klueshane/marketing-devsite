@@ -1,0 +1,328 @@
+//--------------------------------------------------------------
+// Mixins
+//--------------------------------------------------------------
+
+// Grid Variables
+$site_width: 1225px;
+$total_columns: 12;
+$gutter: 40px;
+
+// Placeholders
+%clearfix {
+  *zoom: 1;
+  &:before, &:after {
+    content: " ";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+// SASS Grid Mixin Starts
+
+@mixin row() {
+  position: relative;
+  width: 100%;
+  max-width: $site_width;
+  margin: auto;
+  @extend %clearfix;
+}
+
+@mixin col($columns) {
+  width: 100% * ($columns / $total_columns);
+  float: left;
+  padding-left: $gutter/2;
+  padding-right: $gutter/2;
+}
+
+@mixin col-first($columns) {
+  width: 100% * ($columns / $total_columns);
+  float: left;
+  padding-right: $gutter/2;
+}
+
+@mixin col-last($columns) {
+  width: 100% * ($columns / $total_columns);
+  float: right;
+  padding-left: $gutter/2;
+}
+
+@mixin centered($columns) {
+  width: 100% * ($columns / $total_columns);
+  margin: 0 auto;
+}
+
+@mixin push($columns) {
+  @if $columns == 0 {
+    margin-left: 0;
+  } @else {
+    margin-left: 100% * ($columns / $total_columns);
+  }
+}
+
+@mixin pull($columns) {
+  @if $columns == 0 {
+    margin-right: 0;
+  } @else {
+    margin-right: 100% * ($columns / $total_columns);
+  }
+}
+
+// Border Radius
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  border-radius: $radius;
+}
+
+// Gradient
+@mixin linear-gradient($color-1, $color-2) {
+  background: $color-1; /* Old browsers */
+  background: -moz-linear-gradient(top, $color-1 0%, $color-2 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $color-1), color-stop(100%, $color-2)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, $color-1 0%, $color-2 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, $color-1 0%, $color-2 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, $color-1 0%, $color-2 100%); /* IE10+ */
+  background: linear-gradient(to bottom, $color-1 0%, $color-2 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$color-1', endColorstr='$color-2', GradientType=0); /* IE6-9 */
+}
+
+@mixin centerer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin word-wrap() {
+  word-break:     break-word;
+  -webkit-hyphens: auto;
+  -moz-hyphens:    auto;
+  hyphens:         auto;
+}
+
+@mixin ellipsis() {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+@function black($opacity) {
+  @return rgba(black, $opacity)
+}
+@function white($opacity) {
+  @return rgba(white, $opacity)
+}
+
+// REM with PX fallback
+@function parseInt($n) {
+  @return $n / ($n * 0 + 1);
+}
+
+@mixin rem($property, $values) {
+  $px : ();
+  $rem: ();
+
+  $root: 10;
+
+  @each $value in $values {
+    @if $value == 0 or $value == auto {
+      $px : append($px , $value);
+      $rem: append($rem, $value);
+    }
+
+    @else if type-of($value) == number {
+      $unit: unit($value);
+      $val: parseInt($value);
+
+      @if $unit == "px" {
+        $px : append($px,  $value);
+        $rem: append($rem, ($val / $root + rem));
+      }
+
+      @if $unit == "rem" {
+        $px : append($px,  ($val * $root + px));
+        $rem: append($rem, $value);
+      }
+    }
+
+    @else {
+      $px : append($px,  $value);
+      $rem: append($rem, $value);
+    }
+  }
+
+  @if $px == $rem {
+    #{$property}: $px;
+  } @else {
+    #{$property}: $px;
+    #{$property}: $rem;
+  }
+}
+
+@function rem($value) {
+  $root: $font-size;
+  $val: parseInt($value);
+  $return: ();
+
+  @if unit($value) == "px" {
+    $return: append($return, ($val / $root + rem));
+  } @else {
+    $return: append($return, ($val * $root + px));
+  }
+
+  @return $return;
+}
+
+// Border Radius
+@mixin border-radius($radius) {
+  -webkit-border-radius:	$radius;
+  -moz-border-radius: 	$radius;
+  border-radius:			$radius;
+}
+
+// Transitions
+@mixin transition($transition-property, $transition-time, $method) {
+  -webkit-transition: $transition-property $transition-time $method;
+  -moz-transition: 	$transition-property $transition-time $method;
+  -ms-transition: 	$transition-property $transition-time $method;
+  -o-transition: 		$transition-property $transition-time $method;
+  transition: 		$transition-property $transition-time $method;
+}
+
+@mixin vertical-align-center {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+@mixin vertical-align-bottom {
+  position: relative;
+  top: 100%;
+  -webkit-transform: translateY(-100%);
+  -ms-transform: translateY(-100%);
+  transform: translateY(-100%);
+}
+
+// Drop shadows
+// ----------------------------------
+@mixin box-shadow($shadow) {
+  -webkit-box-shadow: $shadow;
+  -moz-box-shadow: 	$shadow;
+  box-shadow: 		$shadow;
+}
+
+
+// FONT FACE
+@mixin font-face($fontFamily: myFont, $eotFileSrc: 'myFont.eot', $woffFileSrc: 'myFont.woff', $ttfFileSrc: 'myFont.ttf') {
+  font-family: $fontFamily;
+  src: url($eotFileSrc)  format('eot'),
+  url($woffFileSrc) format('woff'),
+  url($ttfFileSrc)  format('truetype');
+}
+
+// Media Queries
+@mixin breakpoint($point) {
+  @if $point == desktop {
+    @media screen and (min-width: 1140px) { @content; }
+  }
+
+  @else if $point == tablet-large {
+    @media screen and (min-width: 1000px) { @content; }
+  }
+
+  @else if $point == tablet-large-mid {
+    @media screen and (min-width: 900px) { @content; }
+  }
+
+  @else if $point == tablet {
+    @media screen and (min-width: 800px) { @content; }
+  }
+
+  @else if $point == tablet-wp-admin-bar {
+    @media screen and (min-width: 782px) { @content; }
+  }
+
+  @else if $point == tablet-small-mid {
+    @media screen and (min-width: 712px) { @content; }
+  }
+
+  @else if $point == 640 {
+    @media screen and (min-width: 640px)  { @content; }
+  }
+
+  @else if $point == tablet-small {
+    @media screen and (min-width: 600px) { @content; }
+  }
+
+  @else if $point == phone {
+    @media screen and (min-width: 480px)  { @content; }
+  }
+
+  @else if $point == 360 {
+    @media screen and (min-width: 360px)  { @content; }
+  }
+
+  @else if $point == phone-portrait {
+    @media screen and (min-width: 320px)  { @content; }
+  }
+}
+
+// Rem output with px fallback
+@mixin font-size($sizeValue: 1.6) {
+	font-size: ($sizeValue * 10) + px;
+	font-size: $sizeValue + rem;
+}
+
+// Box model
+@mixin box-sizing($box-model) {
+	-webkit-box-sizing: $box-model; // Safari <= 7
+	-moz-box-sizing: $box-model; // Firefox <= 19
+	box-sizing: $box-model;
+}
+
+// Border radius
+@mixin border-radius($radius) {
+	background-clip: padding-box; /* stops bg color from leaking outside the border: */
+	-webkit-border-radius: $radius;
+	border-radius: $radius;
+}
+
+// Center block
+@mixin center-block {
+	display: block;
+	margin: 0 auto;
+}
+
+// Clearfix
+@mixin clearfix() {
+	content: "";
+	display: table;
+}
+
+// Clear after (not all clearfix need this also)
+@mixin clearfix-after() {
+	clear: both;
+}
+
+@function pow($x, $y) {
+	$ret: 1;
+
+	@if $y > 0 {
+		@for $i from 1 through $y {
+			$ret: $ret * $x;
+		}
+	}
+
+	@else {
+		@for $i from $y to 0 {
+			$ret: $ret / $x;
+		}
+	}
+
+	@return $ret;
+}

@@ -1,0 +1,186 @@
+@import "global";
+@import "primary/posts-and-pages";
+@import "primary/asides";
+@import "primary/comments";
+@import "elements";
+@import "header";
+@import "navigation";
+@import "footer";
+
+h3 {
+	@include rem(margin, 0 0 20px 0);
+	font-weight: 900;
+}
+
+// Home page posts
+
+article {
+	@include row();
+	.featured-image {
+		@include col-first(8);
+		float: left;
+		line-height: 1;
+	}
+	.post-content {
+		@include col-first(4);
+	}
+
+}
+
+@media all and (max-width:800px) {
+	article {
+		width: 100%;
+		.featured-image {
+			width: 100%;
+			float: none;
+			padding-right: 0;
+			img {
+				width: 100%;
+			}
+		}
+		.post-content {
+			width: 100%;
+			float:none;
+			padding-right: 0;
+		}
+	}
+
+	article {
+		.featured-image {
+			width: 100%;
+			float: left;
+			line-height: 1;
+		}
+		.post-content {
+			width: 100%
+		}
+
+	}
+
+}
+
+@media all and (max-width:800px) {
+
+}
+
+.home,
+.archive {
+	.content-area {
+		article {
+			border-top: 1px solid;
+			border-bottom: 1px solid;
+			border-color: $sisal;
+		}
+	}
+}
+
+
+article {
+
+	.entry-title {
+		@include rem(margin, 0 0 0 0);
+		font-family: $font-serif;
+	}
+	.entry-meta {
+		@include row();
+		@include rem(margin-bottom, 20px);
+	}
+	.category {
+		@include col-first(8);
+		text-transform: uppercase;
+	}
+	.date {
+		@include col-last(4);
+		text-align: right;
+	}
+	.posted-on {
+		line-height: 1;
+	}
+	.posted-on:before {
+		@include rem(font-size, 20px);
+		@include rem(padding-right, 5px);
+		color: $bronco;
+		content: '\f307';
+		font-family: "Genericons";
+		line-height: 1;
+		vertical-align: bottom;
+	}
+	.date a,
+	.date a:visited,
+	.category a,
+	.category a:visited {
+		color: $bronco;
+	}
+	.read-more {
+		font-weight: 900;
+		text-transform: uppercase;
+	}
+	a,
+	a:visited {
+		color: $black;
+	}
+}
+
+.cat-links,
+.tags-links {
+	color: $bronco;
+	a,
+	a:visited {
+		color: $bronco;
+		text-transform: uppercase;
+	}
+}
+
+.tags-links {
+	@include rem(margin-left, 10px);
+}
+
+.edit-link {
+	@include rem(margin-top, 20px);
+}
+.entry-date {
+	color: $bronco;
+}
+
+.home {
+	#featured-content {
+		width: 96.735%;
+		height: 500px;
+		margin: 0 auto 60px auto;
+		.entry-header {
+			@include rem(margin, -350px 0 0 0);
+			text-align: center;
+		}
+		.section-title {
+			@include rem(font-size, 16px);
+			@include rem(padding, 25px 0 15px 0);
+			border-top: 1px solid $white;
+			color: $white;
+			text-transform: uppercase;
+			text-align: center;
+			width: 30%;
+			margin: 0 auto;
+		}
+		.entry-title {
+			@include rem(margin-bottom, 20px);
+		}
+		a {
+			color: $white;
+		}
+		.read-more {
+			@include rem(padding, 15px 40px);
+			border: 1px solid $white;
+		}
+	}
+}
+
+@media (max-width:800px) {
+	.home #featured-content {
+		height: auto;
+		.entry-header {
+			@include rem(margin, 20px 0 0 0);
+			@include rem(padding, 10px 10px 20px 10px);
+			text-align: center;
+		}
+	}
+}

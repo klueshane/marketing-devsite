@@ -1,0 +1,68 @@
+.comment-form {
+	label{
+		visibility: hidden;
+	}
+	textarea {
+		width: 100%;
+		border: 1px solid $sisal;
+	}
+	.form-allowed-tags,
+	code {
+		@include rem(font-size, 10px);
+		color: $sisal;
+	}
+	input#submit {
+		@include rem(padding, 10px);
+		@include rem(margin-bottom, 20px);
+		background: $pampas;
+		border: 1px solid $pampas;
+		color: $bronco;
+		float:right;
+	}
+	textarea:focus {
+		outline: 1px solid $bronco;
+	}
+}
+
+.comments-title {
+	@include rem(font-size, 16px);
+	@include rem(margin, 0 0 40px 0);
+	@include rem(padding-bottom, 15px);
+	border-bottom: 1px solid $sisal;
+	text-transform: uppercase;
+}
+
+.comment-list {
+	li {
+		@include rem(margin-bottom, 30px);
+		@include rem(padding-bottom, 10px);
+		border-bottom: 1px solid $sisal;
+	}
+}
+
+.comment-author.vcard {
+	@include rem(margin, 0 15px 15px 0);
+	float: left;
+	display: inline-block;
+		.fn{
+			display: block;
+		}
+		.says {
+			display: none;
+		}
+}
+
+.reply {
+	float: right;
+		a,
+		a:visited {
+			color: $bronco;
+		}
+}
+
+.comment-metadata {
+	a,
+	a:visited {
+		color: $bronco;
+	}
+}

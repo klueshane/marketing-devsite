@@ -1,0 +1,7 @@
+.notice-success, div.updated {
+	border-left: 4px solid #7dc8ea;
+	background: #fff;
+	padding: 15px 20px;
+	font-size : 14px;
+	font-weight: 300;
+}

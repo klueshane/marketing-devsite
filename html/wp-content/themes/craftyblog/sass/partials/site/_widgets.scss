@@ -1,0 +1,85 @@
+.widget-area {
+		@include rem(margin-right, 30px);
+		@include rem(width, 150px);
+
+	.widget {
+		@include rem(margin-bottom, 50px);
+	}
+
+		img {
+			@include rem(margin-bottom, 15px);
+		}
+
+		.widget-title {
+			@include rem(font-size, 14px);
+			@include rem(margin, 0 0 20px 0);
+			font-weight: 600;
+			text-transform: uppercase;
+		}
+
+		p {
+			@include rem(margin, 0 0 20px 0);
+		}
+
+		a {
+			color: $black;
+		}
+	}
+
+@media all and (max-width:1024px) {
+	.widget-area {
+		width: 100%;
+		margin-right: 0;
+	}
+}
+
+@media only screen and (min-width:600px) and (max-width:1024px) {
+	.widget-area {
+		padding:0 20px;
+		.widget {
+			width: 45%;
+			margin-right:20px;
+			float:left;
+			display: inline-block;
+			min-height:85px;
+		}
+	}
+}
+
+	.widget-area {
+		.popular-posts {
+			.post {
+				@include rem(margin-bottom, 30px);
+				border-bottom: 1px solid $sisal;
+			}
+			.post:last-child {
+				border-bottom: none;
+			}
+		}
+		ul {
+			margin: 0;
+			padding: 0;
+			list-style: none;
+		}
+		li {
+			@include rem(margin-bottom, 10px);
+		}
+	}
+
+.search-form {
+	input {
+		@include rem(height, 30px);
+		@include rem(padding, 5px);
+		background: $pampas url( 'images/search-icon.png' ) no-repeat 95% 50%;
+		border: 1px solid $pampas;
+	}
+	input:focus {
+		outline: 1px solid $bronco;
+	}
+}
+
+.widget {
+	.genericon {
+		color: $bronco;
+	}
+}

@@ -1,0 +1,12 @@
+.site-logo img {
+	@include rem(margin, 20px auto);
+	display: block;
+}
+
+.identity {
+	@include rem(padding-bottom, 20px);
+	h1.site-title,
+	h2.site-description {
+		text-align: center;
+	}
+}

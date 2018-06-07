@@ -1,0 +1,30 @@
+{
+  "scripts": {
+    "v2": "npm run v2:css",
+    "v2:css": "node-sass --output-style compressed --indent-type tab --indent-width 1 --source-map true --watch -o assets-home2/css-dist assets-home2/css-src/main.scss && postcss -u autoprefixer -r assets-home2/css-dist/*.css",
+    "task:css:build:dev": "node-sass --output-style nested --indent-type tab --indent-width 1 --source-map true -o assets/css-built assets/css-source/main.scss",
+    "task:css:build:prod": "node-sass --output-style compressed -o assets/css-built assets/css-source/main.scss",
+    "task:css:autoprefixer": "postcss -u autoprefixer -r assets/css-built/*.css",
+    "css:build:dev": "npm run task:css:build:dev && npm run task:css:autoprefixer",
+    "css:build:prod": "npm run task:css:build:prod && npm run task:css:autoprefixer",
+    "js:build": "webpack --config assets/webpack.config.js --display-error-details",
+    "all:build:dev": "npm run js:build && npm run css:build:dev",
+    "all:build:prod": "npm run js:build && npm run css:build:prod",
+    "watch:css:build:dev": "onchange 'assets/css-source/**/*.scss' -- npm run css:build:dev"
+  },
+  "dependencies": {
+    "headroom.js": "^0.9.3",
+    "jump.js": "^1.0.2",
+    "macy": "^1.1.1",
+    "scrollreveal": "^3.3.2"
+  },
+  "devDependencies": {
+    "autoprefixer": "^6.3.3",
+    "compass-mixins": "^0.12.10",
+    "node-sass": "^3.4.2",
+    "onchange": "^3.0.2",
+    "path": "^0.12.7",
+    "postcss-cli": "^2.5.1",
+    "webpack": "^1.13.3"
+  }
+}

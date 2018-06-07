@@ -1,0 +1,115 @@
+/*--------------------------------------------------------------
+Sidebar
+--------------------------------------------------------------*/
+.sidebar-toggle {
+	background-color: #080a0a;
+	display: none;
+	overflow: hidden;
+	position: absolute;
+	top: 0;
+	right: 0;
+	text-align: center;
+	width: 64px;
+	height: 48px;
+	z-index: 499;
+}
+.js .sidebar-toggle {
+	display: block;
+}
+.sidebar-toggle:before {
+	font-size: 16px;
+	height: 16px;
+	width: 16px;
+	content: "\f419";
+	color: #fff;
+	margin-top: 16px;
+}
+@media screen and (min-width: 48em) {
+	.sidebar-toggle:before {
+		margin-top: 27px;
+	}
+}
+.sidebar-toggle.toggle-on {
+	background-color: #23292b;
+}
+@media screen and (min-width: 48em) {
+	.sidebar-toggle.toggle-on {
+		background-color: transparent;
+	}
+}
+.sidebar-toggle.toggle-on:before {
+	font-size: 32px;
+	height: 32px;
+	width: 32px;
+	content: "\f405";
+	margin-top: 10px;
+}
+@media screen and (min-width: 48em) {
+	.sidebar-toggle.toggle-on:before {
+		margin-top: 20px;
+	}
+}
+@media screen and (min-width: 48em) {
+	.sidebar-toggle {
+		background-color: transparent;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+		position: fixed;
+		top: 0;
+		right: 0;
+		width: 72px;
+		height: 72px;
+	}
+	.admin-bar .sidebar-toggle {
+		top: 46px;
+	}
+	.sidebar-toggle:hover,
+	.sidebar-toggle:focus,
+	.sidebar-toggle:active {
+		background-color: #007cad;
+	}
+}
+@media screen and (min-width: 48em) and (min-width: 48.9375em) {
+	.admin-bar .sidebar-toggle {
+		top: 32px;
+	}
+}
+
+.sidebar {
+	background-color: #23292b;
+	color: #fff;
+	padding: 48px 24px;
+	width: 100%;
+}
+.js .sidebar {
+	display: none;
+	position: absolute;
+	top: 0;
+	right: -100%;
+	z-index: 497;
+}
+@media screen and (min-width: 48em) {
+	.js .sidebar {
+		display: block;
+		height: 100%;
+		overflow-y: auto;
+		position: fixed;
+		padding: 72px 72px 72px 0;
+		-webkit-transition: all 0.3s ease-out;
+		-moz-transition: all 0.3s ease-out;
+		transition: all 0.3s ease-out;
+	}
+}
+@media screen and (min-width: 48em) {
+	.js .admin-bar .sidebar {
+		padding-top: 142px;
+	}
+}
+@media screen and (min-width: 48em) and (min-width: 48.9375em) {
+	.js .admin-bar .sidebar {
+		padding-top: 128px;
+	}
+}
+.sidebar-open .sidebar {
+	display: block;
+	right: 0;
+}

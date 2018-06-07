@@ -1,0 +1,30 @@
+// layout
+body {
+	background: $pampas;
+}
+.site-header,
+.site-content {
+	@include row();
+	background: $white;
+}
+
+.site-info {
+	@include row();
+}
+
+.content-area {
+	@include col(9);
+}
+
+.widget-area {
+	@include col-last(3);
+}
+
+@media all and (max-width:1024px) {
+	.content-area {
+		width: 100%;
+	}
+	.widget-area {
+		width: 100%;
+	}
+}

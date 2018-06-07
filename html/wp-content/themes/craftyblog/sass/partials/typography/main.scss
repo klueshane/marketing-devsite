@@ -1,0 +1,29 @@
+@import "sassy-gridlover.scss";
+
+body {
+	@include rem(font-size, 14px);
+}
+
+h1 {
+	@include sassy-gridlover-heading(3, true);
+}
+h2 {
+	@include sassy-gridlover-heading(2, true);
+}
+h3 {
+	@include sassy-gridlover-heading(1, true);
+}
+h4 {
+	@include sassy-gridlover-heading(0, true);
+}
+
+p, ul, ol, pre, table, blockquote {
+	@include sassy-gridlover-margins(true);
+}
+
+#featured-content {
+	.entry-title {
+		@include rem(padding-bottom, 25px);
+		@include rem(font-size, 30px);
+	}
+}

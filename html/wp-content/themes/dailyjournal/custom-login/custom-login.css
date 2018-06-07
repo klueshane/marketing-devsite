@@ -1,0 +1,16 @@
+html,body {height:100%;}
+html {background-color:#282b2d; background-image:none;}
+#login h1 a {
+background:url(../images/mt-logo-wide-black.png) 0 0 no-repeat;
+width:364px;
+height:34px;
+margin-left:-8px;
+} 
+ 
+body.login {background-color:#282b2d; min-height:100%; height:auto !important; height:100%;}	/* Top bar background color */
+.login p#backtoblog a:link, .login p#backtoblog a:visited {color:#fff; text-shadow:none;}	/* Link effects in top bar */
+.login p#backtoblog a:hover, .login p#backtoblog a:active {color:#fff;}	/* Rollover link effects in top bar */
+#loginform {background:none; border:none; box-shadow:none; width:435px; margin-left:-60px;}
+#loginform input[type=text], #loginform input[type=password] {width:435px;}
+.login #nav {display:none;}
+#loginform .button-primary {background-image:none; background-color:#000; border-color:#000;}
