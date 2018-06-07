@@ -55,20 +55,10 @@ https://angel.co/klue
     <body class="page--home">
 
         <section class="header">
-
-          <div class="header__header-corset">
-            <img class="header-corset__header-logo" src="<?php echo get_template_directory_uri(); ?>/assets-home2/img/logo-klue.svg">
-            <ul class="header-corset__header-nav">
-              <li class="header-nav__header-nav-item"><a href="/about/">About Us</a></li>
-              <li class="header-nav__header-nav-item"><a href="/blog/">Blog</a></li>
-              <li class="header-nav__header-nav-item"><a href="/resources/">Resources</a></li>
-              <li class="header-nav__header-nav-item"><a href="/contact/">Contact</a></li>
-              <li class="header-nav__header-nav-item header-nav__header-nav-item--login"><a href="http://app.klue.com">Login</a></li>
-              <li class="header-nav__header-nav-item"><a href="http://app.klue.com" class="button button--nav-item button--green-solid">Get Started</a></li>
-            </ul>
-            <div class="navigation-top">
+            <div class="header__header-corset">
+              <img class="header-corset__header-logo" src="<?php echo get_template_directory_uri(); ?>/assets-home2/img/logo-klue.svg">
               <div class="wrap">
-                <?php wp_nav_menu('Main Nav'); ?>
+                <?php wp_nav_menu( array(menu => 'Main Nav', menu_class => 'header-corset__header-nav'); ?>
               </div><!-- .wrap -->
             </div><!-- .navigation-top -->
            
