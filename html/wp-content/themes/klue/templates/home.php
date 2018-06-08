@@ -60,7 +60,7 @@ https://angel.co/klue
             <div class="header__header-corset">
               <img class="header-corset__header-logo" src="<?php echo get_template_directory_uri(); ?>/assets-home2/img/logo-klue.svg">
               <div class="wrap">
-                <ul class="header-corset__header-nav"><li class="header-nav__header-nav-item"><a href="http://app.klue.com" class="button button--nav-item button--green-solid button--demo">Get Started</a></li></ul><?php wp_nav_menu( array(menu => 'Main Nav', menu_class => 'header-corset__header-nav')); ?>
+                <ul class="header-corset__header-nav"><li class="header-nav__header-nav-item"><a href="#" class="button button--nav-item button--green-solid button--demo">Get Started</a></li></ul><?php wp_nav_menu( array(menu => 'Main Nav', menu_class => 'header-corset__header-nav')); ?>
                
               </div><!-- .wrap -->
             </div><!-- .navigation-top -->
@@ -121,7 +121,7 @@ https://angel.co/klue
           <div class="panel">
             <h1 class="heading heading--black"><?php if(get_field('home-anywhere-heading')): ?><?php the_field('home-anywhere-heading'); ?><?php endif; ?></h1>
             <p class="description"><?php if(get_field('home-anywhere-text')): ?><?php the_field('home-anywhere-text'); ?><?php endif; ?></p>
-            <a href="http://app.klue.com" class="button button--green">Get Started</a>
+            <a href="#" class="button button--green button--demo">Get Started</a>
           </div>
         </section>
 
@@ -163,7 +163,7 @@ https://angel.co/klue
               <div class="feature__corset feature__corset--left">
                 <h1 class="heading corset__heading"><?php if(get_field('home-green-panel-heading')): ?><?php the_field('home-green-panel-heading'); ?><?php endif; ?></h1>
                 <p class="description description--feature description--feature--green"><?php if(get_field('home-green-panel-text')): ?><?php the_field('home-green-panel-text'); ?><?php endif; ?></p>
-                <a href="http://app.klue.com" class="button button--feature">Get Started</a>
+                <a href="#" class="button button--feature button--demo">Get Started</a>
               </div>
             </div>
             <div class="testimonial stretching-combo--right">
@@ -185,7 +185,7 @@ https://angel.co/klue
               <div class="feature__corset feature__corset--right">
                 <h1 class="heading corset__heading"><?php if(get_field('home-purple-panel-heading')): ?><?php the_field('home-purple-panel-heading'); ?><?php endif; ?></h1>
                 <p class="description description--feature description--feature--purple"><?php if(get_field('home-purple-panel-text')): ?><?php the_field('home-purple-panel-text'); ?><?php endif; ?></p>
-                <a href="http://app.klue.com" class="button button--feature">Get Started</a>
+                <a href="#" class="button button--feature button--demo">Get Started</a>
               </div>
             </div>
             <div class="testimonial stretching-combo--left">
@@ -207,7 +207,7 @@ https://angel.co/klue
               <div class="feature__corset feature__corset--left">
                 <h1 class="heading corset__heading"><?php if(get_field('home-grey-panel-heading')): ?><?php the_field('home-grey-panel-heading'); ?><?php endif; ?></h1>
                 <p class="description description--feature description--feature--grey"><?php if(get_field('home-grey-panel-text')): ?><?php the_field('home-grey-panel-text'); ?><?php endif; ?></p>
-                <a href="http://app.klue.com" class="button button--feature">Get Started</a>
+                <a href="#" class="button button--feature button--demo">Get Started</a>
               </div>
             </div>
             <div class="testimonial stretching-combo--right">
