@@ -257,7 +257,7 @@ https://angel.co/klue
               <?php endwhile; ?>
             </div>
 
-            <?= do_shortcode('[ninja_form id=3]'); ?>
+            <?php echo(do_shortcode('[ninja_form id=3]')); ?>
           </div>
         </section>
 
