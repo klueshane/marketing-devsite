@@ -257,14 +257,7 @@ https://angel.co/klue
               <?php endwhile; ?>
             </div>
 
-            <form class="form" action="?klue-form=demo&cta=free-battlecard" method="post">
-              <input type="hidden" name="_nonce" value="<?php echo wp_create_nonce('demo'); ?>">
-              <input type="hidden" name="_form" value="Footer Form">
-              <input class="form__input" type="text" value="" name="company" placeholder="Company Name">
-              <input class="form__input" type="text" value="" name="name" placeholder="Name">
-              <input class="form__input" type="email" value="" name="email" placeholder="Email Address">
-              <input class="button button--green-solid button--contact" type="submit" value="Request Demo">
-            </form>
+            <?php do_shortcode('[ninja_form id=3]'); ?>
           </div>
         </section>
 
