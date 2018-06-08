@@ -60,8 +60,8 @@ https://angel.co/klue
             <div class="header__header-corset">
               <img class="header-corset__header-logo" src="<?php echo get_template_directory_uri(); ?>/assets-home2/img/logo-klue.svg">
               <div class="wrap">
-                <?php wp_nav_menu( array(menu => 'Main Nav', menu_class => 'header-corset__header-nav')); ?>
-               <ul class="header-corset__header-nav"><li class="header-nav__header-nav-item"><a href="http://app.klue.com" class="button button--nav-item button--green-solid">Get Started</a></li></ul>
+                <ul class="header-corset__header-nav"><li class="header-nav__header-nav-item"><a href="http://app.klue.com" class="button button--nav-item button--green-solid">Get Started</a></li></ul><?php wp_nav_menu( array(menu => 'Main Nav', menu_class => 'header-corset__header-nav')); ?>
+               
               </div><!-- .wrap -->
             </div><!-- .navigation-top -->
            
