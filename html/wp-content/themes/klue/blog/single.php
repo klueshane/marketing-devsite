@@ -10,6 +10,13 @@ define("TITLE", "Klue | " . get_the_title());
 <section class="blogbody">
 
 	<div class="blogbody__main">
+<?php
+if ( function_exists('yoast_breadcrumb') ) {
+yoast_breadcrumb('
+<p id="breadcrumbs">','</p>
+');
+}
+?>
 		<?php
 			$thumb_id = get_post_thumbnail_id();
 			$thumb_url = wp_get_attachment_image_src($thumb_id,'largest');
