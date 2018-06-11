@@ -81,8 +81,9 @@
                 <?php } else { ?>
                 <div class="blogitem__header">
                 <?php } ?>
-
+                <?php if(is_category()) { ?>
                   <p class="blogitem__category"><?php the_category(', '); ?></p>
+                <?php } ?>  
                   <?php the_title( sprintf( '<h1 class="blogitem__blogtitle"><a class="blogtitle__bloglink" href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h1>' ); ?>
                   <span class="blogitem__color <?php echo blog_colour($post_counter); ++$post_counter;?>"></span>
                 </div>
