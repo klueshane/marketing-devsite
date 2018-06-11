@@ -1,7 +1,3 @@
-<?php
-define("TITLE", "Klue's Blog");
-define("DESCRIPTION", "Competitive intelligence discussion at it's best.");
-?>
 <?php get_header(); ?>
 
 
@@ -68,9 +64,9 @@ define("DESCRIPTION", "Competitive intelligence discussion at it's best.");
 
         <?php
         $post_counter = 0;
-        $exclude = get_cat_ID('featured');
-        $q = 'cat=-'.$exclude;
-        query_posts($q);
+        //$exclude = get_cat_ID('featured');
+        //$q = 'cat=-'.$exclude;
+        //query_posts($q);
         if ( have_posts() ) : ?>
           <section class="blogitems">
       			<?php while ( have_posts() ) : the_post();
