@@ -82,7 +82,7 @@
                 <div class="blogitem__header">
                 <?php } ?>
 
-                  <p class="blogitem__category">Marketing</p>
+                  <p class="blogitem__category"><?php get_the_category(); ?></p>
                   <?php the_title( sprintf( '<h1 class="blogitem__blogtitle"><a class="blogtitle__bloglink" href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h1>' ); ?>
                   <span class="blogitem__color <?php echo blog_colour($post_counter); ++$post_counter;?>"></span>
                 </div>
