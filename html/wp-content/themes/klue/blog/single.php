@@ -18,12 +18,13 @@ define("TITLE", "Klue | " . get_the_title());
 			<div class="blogbody__headings">
 
 				<p class="blogbody__category">News</p>
+				
+				<h1 class="blogbody__title"><?php the_title(); ?></h1>
 				<?php
 					if ( function_exists('yoast_breadcrumb') ) {
-						yoast_breadcrumb('<p id="breadcrumbs">','</p>');
+						yoast_breadcrumb('<p id="blogbody__content breadcrumbs">','</p>');
 					}
 				?>
-				<h1 class="blogbody__title"><?php the_title(); ?></h1>
 				<p class="blogbody__date"><?php echo get_the_date(); ?></p>
 				<div class="blogbody__sociallinks blogbody__sociallinks--top">
 					<a class="sociallinks__item sociallinks__item--facebook" href="https://facebook.com/sharer/sharer.php?p[url]=<?php echo urlencode(DOMAIN . $_SERVER['REQUEST_URI']); ?>" target="_blank" ></a>
