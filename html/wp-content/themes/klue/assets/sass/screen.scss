@@ -1532,6 +1532,11 @@ body {
     background: white;
     padding: 40px 260px 5px 70px;
   }
+  a {
+    text-decoration: none;
+    color: $bright-green;
+    font-weight: 600;
+  }
 }
 
 .blogbody__sociallinks {
