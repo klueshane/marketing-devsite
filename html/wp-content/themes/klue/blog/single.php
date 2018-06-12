@@ -22,7 +22,7 @@ define("TITLE", "Klue | " . get_the_title());
 				<h1 class="blogbody__title"><?php the_title(); ?></h1>
 				<?php
 					if ( function_exists('yoast_breadcrumb') ) {
-						yoast_breadcrumb('<p id="blogbody__content breadcrumbs">','</p>');
+						yoast_breadcrumb('<p class="blogbody__content" id="breadcrumbs">','</p>');
 					}
 				?>
 				<p class="blogbody__date"><?php echo get_the_date(); ?></p>
