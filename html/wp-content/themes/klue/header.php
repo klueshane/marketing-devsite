@@ -92,11 +92,7 @@ https://angel.co/klue
 
     <?php if (/* blog section */is_home() || is_category() || is_post_type_archive('post') || is_singular('post')) { ?>
       <div class="blognav">
-        <span class="catlist__cover catlist__cover--front"></span>
-        <span class="catlist__cover catlist__cover--back"></span>
         <ul class="blognav__catlist">
-
-          <li class="catlist__item"><a class="catlist__link<?php if (/* blog section */is_home()) { ?> catlist__link--current<?php } ?>" href="/blog/">All</a></li>
           <?php
             $cat_arguments = array(
                 'orderby' => 'name',
