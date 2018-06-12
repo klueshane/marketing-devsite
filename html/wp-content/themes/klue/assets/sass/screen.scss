@@ -302,8 +302,7 @@ body {
     display: flex;
     width: 100%;
     overflow-x: scroll;
-    max-width: 775px;
-    padding-left: 60px;
+    max-width: 835px;
     height: 60px;
 
     @media (max-width: $breakpoint-tablet) {
@@ -352,7 +351,7 @@ body {
 
   .catlist__link {
     border: 2px solid #6E6093;
-    padding: 10px 20px;
+    padding: 10px 10px;
     color: #AF95F2;
     text-decoration: none;
     margin-right: 10px;
@@ -367,7 +366,6 @@ body {
 
   .button--blogsubscribe {
     position: absolute;
-    margin-top: -60px;
     padding: 14px 50px 11px;
     right: 10px;
 

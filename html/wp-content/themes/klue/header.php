@@ -105,7 +105,8 @@ https://angel.co/klue
               }?>
 
         </ul>
-        <a href="#" class="button button--green button--subscribe button--subscribe-blog">Subscribe</a>
+        
       </div>
+      <a href="#" class="button button--green button--subscribe button--subscribe-blog">Subscribe</a>
     <? } ?>
   </section>
