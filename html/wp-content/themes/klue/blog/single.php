@@ -22,11 +22,11 @@ define("TITLE", "Klue | " . get_the_title());
 				<h1 class="blogbody__title"><?php the_title(); ?></h1>
 				<?php
 					if ( function_exists('yoast_breadcrumb') ) {
-						yoast_breadcrumb('<p class="blogbody__content" id="breadcrumbs">','</p>');
+						yoast_breadcrumb('<p class="blogbody__headings" id="breadcrumbs">','</p>');
 					}
 				?>
 				<p class="blogbody__date"><?php echo get_the_date(); ?> by <?php echo get_the_author(); ?></p>
-				<p class="blogbody__content"><?php the_tags(); ?></p>
+				<p class="blogbody__headings"><?php the_tags(); ?></p>
 
 				<div class="blogbody__sociallinks blogbody__sociallinks--top">
 					<a class="sociallinks__item sociallinks__item--facebook" href="https://facebook.com/sharer/sharer.php?p[url]=<?php echo urlencode(DOMAIN . $_SERVER['REQUEST_URI']); ?>" target="_blank" ></a>
