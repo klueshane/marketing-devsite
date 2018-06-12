@@ -83,7 +83,6 @@
     <form class="modal__form">
       <input class="modal__input" type="text" placeholder="Name" name="name">
       <input class="modal__input" type="email" placeholder="Email (required)" name="email" required>
-      <input class="modal__input" type="text" placeholder="Company (required)" name="company" required>
       <button class="modal__submit button button--green-solid">Submit</button>
     </form>
   </div>
