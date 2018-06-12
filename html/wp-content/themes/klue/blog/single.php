@@ -10,19 +10,19 @@ define("TITLE", "Klue | " . get_the_title());
 <section class="blogbody">
 
 	<div class="blogbody__main">
-<?php
-if ( function_exists('yoast_breadcrumb') ) {
-yoast_breadcrumb('
-<p id="breadcrumbs">','</p>
-');
-}
-?>
+
 		<?php
 			$thumb_id = get_post_thumbnail_id();
 			$thumb_url = wp_get_attachment_image_src($thumb_id,'largest');
 		?>
 			<div class="blogbody__headings">
+
 				<p class="blogbody__category">News</p>
+				<?php
+					if ( function_exists('yoast_breadcrumb') ) {
+						yoast_breadcrumb('<p id="breadcrumbs">','</p>');
+					}
+				?>
 				<h1 class="blogbody__title"><?php the_title(); ?></h1>
 				<p class="blogbody__date"><?php echo get_the_date(); ?></p>
 				<div class="blogbody__sociallinks blogbody__sociallinks--top">
@@ -41,6 +41,11 @@ yoast_breadcrumb('
 					<a class="sociallinks__item sociallinks__item--twitter" href="https://twitter.com/share?text=<?php echo get_the_title(); ?>&url=<?php echo urlencode(DOMAIN . $_SERVER['REQUEST_URI']); ?>" target="_blank"></a>
 					<a class="sociallinks__item sociallinks__item--linkedin" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=<?php echo urlencode(DOMAIN . $_SERVER['REQUEST_URI']); ?>&amp;title=<?php echo get_the_title(); ?>" target="_blank"></a>
 				</div>
+				<?php
+					if ( function_exists('yoast_breadcrumb') ) {
+						yoast_breadcrumb('<p id="breadcrumbs">','</p>');
+					}
+				?>
 			</div>
 		</div>
 
