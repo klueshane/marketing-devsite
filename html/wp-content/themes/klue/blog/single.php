@@ -25,7 +25,8 @@ define("TITLE", "Klue | " . get_the_title());
 						yoast_breadcrumb('<p class="blogbody__content" id="breadcrumbs">','</p>');
 					}
 				?>
-				<p class="blogbody__date"><?php echo get_the_date(); ?></p>
+				<p class="blogbody__date"><?php echo get_the_date(); ?> by <?php echo get_the_author(); ?></p>
+
 				<div class="blogbody__sociallinks blogbody__sociallinks--top">
 					<a class="sociallinks__item sociallinks__item--facebook" href="https://facebook.com/sharer/sharer.php?p[url]=<?php echo urlencode(DOMAIN . $_SERVER['REQUEST_URI']); ?>" target="_blank" ></a>
 					<a class="sociallinks__item sociallinks__item--twitter" href="https://twitter.com/intent/tweet/?text=<?php echo get_the_title(); ?>&url=<?php echo urlencode(DOMAIN . $_SERVER['REQUEST_URI']); ?>" target="_blank"></a>
