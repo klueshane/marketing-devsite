@@ -81,7 +81,7 @@
       <a class="modal__close" href="">Close</a>
     </div>
    
-<form action="https://klue.us12.list-manage.com/subscribe/post?u=b3835188496e62097ff380c7c&amp;id=62ef371bfd" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+<form action="https://klue.us12.list-manage.com/subscribe/post?u=b3835188496e62097ff380c7c&amp;id=62ef371bfd" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate modal__form" target="_blank" novalidate>
 
 <input type="email" value="" name="EMAIL" class="modal__input" placeholder="Email (required)" id="mce-EMAIL" required>
 <div id="mce-responses" class="clear">
@@ -89,7 +89,7 @@
     <div class="response" id="mce-success-response" style="display:none"></div>
   </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
     <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_b3835188496e62097ff380c7c_62ef371bfd" tabindex="-1" value=""></div>
-    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="modal__submit button button--green-solid"></div>
     </div>
 </form>
 </div>
