@@ -24,7 +24,7 @@ define("TITLE", "Klue | " . get_the_title());
 				<p class="blogbody__date"><?php echo get_the_date(); ?> by <?php echo get_the_author(); ?></p>
 				<?php
 					if ( function_exists('yoast_breadcrumb') ) {
-						yoast_breadcrumb('<p class="blogbody__date" id="breadcrumbs">','</p>');
+						yoast_breadcrumb('<p class="blogbody__content" id="breadcrumbs">','</p>');
 					}
 				?><p class="blogbody__date"><?php the_tags(); ?></p>
 
