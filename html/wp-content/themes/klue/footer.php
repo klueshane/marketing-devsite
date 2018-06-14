@@ -80,11 +80,21 @@
       <p class="modal__description"></p>
       <a class="modal__close" href="">Close</a>
     </div>
-    <form class="modal__form">
-      <input class="modal__input" type="text" placeholder="Name" name="name">
-      <input class="modal__input" type="email" placeholder="Email (required)" name="email" required>
-      <button class="modal__submit button button--green-solid">Submit</button>
-    </form>
+   
+<form action="https://klue.us12.list-manage.com/subscribe/post?u=b3835188496e62097ff380c7c&amp;id=62ef371bfd" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+
+<input type="email" value="" name="EMAIL" class="modal__input" placeholder="Email (required)" id="mce-EMAIL" required>
+<div id="mce-responses" class="clear">
+    <div class="response" id="mce-error-response" style="display:none"></div>
+    <div class="response" id="mce-success-response" style="display:none"></div>
+  </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_b3835188496e62097ff380c7c_62ef371bfd" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';fnames[3]='ADDRESS';ftypes[3]='address';fnames[4]='PHONE';ftypes[4]='phone';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
+<!--End mc_embed_signup-->
   </div>
 </section>
 
