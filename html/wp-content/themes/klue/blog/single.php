@@ -64,6 +64,7 @@ define("TITLE", "Klue | " . get_the_title());
   <?php
 		$category = get_the_category();
 		$firstCategory = $category[0]->cat_name;
+		echo $firstCategory;
 		$post_counter = 0;
     $args = array('posts_per_page' => 3,'ignore_sticky_posts' => 1, 'category_name' => $firstCategory, 'post__not_in' => array( $post->ID ));
     $the_query = new WP_Query( $args );
