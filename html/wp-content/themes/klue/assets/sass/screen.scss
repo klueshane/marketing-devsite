@@ -1352,6 +1352,11 @@ body {
     color: $light-green;
   }
 
+  .blogitem__category a {
+    color: $light-green;
+    text-decoration:none;
+  }
+
   .blogitem__blogtitle {
     color: white;
     font-size: 1.3em;
