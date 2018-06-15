@@ -62,12 +62,12 @@ define("TITLE", "Klue | " . get_the_title());
 
 	<div class="blogitems">
   <?php
-  		$cats = '';
+  		$cats = array();
 		$category = get_the_category();
 		
 		if(is_array($category)){
 			foreach ($category as $key => $value) {
-				$cats += $value->term_id;
+				$cats[] += $value->term_id;
 			}
 		}
 		print_r($cats);
