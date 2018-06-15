@@ -82,7 +82,8 @@ define("TITLE", "Klue | " . get_the_title());
 
 	<div class="blogitems__blogitem blogitem">
 		<div class="blogitem__header" style="background-image: url(<?php echo $thumb_url[0];?>);">
-			<p class="blogitem__category"><?php echo $firstCategory ?></p>
+			<h1 class="blogbody__title"><?php the_title(); ?></h1>	
+				<p class="blogbody__date"><?php echo get_the_date(); ?> by <?php echo get_the_author(); ?></p>
 			<?php the_title( sprintf( '<h1 class="blogitem__blogtitle"><a class="blogtitle__bloglink" href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h1>' ); ?>
 			<span class="blogitem__color <?php echo blog_colour($post_counter); ++$post_counter;?>"></span>
 		</div>
