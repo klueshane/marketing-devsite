@@ -70,9 +70,9 @@ define("TITLE", "Klue | " . get_the_title());
 				$cats[] += $value->term_id;
 			}
 		}
-		print_r($cats);
+		
 		$post_counter = 0;
-    $args = array('posts_per_page' => 3,'ignore_sticky_posts' => 1, 'category_name' => $firstCategory, 'post__not_in' => array( $post->ID ));
+    $args = array('posts_per_page' => 3,'ignore_sticky_posts' => 1, 'cat' => implode(",",$cats), 'post__not_in' => array( $post->ID ));
     $the_query = new WP_Query( $args );
 
     while ( $the_query->have_posts() ) : $the_query->the_post();
