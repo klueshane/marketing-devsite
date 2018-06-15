@@ -85,10 +85,10 @@
                   <span class="blogitem__color <?php echo blog_colour($post_counter); ++$post_counter;?>"></span>
                 </div>
                 <?php if(is_category()) { ?>
-                  <p class="blogitem__category"><?php the_category(', '); ?></p>
+                  
                 <?php } ?> 
                 <p class="blogitem__content"><?php echo get_the_date(); ?> by <?php echo get_the_author(); ?>
-    <br/><br /><?php echo wp_trim_words( get_the_content(), 25 ); ?></p>
+                <br/><br /><?php the_category(', '); ?><br/><br/><?php echo wp_trim_words( get_the_content(), 25 ); ?></p>
     <a class="blogitem__more" href="<?php the_permalink(); ?>">Read</a>
               </div>
               <?php endwhile; ?>
