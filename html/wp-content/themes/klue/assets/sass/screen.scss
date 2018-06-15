@@ -1377,7 +1377,10 @@ body {
     font-weight: 300;
     line-height: 1.875em;
   }
-
+  .blogitem__content small a {
+    font-size: .75em;
+    color: $bright-green;
+  }
   .blogitem__more {
     margin: 0 40px 40px;
     bottom: 0;
