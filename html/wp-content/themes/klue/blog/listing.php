@@ -80,16 +80,16 @@
                 <div class="blogitem__header" style="background-image: url(<?php echo $thumb_url[0];?>);">
                 <?php } else { ?>
                 <div class="blogitem__header">
-                <?php } ?>
-                <?php if(is_category()) { ?>
-                  <p class="blogitem__category"><?php the_category(', '); ?></p>
-                <?php } ?>  
+                <?php } ?> 
                   <?php the_title( sprintf( '<h1 class="blogitem__blogtitle"><a class="blogtitle__bloglink" href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h1>' ); ?>
                   <span class="blogitem__color <?php echo blog_colour($post_counter); ++$post_counter;?>"></span>
                 </div>
-                <p class="blogitem__content">The role that competitive and market intelligence teams play in sales is clear; to arm sales teams to close deals…</p>
-                <a class="blogitem__more" href="<?php echo esc_url( get_permalink() ); ?>">Read</a>
-            		<!--a href="<?php echo esc_url( get_permalink() ); ?>" rel="bookmark"><img style="margin-bottom:0;display:block;" src="" /></a-->
+                <?php if(is_category()) { ?>
+                  <p class="blogitem__category"><?php the_category(', '); ?></p>
+                <?php } ?> 
+                <p class="blogitem__content"><?php echo get_the_date(); ?> by <?php echo get_the_author(); ?>
+    <br/><br /><?php echo wp_trim_words( get_the_content(), 25 ); ?></p>
+    <a class="blogitem__more" href="<?php the_permalink(); ?>">Read</a>
               </div>
               <?php endwhile; ?>
           </section>
