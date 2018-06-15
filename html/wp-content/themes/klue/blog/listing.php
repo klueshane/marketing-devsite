@@ -61,12 +61,12 @@
           </div>
         </section>
         <?php } ?>
+        <?php if(is_category()) { 
+              the_archive_description( '<div class="taxonomy-description">', '</div>' ); 
+         } ?>
 
         <?php
         $post_counter = 0;
-        //$exclude = get_cat_ID('featured');
-        //$q = 'cat=-'.$exclude;
-        //query_posts($q);
         if ( have_posts() ) : ?>
           <section class="blogitems">
       			<?php while ( have_posts() ) : the_post();
