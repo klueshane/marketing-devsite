@@ -85,7 +85,7 @@ define("TITLE", "Klue | " . get_the_title());
 			<?php the_title( sprintf( '<h1 class="blogitem__blogtitle"><a class="blogtitle__bloglink" href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h1>' ); ?>
 			<span class="blogitem__color <?php echo blog_colour($post_counter); ++$post_counter;?>"></span>
 		</div>
-		<small><?php the_time('F jS, Y'); ?> by <?php the_author_posts_link(); ?></small>
+		<p class="blogbody__date"><?php echo get_the_date(); ?> by <?php echo get_the_author(); ?></p>
 		<p class="blogitem__content"><?php echo wp_trim_words( get_the_content(), 25 ); ?></p>
 		<a class="blogitem__more" href="<?php the_permalink(); ?>">Read</a>
 	</div>
