@@ -64,13 +64,13 @@ define("TITLE", "Klue | " . get_the_title());
   <?php
   		$cats = '';
 		$category = get_the_category();
-		print_r($category);
+		
 		if(is_array($category)){
 			foreach ($category as $key => $value) {
-				$cats += $category[0]->cat_name;
+				$cats += $value->term_id;
 			}
 		}
-		$firstCategory = $category[0]->cat_name;
+		print_r($cats);
 		$post_counter = 0;
     $args = array('posts_per_page' => 3,'ignore_sticky_posts' => 1, 'category_name' => $firstCategory, 'post__not_in' => array( $post->ID ));
     $the_query = new WP_Query( $args );
