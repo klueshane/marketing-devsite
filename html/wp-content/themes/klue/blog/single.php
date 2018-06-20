@@ -58,7 +58,7 @@ define("TITLE", "Klue | " . get_the_title());
 
 <section class="related">
 	<a class="button button--green button--blogitems" href="/blog/">Back to Blog</a>
-	<a href="#" class="button button--green button--subscribe button--subscribe-blog">Subscribe</a>
+	<a href="#" class="button button--green button--subscribe button--blogitems">Subscribe</a>
 	<h1 class="blogitems__heading">Related Posts</h1>
 
 	<div class="blogitems">
