@@ -24,7 +24,7 @@ define("DESCRIPTION", "Current Job Openings at Klue");
           <?php endif; ?>
         <?php if( have_rows('foo') ): while( have_rows('foo') ): the_row(); ?>
           <?php if(get_sub_field('foo_bar')): ?><h1 class="intro__heading"><?php the_sub_field('foo_bar'); ?></h1><?php endif; ?>
-          <?php if(get_sub_field('foo_content')): ?><p><?php the_sub_field('foo_content'); ?></p>
+          <?php if(get_sub_field('foo_content')): ?><p><?php the_sub_field('foo_content'); ?></p><?php endif; ?>
           <?php endif; ?>
         </div>
       </section>
