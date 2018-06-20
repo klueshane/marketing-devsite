@@ -67,7 +67,8 @@
         if ( have_posts() ) : ?>
           <section class="blogitems">
             <?php if(is_category()) { 
-              the_archive_description( '<section class="blog__category_description">', '</section>' ); 
+
+              the_archive_description( '<section class="blog__category_description">'.the_archive_title('<h2>','</h2>'), '</section>' ); 
            } ?>
 
       			<?php while ( have_posts() ) : the_post();
