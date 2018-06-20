@@ -1230,7 +1230,13 @@ body {
   padding: 20px;
   background: white;
   width:100%;
+
+  h2 {
+    font-size:110%;
+    color: $bright-green;
+  }
 }
+
 
 .blogfeatured__more,
 .blogitem__more {
