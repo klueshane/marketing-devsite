@@ -61,14 +61,15 @@
           </div>
         </section>
         <?php } ?>
-        <?php if(is_category()) { 
-              the_archive_description( '<section class="category_description">', '</section>' ); 
-         } ?>
-
+        
         <?php
         $post_counter = 0;
         if ( have_posts() ) : ?>
           <section class="blogitems">
+            <?php if(is_category()) { 
+              the_archive_description( '<section class="category_description">', '</section>' ); 
+           } ?>
+
       			<?php while ( have_posts() ) : the_post();
              ?>
               <div class="blogitems__blogitem blogitem">
