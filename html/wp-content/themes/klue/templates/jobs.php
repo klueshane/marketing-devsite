@@ -21,12 +21,10 @@ define("DESCRIPTION", "Current Job Openings at Klue");
             }
           ?>
             <div class="intro__video" data-video="<?php the_field('main_video'); ?>" style="background-image: url(<?php echo get_template_directory_uri(); ?>//assets/img/icon-play.png), linear-gradient(rgba(87, 80, 106, 0.61),rgba(87, 80, 106, 0.61)), url(<?php echo $vimeo_thumbnail ?>) ;"></div>
-        <?php endif; ?>
+          <?php endif; ?>
 
-        <?php if( have_rows('jobs-foo') ): while( have_rows('jobs-foo') ): the_row(); ?>
-          
-        <?php endif; ?>
-        
+          <?php if(get_field('jobs-banner-label')): ?><h1 class="intro__heading"><?php the_field('jobs-banner-label'); ?></h1><?php endif; ?>
+          <p>Discover how our products fit into your workflow and team success. Gain insight into the CI landscape with these free resources.</p>
         </div>
       </section>
 
