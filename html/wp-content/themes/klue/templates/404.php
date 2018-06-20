@@ -1,4 +1,4 @@
-<?php
+<?php /* Template Name: 404 Page */ ?><?php
 define("TITLE", "Klue - Page not found");
 define("DESCRIPTION", "Page not found");
 ?>
