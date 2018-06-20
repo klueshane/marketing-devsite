@@ -17,8 +17,13 @@ define("DESCRIPTION", "Page not found");
     <section>
       <div class="md-flex">
         <div>
-          <h1>Looks like that page doesn't exist!</h1>
-          <h2>You can <a href="/">return to the Homepage</a>, check out <a href="/products">Klue's Products</a>, or <a href="/contact">contact us</a> directly.</h2>
+          <section class="intro">
+    <div class="intro__box">
+       <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+        <?php the_content(); ?>
+        <?php endwhile; endif; ?>
+    </div>
+  </section>
         </div>
       </div>
     </section>
