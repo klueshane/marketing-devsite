@@ -22,10 +22,7 @@ define("DESCRIPTION", "Current Job Openings at Klue");
           ?>
             <div class="intro__video" data-video="<?php the_field('main_video'); ?>" style="background-image: url(<?php echo get_template_directory_uri(); ?>//assets/img/icon-play.png), linear-gradient(rgba(87, 80, 106, 0.61),rgba(87, 80, 106, 0.61)), url(<?php echo $vimeo_thumbnail ?>) ;"></div>
         <?php endif; ?>
-        <?php if( have_rows('jobs-foo') ): while( have_rows('jobs-foo') ): the_row(); ?>
-          <?php if(get_sub_field('jobs_foo_bar')): ?><h1 class="intro__heading"><?php the_sub_field('jobs_foo_bar'); ?></h1><?php endif; ?>
-          <?php if(get_sub_field('jobs_foo_content')): ?><p><?php the_sub_field('jobs_foo_content'); ?></p><?php endif; ?>
-        <?php endif; ?>
+        
         </div>
       </section>
 
