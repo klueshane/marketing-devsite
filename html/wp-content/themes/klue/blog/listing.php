@@ -67,7 +67,7 @@
         if ( have_posts() ) : ?>
           <section class="blogitems">
             <?php if(is_category()) { 
-              $titleStr = get_the_archive_title();
+              $titleStr = str_replace('Category: ','',get_the_archive_title());
               the_archive_description( '<section class="blog__category_description"><h2>'.$titleStr.'</h2>', '</section>' ); 
            } ?>
 
