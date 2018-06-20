@@ -1189,6 +1189,7 @@ body {
   font-size: 1.1em;
 }
 
+
  .blogfeatured__category {
   @extend .blog__category;
 
@@ -1223,6 +1224,12 @@ body {
    @extend .blog__content;
    margin-top: 30px;
  }
+ .blog__category_description {
+  @extend .blog__content;
+  margin: 0 50px 20px;
+  padding: 20px;
+  background: white;
+}
 
 .blogfeatured__more,
 .blogitem__more {
