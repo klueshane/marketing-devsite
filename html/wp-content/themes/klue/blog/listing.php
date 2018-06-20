@@ -62,7 +62,7 @@
         </section>
         <?php } ?>
         <?php if(is_category()) { 
-              the_archive_description( '<div class="taxonomy-description">', '</div>' ); 
+              the_archive_description( '<section class="category_description">', '</section>' ); 
          } ?>
 
         <?php
