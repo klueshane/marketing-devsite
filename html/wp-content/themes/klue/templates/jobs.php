@@ -24,7 +24,7 @@ define("DESCRIPTION", "Current Job Openings at Klue");
           <?php endif; ?>
 
           <?php if(get_field('jobs-banner-label')): ?><h1 class="intro__heading"><?php the_field('jobs-banner-label'); ?></h1><?php endif; ?>
-          <p>Discover how our products fit into your workflow and team success. Gain insight into the CI landscape with these free resources.</p>
+          <?php if(get_field('jobs-text')): ?><p><?php the_field('jobs-text'); ?></p><?php endif; ?>
         </div>
       </section>
 
