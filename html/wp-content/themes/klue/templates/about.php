@@ -32,9 +32,10 @@ define("DESCRIPTION", "About our intelligence that wins you business.");
 
 <section class="competitors">
   <div class="competitors__box">
-    <h1 class="section__heading section__heading--competitors"><?php if(get_field('secondary_headline')): ?><?php the_field('secondary_headline'); ?><?php endif; ?></h1>
+    <?php while ( have_rows('competitors') ) : the_row(); ?>
+      <h1 class="section__heading section__heading--competitors"><?php if(get_sub_field('headline')): ?><?php the_sub_field('headline'); ?><?php endif; ?></h1>
     <div class="section__columns">
-      <?php if(get_field('about-why-text-col1')): ?><?php the_field('about-why-text-col1'); ?><?php endif; ?>
+      <?php if(get_sub_field('content')): ?><?php the_field('content'); ?><?php endif; ?>
     </div>
   </div>
 </section>
