@@ -47,12 +47,6 @@ $( document ).ready(function() {
     $('body').toggleClass('modal__demo--on');
   });
 
-  $('.team__member').not('.team__member--join').click(function() {
-    event.preventDefault();
-    $(this).find('.modal').toggle();
-    $('body').toggleClass('modal__demo--on');
-  });
-
   $('.button--webinar').click(function() {
     event.preventDefault();
     var $location = $(this).attr('data-location');

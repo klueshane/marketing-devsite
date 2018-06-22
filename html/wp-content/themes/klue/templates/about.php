@@ -79,19 +79,6 @@ define("DESCRIPTION", "About our intelligence that wins you business.");
     <li class="team__member">
       <img class="team__avatar team__avatar--join" src="/wp-content/themes/klue/assets/img/about-join.png">
       <a class="team__join button button--green-solid" href="/jobs/">Join our team</a>
-      <section class="modal">
-        <div class="modal__container">
-          <div class="modal__info">
-            <h1 class="modal__heading">Get in touch!</h1>
-            <a class="modal__close" href="">Close</a>
-          </div>
-          <form class="modal__form">
-            <input class="modal__input" type="text" placeholder="Name" name="name" required>
-            <input class="modal__input" type="email" placeholder="Email (required)" name="email" required>
-            <button class="modal__submit button button--green-solid">Submit</button>
-          </form>
-        </div>
-      </section>
     </li>
   </ul>
 </section>
