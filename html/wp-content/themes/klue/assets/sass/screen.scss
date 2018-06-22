@@ -701,7 +701,7 @@ body {
 }
 
   .competitors {
-    padding-top: 410px;
+    padding-top: 445px;
     background-position: right 210px;
 
     @media (max-width: $breakpoint-tablet) {
@@ -743,6 +743,9 @@ body {
     }
     @media (min-width: $breakpoint-large) {
       padding-left: 120px;
+    }
+    .section__columns {
+      padding-top:100px;
     }
   }
 
