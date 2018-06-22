@@ -35,7 +35,7 @@ define("DESCRIPTION", "About our intelligence that wins you business.");
     <?php while ( have_rows('competitors') ) : the_row(); ?>
       <h1 class="section__heading section__heading--competitors"><?php if(get_sub_field('headline')): ?><?php the_sub_field('headline'); ?><?php endif; ?></h1>
     <div class="section__columns">
-      <?php if(get_sub_field('content')): ?><?php the_field('content'); ?><?php endif; ?>
+      <?php if(get_sub_field('content')): ?><?php the_sub_field('content'); ?><?php endif; endwhile; ?>
     </div>
   </div>
 </section>
