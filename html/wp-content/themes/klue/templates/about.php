@@ -34,7 +34,7 @@ define("DESCRIPTION", "About our intelligence that wins you business.");
   <div class="competitors__box">
     <h1 class="section__heading section__heading--competitors"><?php if(get_field('secondary_headline')): ?><?php the_field('secondary_headline'); ?><?php endif; ?></h1>
     <div class="section__columns">
-      <?php if(get_field('secondary_content')): ?><?php the_field('secondary_content'); ?><?php endif; ?>
+      <?php if(get_field('about-why-text-col1')): ?><?php the_field('about-why-text-col1'); ?><?php endif; ?>
     </div>
   </div>
 </section>
