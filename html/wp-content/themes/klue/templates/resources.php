@@ -9,7 +9,7 @@ define("DESCRIPTION", "Learn More about Klue and Competitive Intelligence");
     <div class="intro__box">
       <h1 class="intro__heading">Win rates increase with the right intel.</h1>
       <p>Discover what you've been missing. Learn how to collect, curate, and share with the Klue platform.</p>
-      <a class="button button--green button--demo" href="">Register Today</a>
+      <a href="#" class="button button--green button--subscribe button--blogitems">Subscribe</a>
     </div>
   </section>
 
