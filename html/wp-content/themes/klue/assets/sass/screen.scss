@@ -1397,10 +1397,12 @@ body {
   }
   .blogitem__content small {
     font-size:.5em;
+    line-height: 9px;
   }
   .blogitem__content small a {
     font-size: .5em;
     color: $bright-green;
+    line-height: 9px;
   }
   .blogitem__more {
     margin: 0 40px 40px;
