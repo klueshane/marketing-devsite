@@ -83,7 +83,7 @@ https://angel.co/klue
           </div>
           <a href="#" class="button--nav button button--green-solid">Nav</a>
 
-          <h1 class="header__heading">
+          <h1 class="header__heading" style="background: transparent;">
             <?php if(get_field('home-tagline')): ?><?php the_field('home-tagline'); ?><?php endif; ?>
           </h1>
 
