@@ -98,11 +98,7 @@
         <?php endif; ?>
 
         <?php
-          $paginate_args = array(
-            'type' => 'list',
-            'prev_next' => false
-          );
-          echo paginate_links( $paginate_args ); ?>
+<?php echo do_shortcode('[ajax_load_more id="1562680210" post_type="post" posts_per_page="3" scroll="false"]'); ?>
 
 
 
