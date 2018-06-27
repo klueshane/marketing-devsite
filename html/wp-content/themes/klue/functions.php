@@ -22,7 +22,15 @@ if(WP_DEBUG) {
   // Allow outputing debug info about fields usage: (?debug=fields)
   include 'admin-functions/fields-debug.php';
 }
+// hook into yoast breadcrumbs and remove title
+function adjust_single_breadcrumb( $link_output) {
+  if(strpos( $link_output, 'breadcrumb_last' ) !== false ) {
+    $link_output = '';
+  }
+    return $link_output;
+}
 
+add_filter('wpseo_breadcrumb_single_link', 'adjust_single_breadcrumb' );
 class KlueFuncs {
   function __construct() {
     // Allow post thumbnails management in admin
