@@ -64,12 +64,7 @@
       <p class="modal__description"></p>
       <a class="modal__close" href="">Close</a>
     </div>
-    <form class="modal__form">
-      <input class="modal__input" type="text" placeholder="Name" name="name">
-      <input class="modal__input" type="email" placeholder="Email (required)" name="email" required>
-      <input class="modal__input" type="text" placeholder="Company (required)" name="company" required>
-      <button class="modal__submit button button--green-solid">Submit</button>
-    </form>
+<?php echo(do_shortcode('[ninja_form id=4]')); ?>
   </div>
 </section>
 
