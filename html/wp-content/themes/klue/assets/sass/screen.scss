@@ -1337,6 +1337,7 @@ body {
   margin: 0 15px 30px;
   padding-bottom: 90px;
   position: relative;
+  float:left;
 
   @media (max-width: $breakpoint-tablet) {
     min-width: 200px;
