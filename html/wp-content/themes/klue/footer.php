@@ -100,7 +100,7 @@
 <script src="<?php echo get_template_directory_uri(); ?>/assets/js/vendor/jquery.validate.min.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/assets/js/vendor/dragscroll.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/assets/js/plugins.js"></script>
-<script src="<?php echo get_template_directory_uri(); ?>/assets/js/main.js?v=8"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/assets/js/main.js?v=9"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/assets/js/vendor/outdatedbrowser/outdatedbrowser.min.js"></script>
 <script type="text/javascript" async="" src="https://widget.intercom.io/widget/h0y3k5hw"></script>
 
