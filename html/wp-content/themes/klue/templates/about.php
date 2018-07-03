@@ -69,7 +69,7 @@ define("DESCRIPTION", "About our intelligence that wins you business.");
             <div class="modal__info">
               <?php if(get_sub_field('team_name')): ?><h1 class="modal__heading"><?php the_sub_field('team_name'); ?></h1><?php endif; ?>
               <?php if(get_sub_field('team_fun_bio')): ?><p class="modal__description"><?php the_sub_field('team_fun_bio'); ?></p><?php endif; ?>
-              <a class="modal__close" href="">Close</a>
+              <a class="modal__closer" href="">Close</a>
             </div>
             <?php site_image(get_sub_field('team_fun_image'),array('w'=>600,'h'=>600,'class'=>'modal__image')); ?>
           </div>
