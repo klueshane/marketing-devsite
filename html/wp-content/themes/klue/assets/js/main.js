@@ -9,10 +9,12 @@ $( document ).ready(function() {
 
   $('.team__member').click(function(event) {
     console.log('team__member clicked: '+$(this));
-    $(this).find('.modal').css('display','block');
+    $(this).find('.modal').toggle();
+    $('body').toggleClass('modal__demo--on');
   });
-  $('.modal__close').click(function (event) {
-    $(this).parent().css('display','none');
+  $('.modal__closer').click(function (event) {
+    $(this).parent().toggle();
+    $('body').toggleClass('modal__demo--on');
   });
   $(".button--nav").click(function(event) {
     event.preventDefault();
