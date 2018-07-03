@@ -7,7 +7,7 @@ $( document ).ready(function() {
   //   this.play();
   // });
 
-  $(".team-people-profile_image").click(function(event) {
+  $('.team__member').click(function(event) {
     $(this).next('.modal').css('display:block');
   });
   $(".button--nav").click(function(event) {
