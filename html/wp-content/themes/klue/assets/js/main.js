@@ -11,6 +11,9 @@ $( document ).ready(function() {
     console.log('team__member clicked: '+$(this));
     $(this).find('.modal').css('display','block');
   });
+  $('page-template-about > .modal__close').click(function (event) {
+    $(this).parent().css('display','none');
+  });
   $(".button--nav").click(function(event) {
     event.preventDefault();
     $("html").toggleClass("nav-overlay--on").toggleClass("nav-overlay--off");      // Change nav from hidden to mobile view, but dont show it
