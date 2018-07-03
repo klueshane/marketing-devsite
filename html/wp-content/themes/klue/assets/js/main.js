@@ -8,13 +8,14 @@ $( document ).ready(function() {
   // });
 
   $('.team__member').click(function(event) {
+    event.preventDefault();
     console.log('team__member clicked: '+$(this));
     $(this).find('.modal').toggle();
-    $('body').toggleClass('modal__demo--on');
   });
   $('.modal__closer').click(function (event) {
+    event.preventDefault();
     $(this).parent().toggle();
-    $('body').toggleClass('modal__demo--on');
+
   });
   $(".button--nav").click(function(event) {
     event.preventDefault();
