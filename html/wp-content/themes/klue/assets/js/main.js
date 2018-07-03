@@ -11,8 +11,7 @@ $( document ).ready(function() {
     console.log('team__member clicked: '+$(this));
     $(this).find('.modal').css('display','block');
   });
-  $('.modal__closer').click(function (event) {
-    event.preventDefault();
+  $('.modal__close').click(function (event) {
     $(this).parent().css('display','none');
   });
   $(".button--nav").click(function(event) {
