@@ -94,14 +94,14 @@
     <a class="blogitem__more" href="<?php the_permalink(); ?>">Read</a>
               </div>
               <?php endwhile; ?>
-          </section>
-        <?php endif; ?>
+          
 
 <?php echo do_shortcode('[ajax_load_more id="1562680210" post_type="post" posts_per_page="3" scroll="false"]'); ?>
 
 
 
-
+</section>
+        <?php endif; ?>
 
 
 <?php get_footer(); ?>

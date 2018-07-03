@@ -13,9 +13,11 @@
     "watch:css:build:dev": "onchange 'assets/css-source/**/*.scss' -- npm run css:build:dev"
   },
   "dependencies": {
+    "compass": "^0.1.1",
     "headroom.js": "^0.9.3",
     "jump.js": "^1.0.2",
     "macy": "^1.1.1",
+    "sass": "^1.5.1",
     "scrollreveal": "^3.3.2"
   },
   "devDependencies": {
@@ -25,6 +27,6 @@
     "onchange": "^3.0.2",
     "path": "^0.12.7",
     "postcss-cli": "^2.5.1",
-    "webpack": "^1.13.3"
+    "webpack": "^1.15.0"
   }
 }
