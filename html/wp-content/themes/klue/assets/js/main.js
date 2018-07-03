@@ -8,8 +8,8 @@ $( document ).ready(function() {
   // });
 
   $('.team__member').click(function(event) {
-    console.log('team__member clicked');
-    $(this).next('.modal').css('display:block');
+    console.log('team__member clicked: '+$(this));
+    $(this).find('.modal').css('display','block');
   });
   $(".button--nav").click(function(event) {
     event.preventDefault();
