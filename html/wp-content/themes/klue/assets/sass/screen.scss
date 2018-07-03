@@ -1923,7 +1923,7 @@ body {
     color: $light-green;
   }
 
-  .modal__close {
+  .modal__close, .modal__closer {
     background: url('/wp-content/themes/klue/assets/img/icon-modal-close.png');
     background-size: 30px;
     width: 30px;
