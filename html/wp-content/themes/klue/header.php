@@ -72,20 +72,23 @@ https://angel.co/klue
   <![endif]-->
 
 
-  <section class="header">
+  <section class="header <?php echo /* blog section */is_home() || is_post_type_archive('post') ? 'header--blog' : ''; echo is_singular('post') ? 'header--post' : '';?>" style="background-image: url('<?php $header_background = get_field('header_background'); if( !empty($header_background) ): echo $header_background['url']; endif; ?>');">
 
-           
-            <div class="header__header-corset">
-              <img class="header-corset__header-logo" src="<?php echo get_template_directory_uri(); ?>/assets-home2/img/logo-klue.svg">
-              <div class="wrap">
-                <ul class="header-corset__header-nav"><li class="header-nav__header-nav-item"><a href="#" class="button button--nav-item button--green-solid button--demo">Request a demo</a></li></ul><?php wp_nav_menu( array(menu => 'Main Nav', menu_class => 'header-corset__header-nav')); ?>
-               
-              </div><!-- .wrap -->
-            </div><!-- .navigation-top -->
-           
-          </div>
-          <a href="#" class="button--nav button button--green-solid">Nav</a>
+    <div class="header__header-sinch">
+      <?php $current_path = trim(explode('?', strtolower($_SERVER['REQUEST_URI']))[0], '/'); ?>
+      <a href="/"><img class="header-sinch__header-logo" src="<?php echo get_template_directory_uri(); ?>/assets/img/logo-klue.svg"></a>
+      <ul class="header-sinch__header-nav">
+        <li class="header-nav__header-nav-item <?php echo $current_path == 'about' ? 'header-nav__header-nav-item--current"' : ''; ?>"><a href="/about/">About Us</a></li>
+        <li class="header-nav__header-nav-item <?php echo /* blog section */is_home() || is_category() || is_post_type_archive('post') || is_singular('post') ? 'header-nav__header-nav-item--current' : ''; ?>"><a href="/blog/">Blog</a></li>
+        <li class="header-nav__header-nav-item <?php echo $current_path == 'resources' ? 'header-nav__header-nav-item--current"' : ''; ?>"><a href="/competitive-strategy-resources/">Resources</a></li>
+        <li class="header-nav__header-nav-item <?php echo $current_path == 'contact' ? 'header-nav__header-nav-item--current"' : ''; ?>"><a href="/contact/">Contact</a></li>
+        <li class="header-nav__header-nav-item header-nav__header-nav-item--login"><a href="https://app.klue.com/">Login</a></li>
+        <li class="header-nav__header-nav-item"><a href="https://app.klue.com" class="button button--nav-item button--green-solid button--demo">Request a demo</a></li>
+      </ul>
+      <?php if(get_field('header_label')): ?><span class="heading__wrapper"><h1 class="header__heading"><?php the_field('header_label'); ?></h1></span><?php endif; ?>
+    </div>
 
+    <a href="#" class="button--nav button button--green-solid">Nav</a>
 
     <?php if (/* blog section */is_home() || is_category() || is_post_type_archive('post') || is_singular('post')) { ?>
       <div class="blognav">
