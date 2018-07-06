@@ -11,7 +11,8 @@
 
               if( 0 == $featured_posts->current_post ) { ?>
                 <div class="blogfeatured__main">
-              	<?php if(has_post_thumbnail()) { ?>
+              	<?php echo has_post_thumbnail();
+                if(has_post_thumbnail()) { ?>
               		<?php
               			$thumb_id = get_post_thumbnail_id();
               			$thumb_url = wp_get_attachment_image_src($thumb_id,'large');
