@@ -1,8 +1,7 @@
 <?php get_header(); ?>
 
 
-        <? echo is_home(); 
-        if (is_home()) { ?>
+        <? if (is_home()) { ?>
         <section class="blogfeatured">
           <?
           $featured_posts = new WP_Query( array( 'category_name' => 'featured' ) );
