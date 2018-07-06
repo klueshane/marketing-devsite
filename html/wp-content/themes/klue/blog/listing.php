@@ -11,7 +11,7 @@
 
               if( 0 == $featured_posts->current_post ) { ?>
                 <div class="blogfeatured__main">
-              	<?php echo has_post_thumbnail();
+              	<?php 
                 if(has_post_thumbnail()) { ?>
               		<?php
               			$thumb_id = get_post_thumbnail_id();
