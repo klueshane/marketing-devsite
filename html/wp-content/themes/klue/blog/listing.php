@@ -4,7 +4,7 @@
         <? if (is_home()) { ?>
         <section class="blogfeatured">
           <?
-          $featured_posts = new WP_Query( array( 'category_name' => 'featured' ) );
+          $featured_posts = new WP_Query( array( 'category_name' => 'featured', 'orderby' => 'ID' ) );
           if ( $featured_posts->have_posts() ) :
           while ( $featured_posts->have_posts() ) :
           $featured_posts->the_post();
