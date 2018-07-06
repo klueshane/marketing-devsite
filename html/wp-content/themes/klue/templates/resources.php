@@ -1,7 +1,3 @@
-<?php /* Template Name: Resources Page */ ?><?php
-define("TITLE", "Klue Resources");
-define("DESCRIPTION", "Learn More about Klue and Competitive Intelligence");
-?>
 <?php get_header(); ?>
 
 
