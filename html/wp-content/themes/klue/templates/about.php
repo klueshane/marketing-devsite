@@ -1,7 +1,3 @@
-<?php /* Template Name: About Page */ ?><?php
-define("TITLE", "About Klue");
-define("DESCRIPTION", "About our intelligence that wins you business.");
-?>
 <?php get_header(); ?>
 
 <section class="intro">
