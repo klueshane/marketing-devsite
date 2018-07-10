@@ -51,10 +51,10 @@ define("DESCRIPTION", "Current Job Openings at Klue");
 
 
       <ul class="jobsimages">
-        <?php while ( have_rows('images_top') ) : the_row(); ?>
-          <?php if(get_sub_field('image_top')): ?>
+        <?php while ( have_rows('images_-_bottom') ) : the_row(); ?>
+          <?php if(get_sub_field('image_bottom')): ?>
             <li class="jobsimages__item">
-              <?php site_image(get_sub_field('image_top'),array('w'=>800,'h'=>380,'class'=>'workingat__image')); ?>
+              <?php site_image(get_sub_field('image_bottom'),array('w'=>800,'h'=>380,'class'=>'workingat__image')); ?>
             </li>
           <?php endif; ?>
         <?php endwhile; ?>

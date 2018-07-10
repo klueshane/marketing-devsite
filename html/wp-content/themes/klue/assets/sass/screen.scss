@@ -1337,6 +1337,7 @@ body {
   margin: 0 15px 30px;
   padding-bottom: 90px;
   position: relative;
+  float:left;
 
   @media (max-width: $breakpoint-tablet) {
     min-width: 200px;
@@ -1349,7 +1350,7 @@ body {
     position: relative;
     background-size: cover;
     background-position: center;
-    min-height: 165px;
+    min-height: 188px;
     box-sizing: border-box;
   }
 
@@ -1394,6 +1395,7 @@ body {
     color: #72687B;
     font-weight: 300;
     line-height: 1.875em;
+    min-height: 340px;
   }
   .blogitem__content small {
     font-size:.5em;
@@ -1921,7 +1923,7 @@ body {
     color: $light-green;
   }
 
-  .modal__close {
+  .modal__close, .modal__closer {
     background: url('/wp-content/themes/klue/assets/img/icon-modal-close.png');
     background-size: 30px;
     width: 30px;

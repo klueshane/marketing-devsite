@@ -4,14 +4,15 @@
         <? if (is_home()) { ?>
         <section class="blogfeatured">
           <?
-          $featured_posts = new WP_Query( array( 'category_name' => 'featured' ) );
+          $featured_posts = new WP_Query( array( 'category_name' => 'featured', 'orderby' => 'ID', 'order' => 'ASC' ) );
           if ( $featured_posts->have_posts() ) :
           while ( $featured_posts->have_posts() ) :
           $featured_posts->the_post();
 
               if( 0 == $featured_posts->current_post ) { ?>
                 <div class="blogfeatured__main">
-              	<?php if(has_post_thumbnail()) { ?>
+              	<?php 
+                if(has_post_thumbnail()) { ?>
               		<?php
               			$thumb_id = get_post_thumbnail_id();
               			$thumb_url = wp_get_attachment_image_src($thumb_id,'large');
@@ -41,7 +42,7 @@
                   <?php the_title( sprintf( '<h1 class="blogitem__blogtitle"><a class="blogtitle__bloglink" href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h1>' ); ?>
                   <span class="blogitem__color blogitem__color--green"></span>
                 </div>
-                <p class="blogitem__content">The role that competitive and market intelligence teams play in sales is clear; to arm sales teams to close deals…</p>
+                <p class="blogitem__content" style="min-height: 0;">The role that competitive and market intelligence teams play in sales is clear; to arm sales teams to close deals…</p>
                 <a class="blogitem__more" href="<?php echo esc_url( get_permalink() ); ?>">Read</a>
                 <!--a href="<?php echo esc_url( get_permalink() ); ?>" rel="bookmark"><img style="margin-bottom:0;display:block;" src="" /></a-->
               <?php } ?>
@@ -94,14 +95,14 @@
     <a class="blogitem__more" href="<?php the_permalink(); ?>">Read</a>
               </div>
               <?php endwhile; ?>
-          </section>
-        <?php endif; ?>
+          
 
 <?php echo do_shortcode('[ajax_load_more id="1562680210" post_type="post" posts_per_page="3" scroll="false"]'); ?>
 
 
 
-
+</section>
+        <?php endif; ?>
 
 
 <?php get_footer(); ?>

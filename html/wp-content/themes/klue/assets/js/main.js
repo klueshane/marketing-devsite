@@ -7,6 +7,16 @@ $( document ).ready(function() {
   //   this.play();
   // });
 
+  $('.team__member').click(function(event) {
+    event.preventDefault();
+    console.log('team__member clicked: '+$(this));
+    $(this).find('.modal').toggle();
+  });
+  $('.modal__closer').click(function (event) {
+    event.preventDefault();
+    $(this).parent().toggle();
+
+  });
   $(".button--nav").click(function(event) {
     event.preventDefault();
     $("html").toggleClass("nav-overlay--on").toggleClass("nav-overlay--off");      // Change nav from hidden to mobile view, but dont show it
