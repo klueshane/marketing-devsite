@@ -97,7 +97,7 @@
               <?php endwhile; ?>
           
 
-<?php echo do_shortcode('[ajax_load_more id="1562680210" post_type="post" posts_per_page="9" scroll="true"]'); ?>
+<?php echo do_shortcode('[ajax_load_more id="1562680210" post_type="post" posts_per_page="9" scroll="false"]'); ?>
 
 
 
