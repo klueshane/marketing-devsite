@@ -61,7 +61,7 @@
   <div class="modal__container">
     <div class="modal__info">
       <h1 class="modal__heading">Request a Demo</h1>
-      <p class="modal__description"></p>
+      <p class="modal__description">Submit this form and one of our analysts will be in touch soon.</p>
       <a class="modal__close" href="">Close</a>
     </div>
 <?php echo(do_shortcode('[ninja_form id=4]')); ?>

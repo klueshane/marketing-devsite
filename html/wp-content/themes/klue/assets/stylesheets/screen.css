@@ -2448,7 +2448,7 @@ body {
 }
 
 /* line 1972, ../sass/screen.scss */
-.modal__submit {
+.modal__button.modal__submit {
   margin-top: 30px;
   width: 100%;
 }
