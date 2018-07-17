@@ -8,7 +8,7 @@
     <li class="footer-nav__item"><a href="/">Home</a></li>
     <li class="footer-nav__item <?php echo $current_path == 'about' ? 'header-nav__header-nav-item--current"' : ''; ?>"><a href="/about/">About Us</a></li>
     <li class="footer-nav__item <?php echo /* blog section */is_home() || is_post_type_archive('post') || is_singular('post') ? 'header-nav__header-nav-item--current' : ''; ?>"><a href="/blog/">Blog</a></li>
-    <li class="footer-nav__item <?php echo $current_path == 'resources' ? 'header-nav__header-nav-item--current"' : ''; ?>"><a href="/resources/">Resources</a></li>
+    <li class="footer-nav__item <?php echo $current_path == 'resources' ? 'header-nav__header-nav-item--current"' : ''; ?>"><a href="/competitive-strategy-resources">Resources</a></li>
     <li class="footer-nav__item <?php echo $current_path == 'jobs' ? 'header-nav__header-nav-item--current"' : ''; ?>"><a href="/jobs/">Jobs</a></li>
     <li class="footer-nav__item <?php echo $current_path == 'contact' ? 'header-nav__header-nav-item--current"' : ''; ?>"><a href="/contact/">Contact</a></li>
     <li class="footer-nav__item"><a href="https://kluein.github.io/media-resources/">Media Kit</a></li>
