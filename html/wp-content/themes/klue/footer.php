@@ -74,7 +74,7 @@
       <p class="modal__description"></p>
       <a class="modal__close" href="">Close</a>
     </div>
-<?php echo(do_shortcode('[ninja_form id=4]')); ?>
+<?php echo(do_shortcode('[ninja_form id=5]')); ?>
   </div>
 </section>
 
