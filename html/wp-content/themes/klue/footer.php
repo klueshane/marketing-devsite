@@ -67,6 +67,16 @@
 <?php echo(do_shortcode('[ninja_form id=4]')); ?>
   </div>
 </section>
+<section id="modal__info" class="modal">
+  <div class="modal__container">
+    <div class="modal__info">
+      <h1 class="modal__heading">Learn More about Klue</h1>
+      <p class="modal__description"></p>
+      <a class="modal__close" href="">Close</a>
+    </div>
+<?php echo(do_shortcode('[ninja_form id=4]')); ?>
+  </div>
+</section>
 
 <section id="modal__subscribe" class="modal">
   <div class="modal__container">

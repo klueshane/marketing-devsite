@@ -136,7 +136,7 @@ https://angel.co/klue
           <div class="panel">
             <h1 class="heading heading--black"><?php if(get_field('home-anywhere-heading')): ?><?php the_field('home-anywhere-heading'); ?><?php endif; ?></h1>
             <p class="description"><?php if(get_field('home-anywhere-text')): ?><?php the_field('home-anywhere-text'); ?><?php endif; ?></p>
-            <a href="#" class="button button--green button--demo">Deliver intel to teams</a>
+            <a href="#" class="button button--green button--info">Deliver intel to teams</a>
           </div>
         </section>
 
@@ -178,7 +178,7 @@ https://angel.co/klue
               <div class="feature__corset feature__corset--left">
                 <h1 class="heading corset__heading"><?php if(get_field('home-green-panel-heading')): ?><?php the_field('home-green-panel-heading'); ?><?php endif; ?></h1>
                 <p class="description description--feature description--feature--green"><?php if(get_field('home-green-panel-text')): ?><?php the_field('home-green-panel-text'); ?><?php endif; ?></p>
-                <a href="#" class="button button--feature button--demo">Learn about Klue’s intel</a>
+                <a href="#" class="button button--feature button--info">Learn about Klue’s intel</a>
               </div>
             </div>
             <div class="testimonial stretching-combo--right">
@@ -200,7 +200,7 @@ https://angel.co/klue
               <div class="feature__corset feature__corset--right">
                 <h1 class="heading corset__heading"><?php if(get_field('home-purple-panel-heading')): ?><?php the_field('home-purple-panel-heading'); ?><?php endif; ?></h1>
                 <p class="description description--feature description--feature--purple"><?php if(get_field('home-purple-panel-text')): ?><?php the_field('home-purple-panel-text'); ?><?php endif; ?></p>
-                <a href="#" class="button button--feature button--demo">Get Started</a>
+                <a href="#" class="button button--feature button--info">Get Started</a>
               </div>
             </div>
             <div class="testimonial stretching-combo--left">
@@ -222,7 +222,7 @@ https://angel.co/klue
               <div class="feature__corset feature__corset--left">
                 <h1 class="heading corset__heading"><?php if(get_field('home-grey-panel-heading')): ?><?php the_field('home-grey-panel-heading'); ?><?php endif; ?></h1>
                 <p class="description description--feature description--feature--grey"><?php if(get_field('home-grey-panel-text')): ?><?php the_field('home-grey-panel-text'); ?><?php endif; ?></p>
-                <a href="#" class="button button--feature button--demo">Learn about battlecards</a>
+                <a href="#" class="button button--feature button--info">Learn about battlecards</a>
               </div>
             </div>
             <div class="testimonial stretching-combo--right">
