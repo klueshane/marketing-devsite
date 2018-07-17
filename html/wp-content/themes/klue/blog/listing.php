@@ -91,7 +91,7 @@
                   
                 <?php } ?> 
                 <p class="blogitem__content"><?php echo get_the_date(); ?> by <?php echo get_the_author(); ?>
-                <br/><small><?php the_category(', '); ?></small><br/><br/><?php echo wp_trim_words( get_the_content(), 35 ); ?></p>
+                <br/><small><?php the_category(', '); ?></small><br/><br/><?php echo wp_trim_words( get_the_content(), 30 ); ?></p>
     <a class="blogitem__more" href="<?php the_permalink(); ?>">Read</a>
               </div>
               <?php endwhile; ?>
