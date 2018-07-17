@@ -8,6 +8,7 @@ define("DESCRIPTION", "Current Job Openings at Klue");
       <section class="intro">
         <div class="intro__box">
 
+
           <?php if(get_field('main_video')):
             $vimeo_value = get_field('main_video');
             $vimeo_video_id = substr($vimeo_value, strrpos($vimeo_value, '/')+1); // get just the id
@@ -20,6 +21,7 @@ define("DESCRIPTION", "Current Job Openings at Klue");
               $vimeo_thumbnail = str_replace('_640.jpg', '_1280.jpg', $vimeo_thumbnail_large); // replace the size with the size we want
             }
           ?>
+           <span class="headding__wrapper"><h1 class="intro__heading">Jobs/h1></span>
             <div class="intro__video" data-video="<?php the_field('main_video'); ?>" style="background-image: url(<?php echo get_template_directory_uri(); ?>//assets/img/icon-play.png), linear-gradient(rgba(87, 80, 106, 0.61),rgba(87, 80, 106, 0.61)), url(<?php echo $vimeo_thumbnail ?>) ;"></div>
           <?php endif; ?>
 
