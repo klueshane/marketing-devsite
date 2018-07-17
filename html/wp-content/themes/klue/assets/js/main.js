@@ -48,7 +48,11 @@ $( document ).ready(function() {
     $('#modal__demo').toggle();
     $('body').toggleClass('modal__demo--on');
   });
-
+$('.button--info').click(function() {
+    event.preventDefault();
+    $('#modal__info').toggle();
+    $('body').toggleClass('modal__demo--on');
+  });
   $('.button--ebook').click(function() {
     event.preventDefault();
     var $location = $(this).attr('data-location');
