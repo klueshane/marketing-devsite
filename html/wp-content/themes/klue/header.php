@@ -80,7 +80,7 @@ https://angel.co/klue
       <ul class="header-sinch__header-nav">
         <li class="header-nav__header-nav-item <?php echo $current_path == 'about' ? 'header-nav__header-nav-item--current"' : ''; ?>"><a href="/about/">About Us</a></li>
         <li class="header-nav__header-nav-item <?php echo /* blog section */is_home() || is_category() || is_post_type_archive('post') || is_singular('post') ? 'header-nav__header-nav-item--current' : ''; ?>"><a href="/blog/">Blog</a></li>
-        <li class="header-nav__header-nav-item <?php echo $current_path == 'resources' ? 'header-nav__header-nav-item--current"' : ''; ?>"><a href="/competitive-strategy-resources/">Resources</a></li>
+        <li class="header-nav__header-nav-item <?php echo $current_path == 'competitive-strategy-resources' ? 'header-nav__header-nav-item--current"' : ''; ?>"><a href="/competitive-strategy-resources/">Resources</a></li>
         <li class="header-nav__header-nav-item <?php echo $current_path == 'contact' ? 'header-nav__header-nav-item--current"' : ''; ?>"><a href="/contact/">Contact</a></li>
         <li class="header-nav__header-nav-item header-nav__header-nav-item--login"><a href="https://app.klue.com/">Login</a></li>
         <li class="header-nav__header-nav-item"><a href="https://app.klue.com" class="button button--nav-item button--green-solid button--demo">Request a demo</a></li>
