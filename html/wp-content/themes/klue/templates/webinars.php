@@ -1,7 +1,4 @@
-<?php /* Template Name: Webinars Page */ ?><?php
-define("TITLE", "Klue Webinars");
-define("DESCRIPTION", "Win Rates increase with the right intel.");
-?>
+<?php /* Template Name: Webinars Page */ ?>
 <?php get_header(); ?>
 
 <main>

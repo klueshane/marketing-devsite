@@ -1,7 +1,4 @@
-<?php
-define("TITLE", "Arm Your Sales Team - Try Klue for Competitive Intel"); # TODO
-define("DESCRIPTION", "Don't give your team another tool. Show them the playing field, monitored in real-time"); # TODO
-?>
+
 <?php get_header(); ?>
 
 <main>

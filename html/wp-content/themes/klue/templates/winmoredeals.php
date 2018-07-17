@@ -1,7 +1,4 @@
-<?php
-define("TITLE", "Never Get Blindsided with Klue"); # TODO
-define("DESCRIPTION", "Every company has intel. But is that data connected in real time and actively working for you?"); # TODO
-?>
+
 <?php get_header(); ?>
 
 <main>

@@ -1,7 +1,4 @@
-<?php
-define("TITLE", "Klue - Smart Competitive Intelligence for Product Marketers");
-define("DESCRIPTION", "Get a Quickstart Guide to Online CI and Building Sales Battlecards that Win");
-?>
+
 <?php get_header(); ?>
 
 <main>

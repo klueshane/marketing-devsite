@@ -1,7 +1,4 @@
-<?php
-define("TITLE", "Why Klue?");
-define("DESCRIPTION", "See how Klue can benefit your sales team.");
-?>
+
 <?php get_header(); ?>
 
 <main>

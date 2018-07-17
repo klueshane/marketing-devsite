@@ -1,7 +1,4 @@
-<?php
-define("TITLE", "Klue - Competitor Intelligence Products");
-define("DESCRIPTION", "Find how Klue can help your team.");
-?>
+
 <?php get_header(); ?>
 
 <main>

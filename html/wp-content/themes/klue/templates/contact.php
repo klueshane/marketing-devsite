@@ -1,7 +1,4 @@
-<?php /* Template Name: Contact Page */ ?><?php
-define("TITLE", "Klue - Contact Us");
-define("DESCRIPTION", "Get a hold of us.");
-?>
+<?php /* Template Name: Contact Page */ ?>
 <?php get_header(); ?>
 
 

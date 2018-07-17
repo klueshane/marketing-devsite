@@ -1,8 +1,5 @@
 
-<?php /* Template Name: Jobs Page */ ?><?php
-define("TITLE", "Klue - Jobs / Careers");
-define("DESCRIPTION", "Current Job Openings at Klue");
-?>
+<?php /* Template Name: Jobs Page */ ?>
 <?php get_header(); ?>
 
       <section class="intro">
