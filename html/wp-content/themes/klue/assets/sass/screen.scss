@@ -131,7 +131,7 @@ body {
       background-color: white;
       border: 2px solid $bright-green;
     }
-    
+
   }
 
   &.button--red-solid {
@@ -816,7 +816,7 @@ body {
 
     .button--subscribe-blog {
       position: absolute;
-      right: 40px;
+      right: 35px;
       top: 0;
       margin-top: 0;
       @media (max-width: $breakpoint-desktop) {
