@@ -7,7 +7,7 @@ $( document ).ready(function() {
   //   this.play();
   // });
 
-  $('.team__member').click(function(event) {
+  $('ul li.team__member:not(:last-child)').click(function(event) {
     event.preventDefault();
     console.log('team__member clicked: '+$(this));
     $(this).find('.modal').toggle();
