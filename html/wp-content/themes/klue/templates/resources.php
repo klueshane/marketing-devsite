@@ -4,9 +4,10 @@
 
 <section class="intro">
     <div class="intro__box">
-      <h1 class="intro__heading">Win rates increase with the right intel.</h1>
-      <p>Discover what you've been missing. Learn how to collect, curate, and share with the Klue platform.</p>
-      <a href="#" class="button button--green button--subscribe button--blogitems" style="left: 0;">Subscribe</a>
+      <?php if(get_field('resources-banner-label')): ?><h1 class="intro__heading"><?php the_field('resources-banner-label'); ?></h1><?php endif; ?>
+          <?php if(get_field('resources-text')): ?><p><?php the_field('resources-text'); ?></p><?php endif; ?>
+     
+      <a href="#" class="button button--green button--subscribe button--blogitems" style="left: 0;">Subscribe to Resources</a>
     </div>
   </section>
 
