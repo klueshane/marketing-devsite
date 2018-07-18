@@ -81,8 +81,9 @@ $('.button--info').click(function() {
     $('body').toggleClass('modal__demo--on');
   });
 
-
-
+  $('#mc-embedded-subscribe-form').submit(funciton() {
+    if($("#mce-success-response").is(':visible')) { $("#mce-EMAIL").hide();}
+  });
   // Variable to hold request
   var request;
 

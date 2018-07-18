@@ -85,9 +85,7 @@
       <p class="modal__description"></p>
       <a class="modal__close" href="">Close</a>
     </div>
-   <script type="text/javascript">
-     if($("#mce-success-response").is(':visible')) { $("#mce-EMAIL").hide();}
-   </script>
+
 <form action="https://klue.us12.list-manage.com/subscribe/post?u=b3835188496e62097ff380c7c&amp;id=62ef371bfd" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate modal__form" target="_blank" novalidate>
 
 <input type="email" value="" name="EMAIL" class="modal__input" placeholder="Email (required)" id="mce-EMAIL" required>
