@@ -72,29 +72,7 @@
               the_archive_description( '<section class="blog__category_description"><h2>'.$titleStr.'</h2>', '</section>' ); 
            } ?>
 
-      			<?php while ( have_posts() ) : the_post();
-             ?>
-              <div class="blogitems__blogitem blogitem">
-            	<?php if(has_post_thumbnail()) { ?>
-            		<?php
-            			$thumb_id = get_post_thumbnail_id();
-            			$thumb_url = wp_get_attachment_image_src($thumb_id,'medium', true);
-            		?>
-                <div class="blogitem__header" style="background-image: url(<?php echo $thumb_url[0];?>);">
-                <?php } else { ?>
-                <div class="blogitem__header">
-                <?php } ?> 
-                  <?php the_title( sprintf( '<h1 class="blogitem__blogtitle"><a class="blogtitle__bloglink" href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h1>' ); ?>
-                  <span class="blogitem__color <?php echo blog_colour($post_counter); ++$post_counter;?>"></span>
-                </div>
-                <?php if(is_category()) { ?>
-                  
-                <?php } ?> 
-                <p class="blogitem__content"><?php echo get_the_date(); ?> by <?php echo get_the_author(); ?>
-                <br/><small><?php the_category(', '); ?></small><br/><br/><?php echo wp_trim_words( get_the_content(), 30 ); ?></p>
-    <a class="blogitem__more" href="<?php the_permalink(); ?>">Read</a>
-              </div>
-              <?php endwhile; ?>
+      			
           
 
 <?php echo do_shortcode('[ajax_load_more id="1562680210" post_type="post" posts_per_page="9" scroll="false"]'); ?>
