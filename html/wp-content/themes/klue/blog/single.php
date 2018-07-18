@@ -45,7 +45,7 @@ define("TITLE", "Klue | " . get_the_title());
 				</div>
 				<?php
 					if ( function_exists('yoast_breadcrumb') ) {
-						yoast_breadcrumb('<p id="breadcrumbs">','</p>');
+						yoast_breadcrumb('<p id="breadcrumbs"><a href="/blog">Blog</a> > ','</p>');
 					}
 				?>
 			</div>
