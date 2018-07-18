@@ -18,7 +18,7 @@ define("TITLE", "Klue | " . get_the_title());
 			<div class="blogbody__headings">
 				<?php
 					if ( function_exists('yoast_breadcrumb') ) {
-						yoast_breadcrumb('<<p class="blogbody__category">','</p>');
+						yoast_breadcrumb('<p class="blogbody__category">','</p>');
 					}
 				?>
 				
