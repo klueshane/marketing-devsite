@@ -23,7 +23,7 @@
   </ul>
 
   <p class="footer__love">Made with <span class="icon-love"></span> in Vancouver.</p>
-  <p class="footer__legal">&copy; 2018 Klue Labs Vancouver, BC</p>
+  <p class="footer__legal">&copy; <?php echo date('Y') ?> Klue Labs Vancouver, BC</p>
 </section>
 
 <section id="modal__ebook" class="modal">
