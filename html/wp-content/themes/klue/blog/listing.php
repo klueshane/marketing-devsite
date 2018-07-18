@@ -65,18 +65,19 @@
         
         <?php
         $post_counter = 0;
-        wp_reset_postdata();
+
         if ( have_posts() ) : ?>
           <section class="blogitems">
             <?php if(is_category()) { 
               $titleStr = str_replace('Category: ','',get_the_archive_title());
               the_archive_description( '<section class="blog__category_description"><h2>'.$titleStr.'</h2>', '</section>' ); 
-           } ?>
+           } 
 
       			
-          
-
-<?php echo do_shortcode('[ajax_load_more id="1562680210" post_type="post" posts_per_page="9" button_label="Load More" scroll="false"]'); ?>
+          $cat = get_query_var('cat');
+          $category = get_category ($cat);
+          echo do_shortcode('[ajax_load_more id="1562680210" seo="true" category="'.$category->slug.'" post_type="post" posts_per_page="9" button_label="Load More" scroll="false"]'); 
+          ?>
 
 
 
