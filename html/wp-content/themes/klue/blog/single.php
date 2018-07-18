@@ -16,11 +16,11 @@ define("TITLE", "Klue | " . get_the_title());
 			$thumb_url = wp_get_attachment_image_src($thumb_id,'largest');
 		?>
 			<div class="blogbody__headings">
-			<?php
+				<?php
 					if ( function_exists('yoast_breadcrumb') ) {
 						yoast_breadcrumb('<<p class="blogbody__category">','</p>');
 					}
-
+				?>
 				
 				<h1 class="blogbody__title"><?php the_title(); ?></h1>
 				
