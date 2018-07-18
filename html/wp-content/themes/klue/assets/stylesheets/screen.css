@@ -2030,23 +2030,23 @@ body {
 /* line 1647, ../sass/screen.scss */
 .sociallinks__item--facebook {
   background-image: url("/wp-content/themes/klue/assets/img/social-facebook.png");
-  background-color: #3A5998;
+  background-color: #6e5f92;
   background-size: auto 22px;
 }
 
-/* line 1652, ../sass/screen.scss */
+/* line 1653, ../sass/screen.scss */
 .sociallinks__item--twitter {
   background-image: url("/wp-content/themes/klue/assets/img/social-twitter.png");
-  background-color: #55ACEE;
+  background-color: #42bc8f;
 }
 
-/* line 1656, ../sass/screen.scss */
+/* line 1658, ../sass/screen.scss */
 .sociallinks__item--linkedin {
   background-image: url("/wp-content/themes/klue/assets/img/social-linkedin.png");
-  background-color: #0077B5;
+  background-color: #f45c5f;
 }
 
-/* line 1661, ../sass/screen.scss */
+/* line 1664, ../sass/screen.scss */
 .page-numbers {
   display: flex;
   margin: 0 auto 40px;
@@ -2054,31 +2054,31 @@ body {
   text-align: center;
   justify-content: center;
 }
-/* line 1668, ../sass/screen.scss */
+/* line 1671, ../sass/screen.scss */
 .page-numbers li {
   margin: 10px;
 }
-/* line 1671, ../sass/screen.scss */
+/* line 1674, ../sass/screen.scss */
 .page-numbers li a {
   border: 2px solid #43BC8F;
   padding: 10px 16px;
   min-width: 10px;
   color: #43BC8F;
 }
-/* line 1678, ../sass/screen.scss */
+/* line 1681, ../sass/screen.scss */
 .page-numbers li .current {
   border: 2px solid #43BC8F;
   padding: 10px 16px;
   color: white;
   background: #43BC8F;
 }
-/* line 1685, ../sass/screen.scss */
+/* line 1688, ../sass/screen.scss */
 .page-numbers li .dots {
   padding-top: 30px;
   color: #43BC8F;
 }
 
-/* line 1692, ../sass/screen.scss */
+/* line 1695, ../sass/screen.scss */
 .footer {
   background: #57506A;
   padding: 110px 0 120px;
@@ -2090,12 +2090,12 @@ body {
   background-position: center 190px;
 }
 
-/* line 1703, ../sass/screen.scss */
+/* line 1706, ../sass/screen.scss */
 .page-template-about .footer {
   padding-top: 260px;
 }
 
-/* line 1708, ../sass/screen.scss */
+/* line 1711, ../sass/screen.scss */
 .footer__logo {
   background: url("/wp-content/themes/klue/assets/img/logo-klue.svg") no-repeat;
   background-size: contain;
@@ -2106,7 +2106,7 @@ body {
   margin: 0 auto;
 }
 
-/* line 1718, ../sass/screen.scss */
+/* line 1721, ../sass/screen.scss */
 .footer__footer-nav {
   display: flex;
   color: #D3CED6;
@@ -2114,62 +2114,62 @@ body {
   margin: 90px 0 60px;
 }
 @media (max-width: 880px) {
-  /* line 1718, ../sass/screen.scss */
+  /* line 1721, ../sass/screen.scss */
   .footer__footer-nav {
     flex-direction: column;
   }
 }
 
-/* line 1729, ../sass/screen.scss */
+/* line 1732, ../sass/screen.scss */
 .footer-nav__item {
   margin: 12px 0;
 }
-/* line 1732, ../sass/screen.scss */
+/* line 1735, ../sass/screen.scss */
 .footer-nav__item a {
   font-size: .9em;
   color: #EDE6FF;
   text-decoration: none;
 }
 @media (min-width: 880px) {
-  /* line 1729, ../sass/screen.scss */
+  /* line 1732, ../sass/screen.scss */
   .footer-nav__item {
     margin: 0 12px;
   }
 }
 
-/* line 1743, ../sass/screen.scss */
+/* line 1746, ../sass/screen.scss */
 .footer-nav__item--current a {
   border-bottom: 3px solid white;
   padding-bottom: 10px;
 }
 
-/* line 1748, ../sass/screen.scss */
+/* line 1751, ../sass/screen.scss */
 .button--nav-item {
   margin-top: 0px;
   font-size: 1em;
   padding: 12px 25px 8px;
 }
 @media (min-width: 880px) {
-  /* line 1748, ../sass/screen.scss */
+  /* line 1751, ../sass/screen.scss */
   .button--nav-item {
     margin-left: 15px;
     margin-top: -15px;
   }
 }
 
-/* line 1759, ../sass/screen.scss */
+/* line 1762, ../sass/screen.scss */
 .footer__sociallist {
   display: flex;
   justify-content: center;
   margin: 60px 0 30px;
 }
 
-/* line 1765, ../sass/screen.scss */
+/* line 1768, ../sass/screen.scss */
 .footer__socialicon {
   margin: 0 15px;
 }
 
-/* line 1769, ../sass/screen.scss */
+/* line 1772, ../sass/screen.scss */
 .footer__socialicon {
   display: block;
   width: 25px;
@@ -2178,34 +2178,34 @@ body {
   background-repeat: no-repeat;
 }
 
-/* line 1777, ../sass/screen.scss */
+/* line 1780, ../sass/screen.scss */
 .footer__socialicon--mail {
   background-image: url("/wp-content/themes/klue/assets/img/icon-footeremail.png");
 }
 
-/* line 1778, ../sass/screen.scss */
+/* line 1781, ../sass/screen.scss */
 .footer__socialicon--angellist {
   background-image: url("/wp-content/themes/klue/assets/img/icon-footerangellist.png");
 }
 
-/* line 1779, ../sass/screen.scss */
+/* line 1782, ../sass/screen.scss */
 .footer__socialicon--twitter {
   background-image: url("/wp-content/themes/klue/assets/img/icon-footertwitter.png");
 }
 
-/* line 1780, ../sass/screen.scss */
+/* line 1783, ../sass/screen.scss */
 .footer__socialicon--linkedin {
   background-image: url("/wp-content/themes/klue/assets/img/icon-footerlinkedin.png");
 }
 
-/* line 1783, ../sass/screen.scss */
+/* line 1786, ../sass/screen.scss */
 .footer__love {
   color: white;
   font-size: .9em;
   font-weight: 500;
 }
 
-/* line 1788, ../sass/screen.scss */
+/* line 1791, ../sass/screen.scss */
 .icon-love {
   display: inline-block;
   background: url("/wp-content/themes/klue/assets/img/icon-love.png") no-repeat;
@@ -2215,7 +2215,7 @@ body {
   height: 15px;
 }
 
-/* line 1797, ../sass/screen.scss */
+/* line 1800, ../sass/screen.scss */
 .footer__legal {
   color: #C6BAE5;
   margin-top: 60px;
@@ -2223,26 +2223,26 @@ body {
   font-weight: 500;
 }
 @media (min-width: 880px) {
-  /* line 1797, ../sass/screen.scss */
+  /* line 1800, ../sass/screen.scss */
   .footer__legal {
     margin-top: 90px;
   }
 }
 
-/* line 1808, ../sass/screen.scss */
+/* line 1811, ../sass/screen.scss */
 .slideshow {
   width: 200px;
   margin: 60px auto 60px auto;
 }
 @media (min-width: 880px) {
-  /* line 1808, ../sass/screen.scss */
+  /* line 1811, ../sass/screen.scss */
   .slideshow {
     width: 420px;
     margin: 60px auto 60px auto;
   }
 }
 
-/* line 1817, ../sass/screen.scss */
+/* line 1820, ../sass/screen.scss */
 .slick-next,
 .slick-prev {
   height: 60px;
@@ -2250,71 +2250,71 @@ body {
   z-index: 10;
 }
 
-/* line 1824, ../sass/screen.scss */
+/* line 1827, ../sass/screen.scss */
 .slick-prev {
   background: url("/wp-content/themes/klue/assets/img/icon-previous.pn" g) no-repeat;
 }
 @media (min-width: 880px) {
-  /* line 1824, ../sass/screen.scss */
+  /* line 1827, ../sass/screen.scss */
   .slick-prev {
     left: -120px;
   }
 }
 @media (max-width: 680px) {
-  /* line 1824, ../sass/screen.scss */
+  /* line 1827, ../sass/screen.scss */
   .slick-prev {
     left: -80px;
   }
 }
 @media (max-width: 340px) {
-  /* line 1824, ../sass/screen.scss */
+  /* line 1827, ../sass/screen.scss */
   .slick-prev {
     left: -60px;
   }
 }
 
-/* line 1839, ../sass/screen.scss */
+/* line 1842, ../sass/screen.scss */
 .slick-prev:hover {
   opacity: .9;
   background: url("/wp-content/themes/klue/assets/img/icon-previous.png") no-repeat;
 }
 
-/* line 1843, ../sass/screen.scss */
+/* line 1846, ../sass/screen.scss */
 .slick-next {
   background: url("/wp-content/themes/klue/assets/img/icon-next.png") no-repeat;
 }
 @media (min-width: 880px) {
-  /* line 1843, ../sass/screen.scss */
+  /* line 1846, ../sass/screen.scss */
   .slick-next {
     right: -120px;
   }
 }
 @media (max-width: 680px) {
-  /* line 1843, ../sass/screen.scss */
+  /* line 1846, ../sass/screen.scss */
   .slick-next {
     right: -80px;
   }
 }
 @media (max-width: 340px) {
-  /* line 1843, ../sass/screen.scss */
+  /* line 1846, ../sass/screen.scss */
   .slick-next {
     right: -60px;
   }
 }
 
-/* line 1855, ../sass/screen.scss */
+/* line 1858, ../sass/screen.scss */
 .slick-next:hover {
   opacity: .9;
   background: url("/wp-content/themes/klue/assets/img/icon-next.png") no-repeat;
 }
 
-/* line 1860, ../sass/screen.scss */
+/* line 1863, ../sass/screen.scss */
 .slick-prev:before,
 .slick-next:before {
   content: none;
 }
 
-/* line 1863, ../sass/screen.scss */
+/* line 1866, ../sass/screen.scss */
 .slick-slide img {
   width: 200px;
   margin: 0 auto;
@@ -2322,42 +2322,42 @@ body {
   margin-bottom: 5px;
 }
 @media (min-width: 880px) {
-  /* line 1863, ../sass/screen.scss */
+  /* line 1866, ../sass/screen.scss */
   .slick-slide img {
     width: 400px;
   }
 }
 
-/* line 1874, ../sass/screen.scss */
+/* line 1877, ../sass/screen.scss */
 .fullscreen-message {
   background: #43BC8F;
 }
 
-/* line 1878, ../sass/screen.scss */
+/* line 1881, ../sass/screen.scss */
 .fullscreen-message__message-content {
   color: white;
   text-align: center;
   margin: 300px 40px;
 }
 
-/* line 1884, ../sass/screen.scss */
+/* line 1887, ../sass/screen.scss */
 .subheading--message-content {
   color: #C3FFE9;
   padding: 30px 40px 240px;
 }
 
-/* line 1889, ../sass/screen.scss */
+/* line 1892, ../sass/screen.scss */
 .fullscreen-message__legal {
   color: #C3FFE9;
 }
 
-/* line 1893, ../sass/screen.scss */
+/* line 1896, ../sass/screen.scss */
 .modal__demo--on,
 .modal__ebook--on {
   overflow: hidden;
 }
 
-/* line 1898, ../sass/screen.scss */
+/* line 1901, ../sass/screen.scss */
 .modal {
   display: none;
   position: fixed;
@@ -2369,7 +2369,7 @@ body {
   z-index: 100;
 }
 
-/* line 1909, ../sass/screen.scss */
+/* line 1912, ../sass/screen.scss */
 .modal__container {
   position: absolute;
   max-width: 380px;
@@ -2380,19 +2380,19 @@ body {
   box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.3);
 }
 
-/* line 1919, ../sass/screen.scss */
+/* line 1922, ../sass/screen.scss */
 .modal__info {
   background: #43BC8F;
   padding: 70px 50px 45px;
 }
 
-/* line 1924, ../sass/screen.scss */
+/* line 1927, ../sass/screen.scss */
 .modal__heading {
   font-size: 1.5em;
   color: white;
 }
 
-/* line 1929, ../sass/screen.scss */
+/* line 1932, ../sass/screen.scss */
 .modal__description {
   font-size: 1.1em;
   font-weight: 200;
@@ -2402,7 +2402,7 @@ body {
   color: #C3FFE9;
 }
 
-/* line 1938, ../sass/screen.scss */
+/* line 1941, ../sass/screen.scss */
 .modal__close, .modal__closer {
   background: url("/wp-content/themes/klue/assets/img/icon-modal-close.png");
   background-size: 30px;
@@ -2414,14 +2414,14 @@ body {
   text-indent: -9999px;
 }
 
-/* line 1949, ../sass/screen.scss */
+/* line 1952, ../sass/screen.scss */
 .modal__form {
   background: #57506A;
   padding: 30px 60px 50px;
   color: white;
 }
 
-/* line 1955, ../sass/screen.scss */
+/* line 1958, ../sass/screen.scss */
 .modal__success {
   color: white;
   font-size: 1.5em;
@@ -2432,7 +2432,7 @@ body {
   background-repeat: no-repeat;
 }
 
-/* line 1965, ../sass/screen.scss */
+/* line 1968, ../sass/screen.scss */
 .modal__input {
   color: #C3B5E9;
   background: none;
@@ -2448,28 +2448,28 @@ body {
   margin: 30px 0;
 }
 
-/* line 1980, ../sass/screen.scss */
+/* line 1983, ../sass/screen.scss */
 .modal__input::-webkit-input-placeholder {
   color: #C3B5E9 !important;
 }
 
-/* line 1981, ../sass/screen.scss */
+/* line 1984, ../sass/screen.scss */
 .modal__input::-moz-placeholder {
   color: #C3B5E9 !important;
 }
 
-/* line 1982, ../sass/screen.scss */
+/* line 1985, ../sass/screen.scss */
 .modal__input::-ms-input-placeholder {
   color: #C3B5E9 !important;
 }
 
-/* line 1984, ../sass/screen.scss */
+/* line 1987, ../sass/screen.scss */
 .modal__button.modal__submit {
   margin-top: 30px;
   width: 100%;
 }
 
-/* line 1989, ../sass/screen.scss */
+/* line 1992, ../sass/screen.scss */
 .modal__image {
   width: 100%;
 }
@@ -2480,13 +2480,13 @@ body {
 /* ==========================================================================
    Helper classes
    ========================================================================== */
-/* line 2012, ../sass/screen.scss */
+/* line 2015, ../sass/screen.scss */
 .hidden {
   display: none !important;
   visibility: hidden;
 }
 
-/* line 2017, ../sass/screen.scss */
+/* line 2020, ../sass/screen.scss */
 .visuallyhidden {
   border: 0;
   clip: rect(0 0 0 0);
@@ -2498,7 +2498,7 @@ body {
   width: 1px;
 }
 
-/* line 2028, ../sass/screen.scss */
+/* line 2031, ../sass/screen.scss */
 .visuallyhidden.focusable:active,
 .visuallyhidden.focusable:focus {
   clip: auto;
@@ -2509,24 +2509,24 @@ body {
   width: auto;
 }
 
-/* line 2038, ../sass/screen.scss */
+/* line 2041, ../sass/screen.scss */
 .invisible {
   visibility: hidden;
 }
 
-/* line 2042, ../sass/screen.scss */
+/* line 2045, ../sass/screen.scss */
 .clearfix:before,
 .clearfix:after {
   content: " ";
   display: table;
 }
 
-/* line 2048, ../sass/screen.scss */
+/* line 2051, ../sass/screen.scss */
 .clearfix:after {
   clear: both;
 }
 
-/* line 2052, ../sass/screen.scss */
+/* line 2055, ../sass/screen.scss */
 .clearfix {
   *zoom: 1;
 }
@@ -2535,7 +2535,7 @@ body {
    Print styles
    ========================================================================== */
 @media print {
-  /* line 2061, ../sass/screen.scss */
+  /* line 2064, ../sass/screen.scss */
   *,
   *:before,
   *:after {
@@ -2545,52 +2545,52 @@ body {
     text-shadow: none !important;
   }
 
-  /* line 2070, ../sass/screen.scss */
+  /* line 2073, ../sass/screen.scss */
   a,
   a:visited {
     text-decoration: underline;
   }
 
-  /* line 2075, ../sass/screen.scss */
+  /* line 2078, ../sass/screen.scss */
   a[href]:after {
     content: " (" attr(href) ")";
   }
 
-  /* line 2079, ../sass/screen.scss */
+  /* line 2082, ../sass/screen.scss */
   abbr[title]:after {
     content: " (" attr(title) ")";
   }
 
-  /* line 2083, ../sass/screen.scss */
+  /* line 2086, ../sass/screen.scss */
   a[href^="#"]:after,
   a[href^="javascript:"]:after {
     content: "";
   }
 
-  /* line 2088, ../sass/screen.scss */
+  /* line 2091, ../sass/screen.scss */
   pre,
   blockquote {
     border: 1px solid #999;
     page-break-inside: avoid;
   }
 
-  /* line 2094, ../sass/screen.scss */
+  /* line 2097, ../sass/screen.scss */
   thead {
     display: table-header-group;
   }
 
-  /* line 2098, ../sass/screen.scss */
+  /* line 2101, ../sass/screen.scss */
   tr,
   img {
     page-break-inside: avoid;
   }
 
-  /* line 2103, ../sass/screen.scss */
+  /* line 2106, ../sass/screen.scss */
   img {
     max-width: 100% !important;
   }
 
-  /* line 2107, ../sass/screen.scss */
+  /* line 2110, ../sass/screen.scss */
   p,
   h2,
   h3 {
@@ -2598,7 +2598,7 @@ body {
     widows: 3;
   }
 
-  /* line 2114, ../sass/screen.scss */
+  /* line 2117, ../sass/screen.scss */
   h2,
   h3 {
     page-break-after: avoid;
