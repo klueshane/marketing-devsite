@@ -1288,7 +1288,7 @@ body {
   }
 }
 
-.blogitems {
+.blogitems,.ajax-load-more-wrap {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;

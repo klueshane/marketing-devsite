@@ -1579,14 +1579,14 @@ body {
 }
 
 /* line 1291, ../sass/screen.scss */
-.blogitems {
+.blogitems, .ajax-load-more-wrap {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
 }
 @media (max-width: 880px) {
   /* line 1291, ../sass/screen.scss */
-  .blogitems {
+  .blogitems, .ajax-load-more-wrap {
     flex-direction: column;
   }
 }
