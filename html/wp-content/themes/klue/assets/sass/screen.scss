@@ -1292,6 +1292,8 @@ body {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  max-width:1290px;
+  margin:0 auto;
   @media (max-width: $breakpoint-tablet) {
     flex-direction: column;
   }
