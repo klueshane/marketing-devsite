@@ -75,7 +75,7 @@
       			
           
 
-<?php echo do_shortcode('[ajax_load_more id="1562680210" post_type="post" posts_per_page="9" scroll="false"]'); ?>
+<?php echo do_shortcode('[ajax_load_more id="1562680210" post_type="post" posts_per_page="9" button_label="Load More" scroll="false"]'); ?>
 
 
 
