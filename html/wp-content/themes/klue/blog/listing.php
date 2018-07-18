@@ -65,6 +65,7 @@
         
         <?php
         $post_counter = 0;
+        wp_reset_postdata();
         if ( have_posts() ) : ?>
           <section class="blogitems">
             <?php if(is_category()) { 
