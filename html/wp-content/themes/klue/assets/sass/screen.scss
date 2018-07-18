@@ -1256,6 +1256,10 @@ body {
   text-decoration: none;
  }
 
+.blogfeatured__more,
+.blogitem__more:hover {
+  background-color: $bright-green;
+}
  .blogfeatured__image {
   display: block;
   width: 415px;
