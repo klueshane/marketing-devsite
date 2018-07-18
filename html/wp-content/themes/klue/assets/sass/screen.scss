@@ -1307,6 +1307,9 @@ body {
 .category .blogitems {
   margin-top: -350px;
 
+  @media (max-width: $breakpoint-tablet) {
+    margin-top: -200px;
+  }
   @media (max-width: $breakpoint-phone) {
     margin-top: -150px;
   }
