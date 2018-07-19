@@ -25,9 +25,11 @@
               <?php if(get_sub_field('resource_label')){ 
                 $resource_file = get_sub_field('resource_file'); 
                 $resource_link = get_sub_field('resource_link'); 
+              print_r($resource_file);
               ?><a class="button button--webinar button--green-solid" modal-data="" href="#" 
               <?php 
               if( $resource_file ){ ?>
+
                 data-location="<?php echo $resource_file; ?>" <?php 
                 } elseif( $resource_link )
                 { ?>
