@@ -57,10 +57,14 @@ $('.button--info').click(function() {
     event.preventDefault();
     var $location = $(this).attr('data-location');
     $('#modal__ebook').toggle();
-    $('#modal__ebook').attr('data-location',$location)
+    $('#modal__ebook__form').attr('data-location',$location)
     $('body').toggleClass('modal__demo--on');
   });
-
+  $('#modal__ebook__form').submit(function(e){
+      event.preventDefault();
+      var fileUrl = $(this).attr('data-location');
+      alert(fileUrl);
+  });
   $('.button--webinar').click(function() {
     event.preventDefault();
     var $location = $(this).attr('data-location');
@@ -81,9 +85,7 @@ $('.button--info').click(function() {
     $('body').toggleClass('modal__demo--on');
   });
 
-  $('#mc-embedded-subscribe-form').submit(funciton() {
-    if($("#mce-success-response").is(':visible')) { $("#mce-EMAIL").hide();}
-  });
+  
   // Variable to hold request
   var request;
 
