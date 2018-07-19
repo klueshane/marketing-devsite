@@ -76,7 +76,7 @@
       			
           $cat = get_query_var('cat');
           $category = get_category ($cat);
-          echo do_shortcode('[ajax_load_more css_classes="button button--green-solid" id="1562680210" seo="true" category="'.$category->slug.'" post_type="post" posts_per_page="9" button_label="Load More" scroll="false"]'); 
+          echo do_shortcode('[ajax_load_more id="1562680210" seo="true" category="'.$category->slug.'" post_type="post" posts_per_page="9" button_label="Load More" scroll="false"]'); 
           ?>
 
 
