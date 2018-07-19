@@ -26,7 +26,7 @@
                 $resource_file = get_sub_field('resource_file'); 
                 $resource_link = get_sub_field('resource_link'); 
               ?><a class="button 
-              <?php if(get_sub_field('resource_label') == "Watch Webinar"){ ?> button--webinar <?php } ?> button--green-solid" modal-data="" href="#" 
+              <?php if(get_sub_field('resource_label') == "Watch Webinar"){ ?> button--webinar <?php } else { ?> button--ebook <?php }?> button--green-solid" modal-data="" href="#" 
               <?php 
               if( $resource_file ){ ?>
 
