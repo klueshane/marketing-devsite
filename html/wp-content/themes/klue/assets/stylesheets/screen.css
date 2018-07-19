@@ -1591,7 +1591,7 @@ body {
   justify-content: center;
   flex-wrap: wrap;
   max-width: 1290px;
-  margin: 0 auto 10px 0;
+  margin: 0 auto 10px;
 }
 @media (max-width: 880px) {
   /* line 1296, ../sass/screen.scss */
