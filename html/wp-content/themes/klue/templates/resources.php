@@ -25,14 +25,15 @@
               <?php if(get_sub_field('resource_label')){ 
                 $resource_file = get_sub_field('resource_file'); 
                 $resource_link = get_sub_field('resource_link'); 
-              ?><a class="button button--webinar button--green-solid" modal-data="" href="#" 
+              ?><a class="button 
+              <?php if(get_sub_field('resource_label') == "Watch Webinar"){ ?> button--webinar <?php } ?> button--green-solid" modal-data="" href="#" 
               <?php 
               if( $resource_file ){ ?>
 
-                data-location="<?php echo $resource_file['ID']; ?>" <?php 
+                data-location="<?php echo $resource_file['url']; ?>" <?php 
                 } elseif( $resource_link )
                 { ?>
-                  data-location="<?php echo $resource_link['ID']; ?>" <?php 
+                  data-location="<?php echo $resource_link['url']; ?>" <?php 
                 } ?>>
 
                 <?php if(get_sub_field('resource_label') == "Watch Webinar"){ ?><i class="fa fa-play-circle" aria-hidden="true"></i><?php } 
