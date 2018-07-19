@@ -60,11 +60,14 @@ $('.button--info').click(function() {
     $('#modal__ebook__form').attr('data-location',$location)
     $('body').toggleClass('modal__demo--on');
   });
+
   $('#modal__ebook__form').submit(function(e){
       event.preventDefault();
       var fileUrl = $(this).attr('data-location');
       alert(fileUrl);
   });
+  
+
   $('.button--webinar').click(function() {
     event.preventDefault();
     var $location = $(this).attr('data-location');
