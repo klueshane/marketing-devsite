@@ -1,7 +1,8 @@
 <?php
 
 //$file = $_POST['fileName']; 
-$file = $_GET['fileName']; 
+$file = $_REQUEST['fileName']; 
+$referer = $_SERVER["HTTP_REFERER"];
 
 // hardcode list of allowed files to prevent abuse
 
@@ -9,10 +10,8 @@ $allowedFiles = array(
 	"http://fmq.a52.mwp.accessdomain.com/wp-content/uploads/2018/06/Klue-Ebook-Bundle-for-Product-Marketers.pdf",
 	"http://fmq.a52.mwp.accessdomain.com/wp-content/uploads/2018/02/Klue-Ebook-Bundle-for-Product-Marketers.pdf",
 );
-
-echo $file;
-echo(in_array($file, $allowedFiles));
-/*
+// check if query param fileName is in the list of approved downloads
+// check if referer is ok
 if(in_array($file, $allowedFiles)) {
 	$pathinfo = parse_url($file);
 	header("Content-Description: File Transfer"); 
@@ -25,8 +24,6 @@ else {
 
 	echo 'Forbidden Activity';
 }
-*/
-phpinfo();
 exit(); 
 ?>
 
