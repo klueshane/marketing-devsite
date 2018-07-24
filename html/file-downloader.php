@@ -1,7 +1,7 @@
 <?php
 
 //$file = $_POST['fileName']; 
-$file = $_GET['fileName']; 
+$file = "http://fmq.a52.mwp.accessdomain.com/wp-content/uploads/2018/06/Klue-Ebook-Bundle-for-Product-Marketers.pdf"; 
 
 // hardcode list of allowed files to prevent abuse
 
