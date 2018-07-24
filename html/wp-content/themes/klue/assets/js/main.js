@@ -11,8 +11,8 @@ var ninjaFormsResourcesListener = Marionette.Object.extend({
     actionSubmit: function( response ) {
       console.log(response.data.form_id);
       var errors = response.errors;
-      if(response.data.form_id == '6' && errors == false) {
-        alert(dlUrl);
+      if(response.data.form_id == '6' && errors == false && dlUrl !== "") {
+        document.location.href = "/file-downloader.php?fileName="+dlUrl;
       }
     },
 
