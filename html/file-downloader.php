@@ -8,7 +8,7 @@ $allowedFiles = array(
 	"http://fmq.a52.mwp.accessdomain.com/wp-content/uploads/2018/06/Klue-Ebook-Bundle-for-Product-Marketers.pdf",
 	"http://fmq.a52.mwp.accessdomain.com/wp-content/uploads/2018/02/Klue-Ebook-Bundle-for-Product-Marketers.pdf",
 );
-in_array($file, $allowedFiles) {
+	if(in_array($file, $allowedFiles)) {
 	$pathinfo = parse_url($file);
 	header("Content-Description: File Transfer"); 
 	header("Content-Type: application/octet-stream"); 
@@ -17,6 +17,5 @@ in_array($file, $allowedFiles) {
 }
 exit(); 
 ?>
-
 
  
