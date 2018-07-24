@@ -1,4 +1,7 @@
 
+
+
+$( document ).ready(function() {
 var ninjaFormsResourcesListener = Marionette.Object.extend({
 
     initialize: function() {
@@ -10,9 +13,6 @@ var ninjaFormsResourcesListener = Marionette.Object.extend({
     },
 
 });
-
-$( document ).ready(function() {
-
   var dlUrl = "";
   new ninjaFormsResourcesListener;
 
