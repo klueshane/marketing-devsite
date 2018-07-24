@@ -32,12 +32,7 @@
       <h1 class="modal__heading">Sign up for access</h1>
       <a class="modal__close" href="">Close</a>
     </div>
-    <form class="modal__form" id="modal__ebook__form">
-      <input class="modal__input" type="text" placeholder="Name" name="name">
-      <input class="modal__input" type="email" placeholder="Email (required)" name="email" required>
-      <input class="modal__input" type="text" placeholder="Company (required)" name="company" required>
-      <button class="modal__submit button button--green-solid">Submit</button>
-    </form>
+<?php echo(do_shortcode('[ninja_form id=6]')); ?>
   </div>
 </section>
 
