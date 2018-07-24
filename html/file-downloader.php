@@ -1,4 +1,5 @@
 <?php
+
 //$file = $_POST['fileName']; 
 $file = $_GET['fileName']; 
 
@@ -25,6 +26,7 @@ else {
 	echo 'Forbidden Activity';
 }
 */
+phpinfo();
 exit(); 
 ?>
 
