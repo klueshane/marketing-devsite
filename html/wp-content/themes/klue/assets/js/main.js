@@ -1,6 +1,7 @@
 
 $( document ).ready(function() {
 
+  var dlUrl = "";
   // var video = $("#header-video").get(0);
   // video.addEventListener("ended", function() {
   //   this.currentTime = 8.1;
@@ -48,25 +49,30 @@ $( document ).ready(function() {
     $('#modal__demo').toggle();
     $('body').toggleClass('modal__demo--on');
   });
-$('.button--info').click(function() {
+  $('.button--info').click(function() {
     event.preventDefault();
     $('#modal__info').toggle();
     $('body').toggleClass('modal__demo--on');
   });
   $('.button--ebook').click(function() {
     event.preventDefault();
-    var $location = $(this).attr('data-location');
+    dlUrl = $(this).attr('data-location');
     $('#modal__ebook').toggle();
-    $('#modal__ebook__form').attr('data-location',$location)
     $('body').toggleClass('modal__demo--on');
   });
 
   $('#modal__ebook__form').submit(function(e){
       event.preventDefault();
       var fileUrl = $(this).attr('data-location');
-      alert(fileUrl);
   });
   
+  $( '.ninja-forms-form' ).on( 'submitResponse', function( e, response ) {
+    var errors = response.errors;
+    if ( errors == false ) {
+        // Event tracking code
+        alert(dlUrl);
+    }
+});
 
   $('.button--webinar').click(function() {
     event.preventDefault();
