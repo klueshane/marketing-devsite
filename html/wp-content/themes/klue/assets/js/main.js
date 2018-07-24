@@ -67,10 +67,11 @@ $( document ).ready(function() {
   });
   
   $( '.ninja-forms-form' ).on( 'submitResponse', function( e, response ) {
+    alert(dlUrl);
     var errors = response.errors;
     if ( errors == false ) {
         // Event tracking code
-        alert(dlUrl);
+        
     }
 });
 
