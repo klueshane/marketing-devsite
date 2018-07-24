@@ -8,10 +8,10 @@ $allowedFiles = array(
 	"http://fmq.a52.mwp.accessdomain.com/wp-content/uploads/2018/06/Klue-Ebook-Bundle-for-Product-Marketers.pdf",
 	"http://fmq.a52.mwp.accessdomain.com/wp-content/uploads/2018/02/Klue-Ebook-Bundle-for-Product-Marketers.pdf",
 );
-echo $file;
-print_r($allowedFiles);
-echo(in_array($file, $allowedFiles));
 
+
+echo(in_array($file, $allowedFiles));
+/*
 if(in_array($file, $allowedFiles)) {
 	$pathinfo = parse_url($file);
 	header("Content-Description: File Transfer"); 
@@ -24,6 +24,7 @@ else {
 
 	echo 'Forbidden Activity';
 }
+*/
 exit(); 
 ?>
 
