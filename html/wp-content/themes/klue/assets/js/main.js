@@ -1,7 +1,22 @@
 
+var ninjaFormsResourcesListener = Marionette.Object.extend({
+
+    initialize: function() {
+      this.listenTo( Backbone.Radio.channel( 'forms' ), 'submit:response', this.actionSubmit );
+    },
+
+    actionSubmit: function( response ) {
+      console.log(response);
+    },
+
+});
+
 $( document ).ready(function() {
 
   var dlUrl = "";
+  new ninjaFormsResourcesListener;
+
+
   // var video = $("#header-video").get(0);
   // video.addEventListener("ended", function() {
   //   this.currentTime = 8.1;
@@ -66,13 +81,7 @@ $( document ).ready(function() {
       var fileUrl = $(this).attr('data-location');
   });
   
-  $( '.ninja-forms-form' ).on( 'submitResponse', function( e, response ) {
-    alert(dlUrl);
-    var errors = response.errors;
-    if ( errors == false ) {
-        // Event tracking code
-        
-    }
+
 });
 
   $('.button--webinar').click(function() {
