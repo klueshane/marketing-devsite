@@ -17,11 +17,11 @@ $allowedFiles = array(
 // check if query param fileName is in the list of approved downloads
 // check if referer is ok
 if(in_array($file['path'], $allowedFiles) && $referer['path'] == "/competitive-strategy-resources") {
-	$pathinfo = parse_url($file);
+	
 	header("Content-Description: File Transfer"); 
 	header("Content-Type: application/octet-stream"); 
-	header("Content-Disposition: attachment; filename='" . basename($pathinfo['path']) . "'"); 
-	readfile ($_SERVER['DOCUMENT_ROOT'].$pathinfo['path']);
+	header("Content-Disposition: attachment; filename='" . basename($file['path']) . "'"); 
+	readfile ($_SERVER['DOCUMENT_ROOT'].$file['path']);
 }
 else {
 	header('HTTP/1.0 403 Forbidden');
