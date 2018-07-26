@@ -32,7 +32,9 @@ var ninjaFormsResourcesListener = Marionette.Object.extend({
     console.log('team__member clicked: '+$(this));
     $(this).find('.modal').toggle();
   });
-
+  $('.modal__close').click(function(event){
+      $('nf-response-msg').hide();
+  });
   $('.modal__closer').click(function (event) {
     event.preventDefault();
     $(this).parent().find('.modal').toggle();
