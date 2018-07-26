@@ -87,6 +87,7 @@ var ninjaFormsResourcesListener = Marionette.Object.extend({
   $('#modal__ebook__form').submit(function(e){
       event.preventDefault();
       var fileUrl = $(this).attr('data-location');
+      $('#nf-field-31').val(fileUrl);
   });
 
   $('.button--webinar').click(function() {
