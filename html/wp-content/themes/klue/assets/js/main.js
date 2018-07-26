@@ -33,7 +33,7 @@ var ninjaFormsResourcesListener = Marionette.Object.extend({
     $(this).find('.modal').toggle();
   });
   $('.modal__close').click(function(event){
-      $('nf-response-msg').hide();
+      $('.nf-response-msg').hide();
   });
   $('.modal__closer').click(function (event) {
     event.preventDefault();
