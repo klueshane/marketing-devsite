@@ -366,6 +366,7 @@ body {
     .catlist__link:hover {
       color: #3E3750;
       background-color:#AF95F2;
+      border-color:#AF95F2;
     }
     .catlist__link--current {
       color: white;
@@ -1305,7 +1306,7 @@ body {
   justify-content: center;
   flex-wrap: wrap;
   max-width:1290px;
-  margin:0 auto 10px;
+  margin:3px auto 10px;
   @media (max-width: $breakpoint-tablet) {
     flex-direction: column;
   }
