@@ -302,7 +302,7 @@ body {
   .blognav__catlist {
     display: flex;
     width: 100%;
-    overflow-x: scroll;
+    overflow-x: hidden;
     max-width: 835px;
     height: 60px;
 
