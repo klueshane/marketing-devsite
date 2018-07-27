@@ -352,7 +352,7 @@ body {
 
   .catlist__link {
     border: 2px solid #6E6093;
-    padding: 10px 10px;
+    padding: 10px 12px;
     color: #AF95F2;
     text-decoration: none;
     margin-right: 10px;
@@ -363,7 +363,7 @@ body {
     letter-spacing: .05em;
   }
 
-    .catlist__link--current {
+    .catlist__link--current, .catlist__link:hover {
       color: white;
       border-color: white;
     }
