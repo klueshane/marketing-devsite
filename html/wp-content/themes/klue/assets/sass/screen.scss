@@ -361,9 +361,10 @@ body {
     text-transform:uppercase;
     font-size:.8em;
     letter-spacing: .05em;
+    transition: background-color .2s ease-in-out, border-color .2s ease-in-out;
   }
 
-    .catlist__link:hover {
+    .catlist__link:not(.catlist__link--current):hover {
       color: #3E3750;
       background-color:#AF95F2;
       border-color:#AF95F2;
