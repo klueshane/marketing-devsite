@@ -9,7 +9,7 @@
           while ( $featured_posts->have_posts() ) :
           $featured_posts->the_post();
 
-              if( 0 == $featured_posts->current_post ) { ?>
+              if( 1 == $featured_posts->current_post ) { ?>
                 <div class="blogfeatured__main">
               	<?php 
                 if(has_post_thumbnail()) { ?>
@@ -29,7 +29,7 @@
                 <?php } ?>
                 </div>
 
-            <?  } elseif( 1 == $featured_posts->current_post ) { ?>
+            <?  } elseif( 0 == $featured_posts->current_post ) { ?>
 
               <div class="blogfeatured__secondary blogitem">
               <?php if(has_post_thumbnail()) { ?>
