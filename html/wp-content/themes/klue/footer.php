@@ -77,7 +77,7 @@
   <div class="modal__container">
     <div class="modal__info">
       <h1 class="modal__heading">Subscribe for updates!</h1>
-      <p class="modal__description"></p>
+      <p class="modal__description">We will let you know when we post new content.</p>
       <a class="modal__close" href="">Close</a>
     </div>
 
