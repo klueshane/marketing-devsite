@@ -35,7 +35,7 @@ var ninjaFormsResourcesListener = Marionette.Object.extend({
   $('.modal__closer').click(function (event) {
     event.preventDefault();
     $(this).parent().find('.modal').toggle();
-    $('body').toggleClass('modal__demo--on');
+    $('body').removeClass('modal__demo--on');
 
   });
 
@@ -99,13 +99,13 @@ var ninjaFormsResourcesListener = Marionette.Object.extend({
   $('.button--subscribe').click(function() {
     event.preventDefault();
     $('#modal__subscribe').toggle();
-    $('body').toggleClass('modal__subscribe--on');
+    $('body').toggleClass('modal__demo--on');
   });
 
   $('.modal__close').click(function() {
     event.preventDefault();
     $(this).closest('.modal').toggle();
-    $('body').toggleClass('modal__demo--on');
+    $('body').removeClass('modal__demo--on');
     $('.nf-response-msg').hide();
   });
 
