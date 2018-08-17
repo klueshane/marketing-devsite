@@ -88,7 +88,18 @@ body {
   font-family: "proxima-nova", sans-serif;
   background: #ECEEEB;
 }
-
+ol {
+  list-style-type: decimal;
+}
+ul {
+  list-style-type: disc;
+}
+em,i {
+  font-style:italic;
+}
+strong, b {
+  font-weight: bold;
+}
 .nav-overlay--on body { overflow: hidden; }
 
 .button {
