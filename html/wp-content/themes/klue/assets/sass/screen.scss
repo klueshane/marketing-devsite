@@ -1952,24 +1952,13 @@ body {
 
    .modal__info {
     background: transparent url('/wp-content/themes/klue/assets/images/watchvideo.png');
-    padding:130px 0 0 0;
+    padding:0 0 130px 0;
     }
     .modal__info_inner {
       background: $bright-green;
       padding: 20px 50px 45px;
-      margin-top: 70px;
     }
-    .modal__description{
-      font-size:1em;
-    }
-    .modal__heading{
-      font-size: 1em;
-      margin-top:5px;
-      line-height: 1em;
-    }
-    .modal__close{
-      top:212px;
-    }
+
   }
   
 
