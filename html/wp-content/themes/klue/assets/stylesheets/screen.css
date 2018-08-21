@@ -2424,7 +2424,7 @@ body {
 }
 
 /* line 1951, ../sass/screen.scss */
-#modal__webinar > .modal__info {
+#modal__webinar .modal__info {
   background: #43BC8F url("wp-content/themes/klue/assets/images/watchvideo.png");
 }
 
