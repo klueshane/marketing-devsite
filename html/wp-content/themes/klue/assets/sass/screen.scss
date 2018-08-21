@@ -250,6 +250,9 @@ strong, b {
   .category .header {
     border-bottom: 90px solid #3E3750;
   }
+  .header--blog li {
+    list-style:none;
+  }
 
   .header__header-sinch {
     max-width: 1200px;
