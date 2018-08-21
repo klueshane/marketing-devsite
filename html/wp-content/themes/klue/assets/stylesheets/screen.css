@@ -137,22 +137,22 @@ body {
 }
 
 /* line 91, ../sass/screen.scss */
-ol {
+.blogbody ol {
   list-style-type: decimal;
 }
 
 /* line 94, ../sass/screen.scss */
-ul {
+.blogbody ul {
   list-style-type: disc;
 }
 
 /* line 97, ../sass/screen.scss */
-em, i {
+.blogbody em, i {
   font-style: italic;
 }
 
 /* line 100, ../sass/screen.scss */
-strong, b {
+.blogbody strong, b {
   font-weight: bold;
 }
 
