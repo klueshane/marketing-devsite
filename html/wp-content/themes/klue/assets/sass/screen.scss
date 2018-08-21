@@ -1949,7 +1949,13 @@ body {
   }
 
   #modal__webinar .modal__info {
-    background: $bright-green url('/wp-content/themes/klue/assets/images/watchvideo.png');
+    background: transparent url('/wp-content/themes/klue/assets/images/watchvideo.png');
+    padding:0;
+  }
+  #modal__webinar .modal__info_inner {
+    background: $bright-green;
+    padding: 20px 50px 45px;
+    margin-top: 70px;
   }
   .modal__heading {
     font-size: 1.5em;
