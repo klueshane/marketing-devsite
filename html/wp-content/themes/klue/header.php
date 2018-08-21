@@ -87,7 +87,6 @@ https://angel.co/klue
       </ul>
       <?php if(get_field('header_label')): ?><span class="heading__wrapper"><h1 class="header__heading"><?php the_field('header_label'); ?></h1></span><?php endif; ?>
     </div>
-
     <a href="#" class="button--nav button button--green-solid">Nav</a>
 
     <?php if (/* blog section */is_home() || is_category() || is_post_type_archive('post') || is_singular('post')) { ?>
