@@ -83,7 +83,7 @@ https://angel.co/klue
         <li class="header-nav__header-nav-item <?php echo $current_path == 'competitive-strategy-resources' ? 'header-nav__header-nav-item--current"' : ''; ?>"><a href="/competitive-strategy-resources/">Resources</a></li>
         <li class="header-nav__header-nav-item <?php echo $current_path == 'contact' ? 'header-nav__header-nav-item--current"' : ''; ?>"><a href="/contact/">Contact</a></li>
         <li class="header-nav__header-nav-item header-nav__header-nav-item--login"><a href="https://app.klue.com/">Login</a></li>
-        <li class="header-nav__header-nav-item"><a href="https://app.klue.com" class="button button--nav-item button--green-solid button--demo">Request a demo</a></li>
+        <li class="header-nav__header-nav-item"><a href="https://app.klue.com" class="button button--nav-item button--green-solid button--demo">Get a demo</a></li>
       </ul>
       <?php if(get_field('header_label')): ?><span class="heading__wrapper"><h1 class="header__heading"><?php the_field('header_label'); ?></h1></span><?php endif; ?>
     </div>

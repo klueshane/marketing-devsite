@@ -2,7 +2,7 @@
 
 <section class="footer">
   <a class="footer__logo" href="/">Klue</a>
-  <a class="button button--green-solid button--demo" href="#">Request a demo</a>
+  <a class="button button--green-solid button--demo" href="#">Get a demo</a>
   <ul class="footer__footer-nav">
     <?php $current_path = trim(explode('?', strtolower($_SERVER['REQUEST_URI']))[0], '/'); ?>
     <li class="footer-nav__item"><a href="/">Home</a></li>
@@ -39,24 +39,19 @@
 <section id="modal__webinar" class="modal">
   <div class="modal__container">
     <div class="modal__info">
-      <h1 class="modal__heading">Sign up for access</h1>
+      <h1 class="modal__heading">Watch a quick video about Klue.</h1>
+      <p class="modal__description">It's like a demo but without the human interaction.</p>
       <a class="modal__close" href="">Close</a>
     </div>
-    <form class="modal__form">
-      <input type="hidden" name="_nonce" value="b5902f0223">
-      <input class="modal__input" type="text" placeholder="Name" name="name">
-      <input class="modal__input" type="email" placeholder="Email (required)" name="email" required>
-      <input class="modal__input" type="text" placeholder="Company (required)" name="company" required>
-      <button class="modal__submit button button--green-solid">Submit</button>
-    </form>
+    <?php echo(do_shortcode('[ninja_form id=7]')); ?>
   </div>
 </section>
 
 <section id="modal__demo" class="modal">
   <div class="modal__container">
     <div class="modal__info">
-      <h1 class="modal__heading">Request a Demo</h1>
-      <p class="modal__description">Submit this form and one of our analysts will be in touch soon.</p>
+      <h1 class="modal__heading">Want to see Klue in Action?</h1>
+      <p class="modal__description">Let's do it. Tell us a bit about yourself and we'll set up a time to wow you.</p>
       <a class="modal__close" href="">Close</a>
     </div>
 <?php echo(do_shortcode('[ninja_form id=4]')); ?>
