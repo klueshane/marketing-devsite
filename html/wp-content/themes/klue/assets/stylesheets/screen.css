@@ -333,7 +333,7 @@ strong, b {
 }
 
 /* line 253, ../sass/screen.scss */
-.header--blog li {
+.header--blog ul {
   list-style: none;
 }
 
