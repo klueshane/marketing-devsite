@@ -13,6 +13,8 @@ var ninjaFormsResourcesListener = Marionette.Object.extend({
       var errors = response.errors;
       if(response.data.form_id == '6' && errors == false && dlUrl !== "") {
         document.location.href = "/file-downloader.php?fileName="+dlUrl;
+      }else if(response.data.form_id == '7' && errors == false) {
+        alert ('whoo whooo!');
       }
     },
 
