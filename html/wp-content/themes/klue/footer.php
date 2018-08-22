@@ -50,9 +50,10 @@
 </section>
 <section id="modal__video" class="modal">
   <div class="modal__container">
-    <a class="modal__close" href="">Close</a>
+    <div class="modal__info">
     <iframe src="https://player.vimeo.com/video/286071548" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
     <p><a href="https://vimeo.com/286071548">Drug Runner</a> from <a href="https://vimeo.com/charlotteregan">Charlotte Regan</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+  </div><a class="modal__close" href="">Close</a>
   </div>
 </section>
 <section id="modal__demo" class="modal">
