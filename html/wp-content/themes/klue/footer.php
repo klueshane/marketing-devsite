@@ -44,7 +44,7 @@
       <a class="modal__close" href="">Close</a>
     </div>
     </div>
-    <?php echo(do_shortcode('[ninja_form id=7]')); ?>
+    <?php echo(do_shortcode('[ninja_form id=6]')); ?>
   </div>
 </section>
 <section id="modal__video" class="modal">
@@ -62,8 +62,8 @@
 <section id="modal__videoPlayer" class="modal">
   <div class="modal__container">
     <div class="modal__info">
-    <iframe src="https://player.vimeo.com/video/286071548" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-    <p><a href="https://vimeo.com/286071548">Drug Runner</a> from <a href="https://vimeo.com/charlotteregan">Charlotte Regan</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+    <iframe src="https://player.vimeo.com/video/286260071" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+<p><a href="https://vimeo.com/286260071">Klue Overview: Competitive Intelligence Platform</a> from <a href="https://vimeo.com/user70942503">Katie @ Klue</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
   </div><a class="modal__close" href="">Close</a>
   </div>
 </section>
