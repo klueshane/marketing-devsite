@@ -74,7 +74,7 @@ var ninjaFormsResourcesListener = Marionette.Object.extend({
   });
   $('.button--info').click(function() {
     event.preventDefault();
-    $('#modal__info').toggle();
+    $('#modal__video').toggle();
     $('body').toggleClass('modal__demo--on');
   });
   $('.button--ebook').click(function() {

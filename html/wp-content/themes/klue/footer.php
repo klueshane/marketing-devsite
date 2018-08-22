@@ -35,7 +35,6 @@
 <?php echo(do_shortcode('[ninja_form id=6]')); ?>
   </div>
 </section>
-
 <section id="modal__webinar" class="modal">
   <div class="modal__container">
     <div class="modal__info">
@@ -49,6 +48,18 @@
   </div>
 </section>
 <section id="modal__video" class="modal">
+  <div class="modal__container">
+    <div class="modal__info">
+      <div class="modal__info_inner">
+      <h1 class="modal__heading">Watch a quick video about Klue.</h1>
+      <p class="modal__description">It's like a demo but without the human interaction.</p>
+      <a class="modal__close" href="">Close</a>
+    </div>
+    </div>
+    <?php echo(do_shortcode('[ninja_form id=7]')); ?>
+  </div>
+</section>
+<section id="modal__videoPlayer" class="modal">
   <div class="modal__container">
     <div class="modal__info">
     <iframe src="https://player.vimeo.com/video/286071548" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
