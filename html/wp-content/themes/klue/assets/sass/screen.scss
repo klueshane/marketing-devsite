@@ -1951,7 +1951,7 @@ body {
   #modal__webinar {
 
    .modal__info {
-    background: transparent url('/wp-content/themes/klue/assets/images/watchvideo.png');
+    background: transparent url('/wp-content/themes/klue/assets/images/watchvideo.png') bottom;
     padding:0 0 169px 0;
     }
     .modal__info_inner {
@@ -1960,6 +1960,7 @@ body {
     }
     .modal__description {
       line-height:1.5em;
+      margin-top:5px;
     }
 
   }
