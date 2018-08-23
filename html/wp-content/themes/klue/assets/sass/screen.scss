@@ -1947,7 +1947,9 @@ body {
     background: $bright-green;
     padding: 70px 50px 45px;
   }
-
+  #modal__video .modal__info {
+    background: transparent url('/wp-content/themes/klue/assets/images/watchvideo.png') bottom;
+    padding:0 0 197px 0;}
   #modal__video {
    .modal__info {
     background: transparent url('/wp-content/themes/klue/assets/images/watchvideo.png') bottom;
@@ -1961,7 +1963,6 @@ body {
       line-height:1.5em;
       margin-top:5px;
     }
-
   }
   
   .modal__heading {
