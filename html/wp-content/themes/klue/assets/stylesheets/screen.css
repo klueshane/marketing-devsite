@@ -2423,29 +2423,29 @@ body {
   padding: 70px 50px 45px;
 }
 
-/* line 1953, ../sass/screen.scss */
+/* line 1952, ../sass/screen.scss */
 #modal__video .modal__info {
   background: transparent url("/wp-content/themes/klue/assets/images/watchvideo.png") bottom;
   padding: 0 0 197px 0;
 }
-/* line 1957, ../sass/screen.scss */
+/* line 1956, ../sass/screen.scss */
 #modal__video .modal__info_inner {
   background: #43BC8F;
   padding: 15px 55px 15px;
 }
-/* line 1961, ../sass/screen.scss */
+/* line 1960, ../sass/screen.scss */
 #modal__video .modal__description {
   line-height: 1.5em;
   margin-top: 5px;
 }
 
-/* line 1969, ../sass/screen.scss */
+/* line 1968, ../sass/screen.scss */
 .modal__heading {
   font-size: 1.5em;
   color: white;
 }
 
-/* line 1974, ../sass/screen.scss */
+/* line 1973, ../sass/screen.scss */
 .modal__description {
   font-size: 1.1em;
   font-weight: 200;
@@ -2455,7 +2455,7 @@ body {
   color: #C3FFE9;
 }
 
-/* line 1983, ../sass/screen.scss */
+/* line 1982, ../sass/screen.scss */
 .modal__close, .modal__closer {
   background: url("/wp-content/themes/klue/assets/img/icon-modal-close.png");
   background-size: 30px;
@@ -2467,14 +2467,14 @@ body {
   text-indent: -9999px;
 }
 
-/* line 1994, ../sass/screen.scss */
+/* line 1993, ../sass/screen.scss */
 .modal__form {
   background: #57506A;
   padding: 30px 60px 50px;
   color: white;
 }
 
-/* line 2000, ../sass/screen.scss */
+/* line 1999, ../sass/screen.scss */
 .modal__success {
   color: white;
   font-size: 1.5em;
@@ -2485,7 +2485,7 @@ body {
   background-repeat: no-repeat;
 }
 
-/* line 2010, ../sass/screen.scss */
+/* line 2009, ../sass/screen.scss */
 .modal__input {
   color: #C3B5E9;
   background: none;
@@ -2501,28 +2501,28 @@ body {
   margin: 30px 0;
 }
 
-/* line 2025, ../sass/screen.scss */
+/* line 2024, ../sass/screen.scss */
 .modal__input::-webkit-input-placeholder {
   color: #C3B5E9 !important;
 }
 
-/* line 2026, ../sass/screen.scss */
+/* line 2025, ../sass/screen.scss */
 .modal__input::-moz-placeholder {
   color: #C3B5E9 !important;
 }
 
-/* line 2027, ../sass/screen.scss */
+/* line 2026, ../sass/screen.scss */
 .modal__input::-ms-input-placeholder {
   color: #C3B5E9 !important;
 }
 
-/* line 2029, ../sass/screen.scss */
+/* line 2028, ../sass/screen.scss */
 .modal__button.modal__submit {
   margin-top: 30px;
   width: 100%;
 }
 
-/* line 2034, ../sass/screen.scss */
+/* line 2033, ../sass/screen.scss */
 .modal__image {
   width: 100%;
 }
@@ -2533,13 +2533,13 @@ body {
 /* ==========================================================================
    Helper classes
    ========================================================================== */
-/* line 2057, ../sass/screen.scss */
+/* line 2056, ../sass/screen.scss */
 .hidden {
   display: none !important;
   visibility: hidden;
 }
 
-/* line 2062, ../sass/screen.scss */
+/* line 2061, ../sass/screen.scss */
 .visuallyhidden {
   border: 0;
   clip: rect(0 0 0 0);
@@ -2551,7 +2551,7 @@ body {
   width: 1px;
 }
 
-/* line 2073, ../sass/screen.scss */
+/* line 2072, ../sass/screen.scss */
 .visuallyhidden.focusable:active,
 .visuallyhidden.focusable:focus {
   clip: auto;
@@ -2562,24 +2562,24 @@ body {
   width: auto;
 }
 
-/* line 2083, ../sass/screen.scss */
+/* line 2082, ../sass/screen.scss */
 .invisible {
   visibility: hidden;
 }
 
-/* line 2087, ../sass/screen.scss */
+/* line 2086, ../sass/screen.scss */
 .clearfix:before,
 .clearfix:after {
   content: " ";
   display: table;
 }
 
-/* line 2093, ../sass/screen.scss */
+/* line 2092, ../sass/screen.scss */
 .clearfix:after {
   clear: both;
 }
 
-/* line 2097, ../sass/screen.scss */
+/* line 2096, ../sass/screen.scss */
 .clearfix {
   *zoom: 1;
 }
@@ -2588,7 +2588,7 @@ body {
    Print styles
    ========================================================================== */
 @media print {
-  /* line 2106, ../sass/screen.scss */
+  /* line 2105, ../sass/screen.scss */
   *,
   *:before,
   *:after {
@@ -2598,52 +2598,52 @@ body {
     text-shadow: none !important;
   }
 
-  /* line 2115, ../sass/screen.scss */
+  /* line 2114, ../sass/screen.scss */
   a,
   a:visited {
     text-decoration: underline;
   }
 
-  /* line 2120, ../sass/screen.scss */
+  /* line 2119, ../sass/screen.scss */
   a[href]:after {
     content: " (" attr(href) ")";
   }
 
-  /* line 2124, ../sass/screen.scss */
+  /* line 2123, ../sass/screen.scss */
   abbr[title]:after {
     content: " (" attr(title) ")";
   }
 
-  /* line 2128, ../sass/screen.scss */
+  /* line 2127, ../sass/screen.scss */
   a[href^="#"]:after,
   a[href^="javascript:"]:after {
     content: "";
   }
 
-  /* line 2133, ../sass/screen.scss */
+  /* line 2132, ../sass/screen.scss */
   pre,
   blockquote {
     border: 1px solid #999;
     page-break-inside: avoid;
   }
 
-  /* line 2139, ../sass/screen.scss */
+  /* line 2138, ../sass/screen.scss */
   thead {
     display: table-header-group;
   }
 
-  /* line 2143, ../sass/screen.scss */
+  /* line 2142, ../sass/screen.scss */
   tr,
   img {
     page-break-inside: avoid;
   }
 
-  /* line 2148, ../sass/screen.scss */
+  /* line 2147, ../sass/screen.scss */
   img {
     max-width: 100% !important;
   }
 
-  /* line 2152, ../sass/screen.scss */
+  /* line 2151, ../sass/screen.scss */
   p,
   h2,
   h3 {
@@ -2651,7 +2651,7 @@ body {
     widows: 3;
   }
 
-  /* line 2159, ../sass/screen.scss */
+  /* line 2158, ../sass/screen.scss */
   h2,
   h3 {
     page-break-after: avoid;
