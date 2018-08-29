@@ -709,6 +709,12 @@ body {
   color: #FF565B;
 }
 
+/* line 547, ../sass/screen.scss */
+h1.overlay__heading--founded a {
+  text-decoration: none;
+  color: white;
+}
+
 /* line 548, ../sass/screen.scss */
 #header-video {
   margin: 0 auto;
