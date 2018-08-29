@@ -136,7 +136,7 @@ https://angel.co/klue
           <div class="panel">
             <h1 class="heading heading--black"><?php if(get_field('home-anywhere-heading')): ?><?php the_field('home-anywhere-heading'); ?><?php endif; ?></h1>
             <p class="description"><?php if(get_field('home-anywhere-text')): ?><?php the_field('home-anywhere-text'); ?><?php endif; ?></p>
-            <a href="#" class="button button--green button--info">Deliver intel to teams</a>
+            <a href="#" class="button button--green button--info">Watch Video</a>
           </div>
         </section>
 
