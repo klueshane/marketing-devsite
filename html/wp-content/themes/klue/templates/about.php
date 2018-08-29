@@ -40,7 +40,7 @@
 
 <?php while ( have_rows('founders') ) : the_row(); ?>
 <section class="overlay" style="background-image: url('<?php $founders_image = get_sub_field('founders_image'); if( !empty($founders_image) ): echo $founders_image['url']; endif; ?>');">
-  <h1 class="overlay__heading overlay__heading--founded"><?php if(get_field('founders_content')): ?><?php the_field('founders_content'); ?><?php endif; ?></h1>
+  <h1 class="overlay__heading overlay__heading--founded">Klue was founded by 15+ year industry veterans <em><a href="https://www.linkedin.com/in/onemoresmith/" target="_blank">Jason Smith</a></em> and <em><a href="https://www.linkedin.com/in/sarathyg/" target="_blank">Sarathy Naicker</a></em> in 2015.</h1>
 </section>
 <?php endwhile; ?>
 
