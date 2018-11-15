@@ -95,7 +95,8 @@ https://angel.co/klue
           <?php
             $cat_arguments = array(
                 'orderby' => 'name',
-                'parent' => 0
+                'parent' => 0,
+                'exclude' => 45,
                 );
               $categories = get_categories($cat_arguments);
               foreach($categories as $category) {
