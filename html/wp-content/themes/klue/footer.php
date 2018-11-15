@@ -61,11 +61,8 @@
 </section>
 <section id="modal__videoPlayer" class="modal">
   <div class="modal__container">
-    <div class="modal__info">
-      <h1 class="modal__heading">Watch a quick video about Klue.</h1>
-      <p class="modal__description">It's like a demo but without the human interaction.</p>
     <iframe src="https://player.vimeo.com/video/286260071" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-  </div><a class="modal__close" href="">Close</a>
+  <a class="modal__close" href="">Close</a>
   </div>
 </section>
 <section id="modal__demo" class="modal">
