@@ -78,6 +78,21 @@ var ninjaFormsResourcesListener = Marionette.Object.extend({
     $('#modal__videoPlayer').toggle();
     $('body').toggleClass('modal__demo--on');
   });
+
+  var vidsrc ="";
+  $(document).click(function(event) {
+      if (!$(event.target).closest(".modal").length) {
+        // saves the current iframe source
+        vidsrc = $frame.attr('src');
+        // sets the source to nothing, stopping the video
+        
+        $('#modal__videoPlayer').toggle();
+        $("#modal__videoSrc").attr('src',''); 
+        $('body').removeClass('modal__demo--on');
+        $('.nf-response-msg').hide();
+      }
+  });
+
   $('.button--ebook').click(function() {
     event.preventDefault();
     dlUrl = $(this).attr('data-location');

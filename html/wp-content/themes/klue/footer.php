@@ -62,7 +62,6 @@
 <section id="modal__videoPlayer" class="modal">
   <div class="modal__container">
     <iframe src="https://player.vimeo.com/video/286260071" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-  <a class="modal__close" href="">Close</a>
   </div>
 </section>
 <section id="modal__demo" class="modal">
