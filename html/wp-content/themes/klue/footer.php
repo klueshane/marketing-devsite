@@ -61,7 +61,7 @@
 </section>
 <section id="modal__videoPlayer" class="modal">
   <div class="modal__container">
-    <iframe src="https://player.vimeo.com/video/286260071" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+    <iframe id="modal__videoSrc" src="https://player.vimeo.com/video/286260071" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
   </div>
 </section>
 <section id="modal__demo" class="modal">
@@ -117,7 +117,7 @@
 <script src="<?php echo get_template_directory_uri(); ?>/assets/js/vendor/jquery.validate.min.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/assets/js/vendor/dragscroll.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/assets/js/plugins.js"></script>
-<script src="<?php echo get_template_directory_uri(); ?>/assets/js/main.js?v=25"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/assets/js/main.js?v=26"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/assets/js/vendor/outdatedbrowser/outdatedbrowser.min.js"></script>
 <script type="text/javascript" async="" src="https://widget.intercom.io/widget/h0y3k5hw"></script>
 
