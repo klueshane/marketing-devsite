@@ -75,13 +75,15 @@ var ninjaFormsResourcesListener = Marionette.Object.extend({
   });
   $('.button--info').click(function() {
     event.preventDefault();
+    if(vidsrc !== "") {
+      $("#modal__videoSrc").attr('src',vidsrc); 
+    }
     $('#modal__videoPlayer').toggle();
     $('body').toggleClass('modal__demo--on');
   });
 
   var vidsrc ="";
   $("#modal__videoPlayer").click(function(event) {
-    console.log($(event.target).closest(".modal__container").length);
       if (!$(event.target).closest(".modal__container").length) {
         // saves the current iframe source
         vidsrc = $("#modal__videoSrc").attr('src');
