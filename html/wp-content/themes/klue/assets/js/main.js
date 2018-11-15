@@ -84,7 +84,7 @@ var ninjaFormsResourcesListener = Marionette.Object.extend({
     console.log($(event.target).closest(".modal__container").length);
       if (!$(event.target).closest(".modal__container").length) {
         // saves the current iframe source
-        vidsrc = $frame.attr('src');
+        vidsrc = $("#modal__videoSrc").attr('src');
         // sets the source to nothing, stopping the video
         
         $('#modal__videoPlayer').toggle();
