@@ -100,13 +100,14 @@ var ninjaFormsResourcesListener = Marionette.Object.extend({
     event.preventDefault();
     dlUrl = $(this).attr('data-location');
     $('#modal__ebook').toggle();
-     $('#nf-field-31').val(dlUrl).trigger('input');
+     $('#nf-field-31').val(dlUrl).trigger('change');
     $('body').toggleClass('modal__demo--on');
   });
 
   $('#modal__ebook__form').submit(function(e){
       event.preventDefault();
       var fileUrl = $(this).attr('data-location');
+      $('#nf-field-31').val(dlUrl).trigger('change');
   });
 
   $('.button--webinar').click(function() {
