@@ -100,7 +100,7 @@ var ninjaFormsResourcesListener = Marionette.Object.extend({
     event.preventDefault();
     dlUrl = $(this).attr('data-location');
     $('#modal__ebook').toggle();
-     $('#nf-field-31').val(dlUrl).trigger('change');
+     $('#nf-field-31').val(dlUrl).trigger('input');
     $('body').toggleClass('modal__demo--on');
   });
 
