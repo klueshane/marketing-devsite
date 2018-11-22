@@ -128,10 +128,28 @@ var ninjaFormsResourcesListener = Marionette.Object.extend({
   });
 
   $('.button--webinar').click(function() {
-    event.preventDefault();
-    var $location = $(this).attr('data-location');
+        event.preventDefault();
+    
+    dlUrl = $(this).attr('data-location');
+    dlTitle = $(this).prev().text();
     $('#modal__webinar').toggle();
-    $('#modal__webinar').attr('data-location',$location)
+
+    var titleInput = $("#nf-field-35")[0];
+        titleInput.value = dlTitle;
+     var input = $("#nf-field-31")[0];         
+        input.value = dlUrl;
+        if ("createEvent" in document) {
+            var evt = document.createEvent("HTMLEvents");
+            var evtTitle = document.createEvent("HTMLEvents");
+            evt.initEvent("change", true, true);
+            evtTitle.initEvent("change", true, true);;
+            input.dispatchEvent(evt);
+            titleInput.dispatchEvent(evtTitle);
+        }
+        else {
+            input.fireEvent("onchange");
+            titleInput.dispatchEvent("onchange");
+        }
     $('body').toggleClass('modal__demo--on');
   });
 
@@ -154,13 +172,14 @@ var ninjaFormsResourcesListener = Marionette.Object.extend({
 
   // Bind to the submit event of our form
   $("#modal__webinar").submit(function(event){
-      var $location = $(this).attr("data-location");
+      var location = $(this).attr("data-location");
+      alert(location);
       $('.modal__form').html("<h1 class='modal__success'>Request Sent</h1>");
 
       setTimeout(
         function()
         {
-        window.location.href = $location;
+        window.location.href = location;
       }, 2000);
       // Prevent default posting of form - put here to work in case of errors
       event.preventDefault();
