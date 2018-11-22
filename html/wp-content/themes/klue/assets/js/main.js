@@ -100,7 +100,7 @@ var ninjaFormsResourcesListener = Marionette.Object.extend({
     event.preventDefault();
     
     dlUrl = $(this).attr('data-location');
-    dlTitle = $(this).closest( ".section__heading" ).innerText;
+    dlTitle = $(this).closest( ".section__heading" ).text();
 console.log(dlTitle);
     $('#modal__ebook').toggle();
 
