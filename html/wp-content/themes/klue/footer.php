@@ -44,7 +44,7 @@
       <a class="modal__close" href="">Close</a>
     </div>
     </div>
-    <?php echo(do_shortcode('[ninja_form id=6]')); ?>
+    <?php echo(do_shortcode('[ninja_form id=8]')); ?>
   </div>
 </section>
 <section id="modal__video" class="modal">
