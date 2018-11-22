@@ -98,18 +98,27 @@ var ninjaFormsResourcesListener = Marionette.Object.extend({
 
   $('.button--ebook').click(function() {
     event.preventDefault();
+    
     dlUrl = $(this).attr('data-location');
+    dlTitle = $(this).closest( ".section__heading" ).innerText;
+
     $('#modal__ebook').toggle();
-     //$('#nf-field-31').val(dlUrl).trigger('change' );
+
+    var titleInput = $("#nf-field-32")[0];
+        titleInput.value = dlTitle;
      var input = $("#nf-field-31")[0];         
         input.value = dlUrl;
         if ("createEvent" in document) {
             var evt = document.createEvent("HTMLEvents");
+            var evtTitle = document.createEvent("HTMLEvents");
             evt.initEvent("change", true, true);
+            evtTitle.initEvent("change", true, true);;
             input.dispatchEvent(evt);
+            titleInput.dispatchEvent(evtTitle);
         }
         else {
             input.fireEvent("onchange");
+            titleInput.dispatchEvent("onchange");
         }
     $('body').toggleClass('modal__demo--on');
   });
