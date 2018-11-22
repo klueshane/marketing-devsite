@@ -171,9 +171,9 @@ var ninjaFormsResourcesListener = Marionette.Object.extend({
   var request;
 
   // Bind to the submit event of our form
-  $("#modal__webinar").submit(function(event){
+  $("#modal__webinar form").submit(function(event){
       var location = $(this).attr("data-location");
-      alert(location);
+
       $('.modal__form').html("<h1 class='modal__success'>Request Sent</h1>");
 
       setTimeout(
