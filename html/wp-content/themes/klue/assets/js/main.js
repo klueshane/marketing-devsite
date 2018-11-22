@@ -16,7 +16,17 @@ var ninjaFormsResourcesListener = Marionette.Object.extend({
       }else if(response.data.form_id == '7' && errors == false) {
         $('#modal__video').toggle();
         $('#modal__videoPlayer').toggle();
-      }
+      }else if(response.data.form_id == '8' && errors == false) {
+        var location = $(this).attr("data-location");
+        console.log(location);
+        $('.modal__form').html("<h1 class='modal__success'>Request Sent</h1>");
+
+        setTimeout(
+          function()
+          {
+          window.location.href = location;
+        }, 2000);
+        }
     },
 
 });
