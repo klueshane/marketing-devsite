@@ -19,7 +19,7 @@ var ninjaFormsResourcesListener = Marionette.Object.extend({
       }else if(response.data.form_id == '8' && errors == false) {
         var location = "https://gcs-vimeo.akamaized.net/exp=1542929667~acl=%2A%2F642738716.mp4%2A~hmac=06c2d6fc84da393858e1f31c583b4630f17d626581e43f5b1b254165b3e2c4c7/vimeo-prod-skyfire-std-us/01/3539/7/192695291/642738716.mp4";
         console.log(location);
-        $('.modal__form').html("<h1 class='modal__success'>Request Sent</h1><p><em>Check your popup blocker, the webminar will load in a new tab.</em></p>");
+        $('.modal__form').html("<h1 class='modal__success'>Request Sent</h1><p><em>Check your popup blocker, the webinar will load in a new tab.</em></p>");
 
         setTimeout(
           function()
