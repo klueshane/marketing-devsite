@@ -65,6 +65,9 @@ https://angel.co/klue
         <link rel="icon" type="image/png" sizes="32x32" href="https://klue.com/content/themes/klue/assets/images/favicon/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="96x96" href="https://klue.com/content/themes/klue/assets/images/favicon/favicon-96x96.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="https://klue.com/content/themes/klue/assets/images/favicon/favicon-16x16.png" />
+
+        <!-- Global site tag (gtag.js) - Google Ads: 925652625 --> <script async src="https://www.googletagmanager.com/gtag/js?id=AW-925652625"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'AW-925652625'); </script>
+        
 </head>
 <body <?php body_class(); ?>>
   <!--[if lt IE 8]>

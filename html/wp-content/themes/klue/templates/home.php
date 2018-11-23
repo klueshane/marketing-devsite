@@ -66,6 +66,7 @@ https://angel.co/klue
           a.src=document.location.protocol+"//script.crazyegg.com/pages/scripts/0069/2758.js?"+Math.floor(new Date().getTime()/3600000);
           a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
         </script>
+        <!-- Global site tag (gtag.js) - Google Ads: 925652625 --> <script async src="https://www.googletagmanager.com/gtag/js?id=AW-925652625"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'AW-925652625'); </script>
     </head>
     <body class="page--home">
 
