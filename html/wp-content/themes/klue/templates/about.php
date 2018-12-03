@@ -40,7 +40,7 @@
 
 <section class="team">
   <h1 class="heading heading--team">Awards</h1>
-  <div class="team__box">
+  <div class="team__box awards">
     
    <?php $images = get_field('awards');
 

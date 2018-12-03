@@ -1095,7 +1095,20 @@ body {
   margin-top: 120px;
   margin-bottom: 85px;
 }
+.awards ul {
+  min-width: 696px;
+  list-style: none;
+  padding-top: 20px;
+}
+.awards {
+  display: table;   /* Allow the centering to work */
+  margin: 0 auto;
+}
 
+.awards ul li {
+    display: inline;
+  }
+  
 .heading--team {
   margin-bottom: 120px;
   color: $dark-purple;
