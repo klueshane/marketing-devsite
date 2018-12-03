@@ -38,6 +38,29 @@
   </div>
 </section>
 
+<section class="awards">
+  <div class="awards__box">
+    <?php if(get_field('awards_heading')): ?><h1 class="heading heading--awards"><?php the_field('awards_heading'); ?></h1><?php endif; ?>
+    <?php while ( have_rows('awards') ) : the_row(); ?>
+      
+   <?php $images = get_field('gallery');
+
+if( $images ): ?>
+    <ul>
+        <?php foreach( $images as $image ): ?>
+            <li>
+                <a href="<?php echo $image['url']; ?>">
+                     <img src="<?php echo $image['sizes']['thumbnail']; ?>" alt="<?php echo $image['alt']; ?>" />
+                </a>
+                <p><?php echo $image['caption']; ?></p>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+<?php endif; endwhile;?>
+
+  </div>
+</section>
+
 <?php while ( have_rows('founders') ) : the_row(); ?>
 <section class="overlay" style="background-image: url('<?php $founders_image = get_sub_field('founders_image'); if( !empty($founders_image) ): echo $founders_image['url']; endif; ?>');">
   <h1 class="overlay__heading overlay__heading--founded">Klue was founded by 15+ year industry veterans <em><a href="https://www.linkedin.com/in/onemoresmith/" target="_blank">Jason Smith</a></em> and <em><a href="https://www.linkedin.com/in/sarathyg/" target="_blank">Sarathy Naicker</a></em> in 2015.</h1>
