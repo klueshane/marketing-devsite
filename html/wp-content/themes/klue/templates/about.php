@@ -39,13 +39,12 @@
 </section>
 
 <section class="team">
+  <h1 class="heading heading--team">Awards</h1>
   <div class="team__box">
-    <?php if(get_field('awards_headline')): ?><h1 class="heading heading--team"><?php the_field('awards_headline'); ?></h1><?php endif; ?>
     
-      
    <?php $images = get_field('awards');
 
-if( $images ): ?>
+  if( $images ): ?>
     <ul>
         <?php foreach( $images as $image ): ?>
             <li>
