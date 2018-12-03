@@ -41,7 +41,7 @@
 <section class="team">
   <div class="team__box">
     <?php if(get_field('awards_headline')): ?><h1 class="heading heading--team"><?php the_field('awards_headline'); ?></h1><?php endif; ?>
-    <?php while ( have_rows('awards') ) : the_row(); ?>
+    
       
    <?php $images = get_field('awards');
 
@@ -50,13 +50,13 @@ if( $images ): ?>
         <?php foreach( $images as $image ): ?>
             <li>
                 <a href="<?php echo $image['url']; ?>">
-                     <img src="<?php echo $image['sizes']['thumbnail']; ?>" alt="<?php echo $image['alt']; ?>" />
+                     <img src="<?php echo $image['sizes']['small']; ?>" alt="<?php echo $image['alt']; ?>" />
                 </a>
                 <p><?php echo $image['caption']; ?></p>
             </li>
         <?php endforeach; ?>
     </ul>
-<?php endif; endwhile;?>
+<?php endif; ?>
 
   </div>
 </section>
