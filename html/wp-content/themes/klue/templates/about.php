@@ -38,9 +38,9 @@
   </div>
 </section>
 
-<section class="awards">
-  <div class="awards__box">
-    <?php if(get_field('awards_heading')): ?><h1 class="heading heading--awards"><?php the_field('awards_heading'); ?></h1><?php endif; ?>
+<section class="team">
+  <div class="team__box">
+    <?php if(get_field('awards_heading')): ?><h1 class="heading heading--team"><?php the_field('awards_heading'); ?></h1><?php endif; ?>
     <?php while ( have_rows('awards') ) : the_row(); ?>
       
    <?php $images = get_field('gallery');
