@@ -1108,7 +1108,9 @@ body {
 .awards ul li {
     display: inline;
   }
-  
+.awards ul li a {
+  text-decoration:none;
+}
 .heading--team {
   margin-bottom: 120px;
   color: $dark-purple;
