@@ -1371,7 +1371,7 @@ h1.overlay__heading--founded a {
 .awards ul {
   min-width: 696px;
   list-style: none;
-  padding-top: 20px;
+  padding: 35px 0 65px;
 }
 
 /* line 1103, ../sass/screen.scss */
