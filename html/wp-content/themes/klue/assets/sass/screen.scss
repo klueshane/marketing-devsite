@@ -727,6 +727,7 @@ body {
   .competitors {
     padding-top: 445px;
     background-position: right 210px;
+    border-bottom: 90px solid $bright-green;
 
     @media (max-width: $breakpoint-tablet) {
       background-image: url('/wp-content/themes/klue/assets/img/background-city-small.png');

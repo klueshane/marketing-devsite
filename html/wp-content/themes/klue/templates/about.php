@@ -37,7 +37,7 @@
     </div>
   </div>
 </section>
-
+<section class="greenbar"></section>
 <section class="team">
   
   <div class="team__box awards">
