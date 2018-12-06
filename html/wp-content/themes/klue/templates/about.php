@@ -42,7 +42,7 @@
   
   <div class="team__box awards">
     <h1 class="heading heading--team">Awards</h1>
-    <p>2018 was a busy year for Klue. We are humbled to have been selected as the recipient of so many prestigious awards.</h3>
+    <p>2018 was a busy year for Klue. We are humbled to have been selected as the recipient of so many prestigious awards.</p>
    <?php $images = get_field('awards');
 
   if( $images ): ?>
