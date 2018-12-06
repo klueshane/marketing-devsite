@@ -41,7 +41,7 @@
 <section class="awards">
   
   <div class="awards__box">
-    <h1 class="heading heading--awards">Awards</h1>
+    <h1 class="heading heading--awards">Our Awards</h1>
     <p>Here's a sneak peak at Klue's trophy self. We are humbled to have been selected as the recipient of so many prestigious awards.</p>
    <?php $images = get_field('awards');
 
