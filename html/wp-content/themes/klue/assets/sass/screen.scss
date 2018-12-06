@@ -1103,6 +1103,7 @@ body {
 }
 .awards ul {
   min-width: 696px;
+  max-width:940px;
   list-style: none;
   padding: 35px 0 65px;
 }
@@ -1117,6 +1118,10 @@ body {
 .awards ul li a {
   text-decoration:none;
   padding:30px;
+}
+.heading--awards {
+  margin-bottom: 20px;
+    color: #57506A;
 }
 .heading--team {
   margin-bottom: 120px;
