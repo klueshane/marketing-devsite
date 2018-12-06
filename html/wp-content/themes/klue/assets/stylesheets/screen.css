@@ -1402,7 +1402,7 @@ h1.overlay__heading--founded a {
 
 /* line 1122, ../sass/screen.scss */
 .heading--awards {
-  margin-bottom: 20px;
+  margin: 35px 0 20px;
   color: #57506A;
 }
 
