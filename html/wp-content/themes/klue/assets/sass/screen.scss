@@ -1096,15 +1096,21 @@ body {
   margin-top: 120px;
   margin-bottom: 85px;
 }
+.awards {
+  @extend .sinch;
+  text-align: center;
+  margin-bottom: 85px;
+  background:#fff;
+
+}
 .awards ul {
   min-width: 696px;
   list-style: none;
   padding: 35px 0 65px;
 }
-.awards {
+.awards__box {
   display: table;   /* Allow the centering to work */
   margin: 0 auto;
-  background:#fff;
 }
 
 .awards ul li {
