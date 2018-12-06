@@ -48,9 +48,7 @@
     <ul>
         <?php foreach( $images as $image ): ?>
             <li>
-                <a href="<?php echo $image['url']; ?>">
-                     <img src="<?php echo $image['sizes']['medium']; ?>" alt="<?php echo $image['alt']; ?>" />
-                </a>
+                <img src="<?php echo $image['sizes']['medium']; ?>" alt="<?php echo $image['alt']; ?>" />
             </li>
         <?php endforeach; ?>
     </ul>
