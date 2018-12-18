@@ -1865,7 +1865,7 @@ h1.overlay__heading--founded a {
 
 /* line 1505, ../sass/screen.scss */
 .blogfeatured__secondary {
-  margin: -5 0 0 0;
+  margin: -5px 0 0 0;
 }
 @media (max-width: 880px) {
   /* line 1505, ../sass/screen.scss */
