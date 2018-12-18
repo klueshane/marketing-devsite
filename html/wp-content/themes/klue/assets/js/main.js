@@ -115,6 +115,9 @@ var ninjaFormsResourcesListener = Marionette.Object.extend({
     
     dlUrl = $(this).attr('data-location');
     dlTitle = $(this).prev().text();
+    console.log($(this).attr('data-title'));
+    console.log(dlTitle);
+    $('#modal__headingTitle').text($(this).attr('data-title'));
     $('#modal__ebook').toggle();
 
     var titleInput = $("#nf-field-35")[0];
@@ -139,7 +142,6 @@ var ninjaFormsResourcesListener = Marionette.Object.extend({
   $('#modal__ebook__form').submit(function(e){
       event.preventDefault();
       var fileUrl = $(this).attr('data-location');
-      $('#modal__headingTitle').text($(this).attr('data-title'));
   });
 
   $('.button--webinar').click(function() {
