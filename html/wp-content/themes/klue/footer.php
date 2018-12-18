@@ -51,8 +51,7 @@
   <div class="modal__container">
     <div class="modal__info">
       <div class="modal__info_inner">
-      <h1 class="modal__heading">Watch a quick video about Klue.</h1>
-      <p class="modal__description">It's like a demo but without the human interaction.</p>
+      <h1 class="modal__heading">Watch a Webinar about Klue.</h1>
       <a class="modal__close" href="">Close</a>
     </div>
     </div>
