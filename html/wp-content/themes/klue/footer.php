@@ -29,7 +29,7 @@
 <section id="modal__ebook" class="modal">
   <div class="modal__container">
     <div class="modal__info">
-      <h1 class="modal__heading">Sign up for access</h1>
+      <h1 class="modal__heading" id="modal__headingTitle">Sign up for access</h1>
       <a class="modal__close" href="">Close</a>
     </div>
 <?php echo(do_shortcode('[ninja_form id=6]')); ?>
@@ -116,7 +116,7 @@
 <script src="<?php echo get_template_directory_uri(); ?>/assets/js/vendor/jquery.validate.min.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/assets/js/vendor/dragscroll.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/assets/js/plugins.js"></script>
-<script src="<?php echo get_template_directory_uri(); ?>/assets/js/main.js?v=2018-12-17"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/assets/js/main.js?v=2018-12-18"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/assets/js/vendor/outdatedbrowser/outdatedbrowser.min.js"></script>
 <script type="text/javascript" async="" src="https://widget.intercom.io/widget/h0y3k5hw"></script>
 
