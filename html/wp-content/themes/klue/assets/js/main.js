@@ -84,6 +84,7 @@ var ninjaFormsResourcesListener = Marionette.Object.extend({
   $('.button--demo').click(function() {
     event.preventDefault();
     $('#modal__demo').toggle();
+    $('#modal__demo').find('form').show();
     $('body').toggleClass('modal__demo--on');
   });
   $('.button--info').click(function() {
