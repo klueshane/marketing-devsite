@@ -15,7 +15,7 @@
 <section class="visit">
   <div class="visit__visit-wrapper">
     <?php if(get_field('contact_text')): ?><h1 class="visit__heading"><?php the_field('contact_text'); ?></h1><?php endif; ?>
-    <p class=""><a class="button button--green visit__button" href="<?php if(get_field('map_url')): ?><?php the_field('map_url'); ?><?php endif; ?>">See Map</a></p>
+    <p class=""><a class="button button--green visit__button" target="_blank"> href="<?php if(get_field('map_url')): ?><?php the_field('map_url'); ?><?php endif; ?>">See Map</a></p>
     <?php if(get_field('contact-address')): ?><div class="visit__address"><?php the_field('contact-address'); ?></div><?php endif; ?>
   </div>
 </section>
