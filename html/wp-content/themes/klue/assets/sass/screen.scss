@@ -1295,6 +1295,11 @@ body {
   background: transparent;
   width:100%;
   color: $light-grey;
+  @media (max-width: 680px) 
+      {
+        margin-top:-74px;
+        font-size:1em;
+      }
 
   h2 {
     font-size:150%;
