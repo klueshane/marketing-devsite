@@ -302,12 +302,6 @@ body {
       }
     }
   }
-#header-video {
-        @media (max-width: 640px) {
-          margin: 230px auto 0;
-          max-width:300%;
-        }
-      }
   .page--webinars .header__heading { background-color: #9378AC; }
 
 
@@ -576,6 +570,10 @@ body {
       margin-left: -520px;
       padding: 0;
     }
+    @media (max-width: 640px) {
+          margin: 230px auto 0;
+          max-width:300%;
+        }
   }
 
   .header__background {
