@@ -2122,7 +2122,7 @@ body {
 /* ==========================================================================
    Helper classes
    ========================================================================== */
-
+embed, iframe, img, object, video { max-width: 100%; }
 .hidden {
     display: none !important;
     visibility: hidden;
