@@ -2545,8 +2545,15 @@ h1.overlay__heading--founded a {
   width: 640px;
   height: 360px;
 }
+@media screen and (min-device-width: 320px) and (max-device-width: 480px) {
+  /* line 2042, ../sass/screen.scss */
+  #modal__videoSrc {
+    width: 100%;
+    height: 100%;
+  }
+}
 
-/* line 2047, ../sass/screen.scss */
+/* line 2055, ../sass/screen.scss */
 .modal__input {
   color: #C3B5E9;
   background: none;
@@ -2562,28 +2569,28 @@ h1.overlay__heading--founded a {
   margin: 30px 0;
 }
 
-/* line 2062, ../sass/screen.scss */
+/* line 2070, ../sass/screen.scss */
 .modal__input::-webkit-input-placeholder {
   color: #C3B5E9 !important;
 }
 
-/* line 2063, ../sass/screen.scss */
+/* line 2071, ../sass/screen.scss */
 .modal__input::-moz-placeholder {
   color: #C3B5E9 !important;
 }
 
-/* line 2064, ../sass/screen.scss */
+/* line 2072, ../sass/screen.scss */
 .modal__input::-ms-input-placeholder {
   color: #C3B5E9 !important;
 }
 
-/* line 2066, ../sass/screen.scss */
+/* line 2074, ../sass/screen.scss */
 .modal__button.modal__submit {
   margin-top: 30px;
   width: 100%;
 }
 
-/* line 2071, ../sass/screen.scss */
+/* line 2079, ../sass/screen.scss */
 .modal__image {
   width: 100%;
 }
@@ -2591,13 +2598,6 @@ h1.overlay__heading--founded a {
 /* ==========================================================================
    Media Queries
    ========================================================================== */
-@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
-  /* line 2083, ../sass/screen.scss */
-  #modal__videoSrc {
-    width: 100%;
-    height: 100%;
-  }
-}
 /* ==========================================================================
    Helper classes
    ========================================================================== */

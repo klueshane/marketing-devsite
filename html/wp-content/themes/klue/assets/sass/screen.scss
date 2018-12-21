@@ -2042,6 +2042,14 @@ body {
   #modal__videoSrc {
     width:640px;
     height:360px;
+    @media screen 
+      and (min-device-width: 320px) 
+      and (max-device-width: 480px) 
+      {
+           width:100%;
+          height:100%;
+        
+      }
   }
 
   .modal__input {
@@ -2076,15 +2084,7 @@ body {
    Media Queries
    ========================================================================== */
 
-@media only screen 
-  and (min-device-width: 320px) 
-  and (max-device-width: 480px) 
-  {
-    #modal__videoSrc {
-      width:100%;
-      height:100%;
-    }
-  }
+
 @media only screen and (min-width: 35em) {
 
 }
