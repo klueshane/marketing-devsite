@@ -1106,10 +1106,19 @@ body {
   max-width:940px;
   list-style: none;
   padding: 35px 0 65px;
+  @media (max-width: 640px) 
+      {
+       min-width:0; 
+      }
 }
 .awards__box {
   display: table;   /* Allow the centering to work */
   margin: 0 auto;
+    @media (max-width: 640px) 
+    {
+      display:block;
+      width:100%;    
+    }
 }
 
 .awards ul li {
