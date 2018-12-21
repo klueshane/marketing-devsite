@@ -60,7 +60,7 @@
 </section>
 <section id="modal__videoPlayer" class="modal">
   <div class="modal__container">
-    <iframe id="modal__videoSrc" src="https://player.vimeo.com/video/286260071" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+    <iframe id="modal__videoSrc" src="https://player.vimeo.com/video/286260071" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
   </div>
 </section>
 <section id="modal__demo" class="modal">
