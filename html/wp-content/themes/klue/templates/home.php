@@ -90,7 +90,7 @@ https://angel.co/klue
     </head>
     <body class="page--home">
 
-        <section class="header">
+        <section class="header header--home">
 
            
             <div class="header__header-corset">
