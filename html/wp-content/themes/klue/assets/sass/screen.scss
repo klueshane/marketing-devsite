@@ -293,6 +293,20 @@ body {
     background: #897897;
     padding: 5px 25px;
     font-size: 2.2em;
+
+  }
+  .page--home {
+    .header__heading {
+      @media (max-width: 640px) {
+        height:30px;
+        margin:20px auto 40px;
+      }
+      }
+      #header-video {
+        @media (max-width: 640px) {
+          margin: 230px auto 0;
+        }
+      }
   }
 
   .page--webinars .header__heading { background-color: #9378AC; }
