@@ -2541,6 +2541,12 @@ h1.overlay__heading--founded a {
 }
 
 /* line 2042, ../sass/screen.scss */
+#modal__videoSrc {
+  width: 640px;
+  height: 360px;
+}
+
+/* line 2047, ../sass/screen.scss */
 .modal__input {
   color: #C3B5E9;
   background: none;
@@ -2556,28 +2562,28 @@ h1.overlay__heading--founded a {
   margin: 30px 0;
 }
 
-/* line 2057, ../sass/screen.scss */
+/* line 2062, ../sass/screen.scss */
 .modal__input::-webkit-input-placeholder {
   color: #C3B5E9 !important;
 }
 
-/* line 2058, ../sass/screen.scss */
+/* line 2063, ../sass/screen.scss */
 .modal__input::-moz-placeholder {
   color: #C3B5E9 !important;
 }
 
-/* line 2059, ../sass/screen.scss */
+/* line 2064, ../sass/screen.scss */
 .modal__input::-ms-input-placeholder {
   color: #C3B5E9 !important;
 }
 
-/* line 2061, ../sass/screen.scss */
+/* line 2066, ../sass/screen.scss */
 .modal__button.modal__submit {
   margin-top: 30px;
   width: 100%;
 }
 
-/* line 2066, ../sass/screen.scss */
+/* line 2071, ../sass/screen.scss */
 .modal__image {
   width: 100%;
 }
@@ -2585,16 +2591,23 @@ h1.overlay__heading--founded a {
 /* ==========================================================================
    Media Queries
    ========================================================================== */
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+  /* line 2083, ../sass/screen.scss */
+  #modal__videoSrc {
+    width: 100%;
+    height: 100%;
+  }
+}
 /* ==========================================================================
    Helper classes
    ========================================================================== */
-/* line 2089, ../sass/screen.scss */
+/* line 2103, ../sass/screen.scss */
 .hidden {
   display: none !important;
   visibility: hidden;
 }
 
-/* line 2094, ../sass/screen.scss */
+/* line 2108, ../sass/screen.scss */
 .visuallyhidden {
   border: 0;
   clip: rect(0 0 0 0);
@@ -2606,7 +2619,7 @@ h1.overlay__heading--founded a {
   width: 1px;
 }
 
-/* line 2105, ../sass/screen.scss */
+/* line 2119, ../sass/screen.scss */
 .visuallyhidden.focusable:active,
 .visuallyhidden.focusable:focus {
   clip: auto;
@@ -2617,24 +2630,24 @@ h1.overlay__heading--founded a {
   width: auto;
 }
 
-/* line 2115, ../sass/screen.scss */
+/* line 2129, ../sass/screen.scss */
 .invisible {
   visibility: hidden;
 }
 
-/* line 2119, ../sass/screen.scss */
+/* line 2133, ../sass/screen.scss */
 .clearfix:before,
 .clearfix:after {
   content: " ";
   display: table;
 }
 
-/* line 2125, ../sass/screen.scss */
+/* line 2139, ../sass/screen.scss */
 .clearfix:after {
   clear: both;
 }
 
-/* line 2129, ../sass/screen.scss */
+/* line 2143, ../sass/screen.scss */
 .clearfix {
   *zoom: 1;
 }
@@ -2643,7 +2656,7 @@ h1.overlay__heading--founded a {
    Print styles
    ========================================================================== */
 @media print {
-  /* line 2138, ../sass/screen.scss */
+  /* line 2152, ../sass/screen.scss */
   *,
   *:before,
   *:after {
@@ -2653,52 +2666,52 @@ h1.overlay__heading--founded a {
     text-shadow: none !important;
   }
 
-  /* line 2147, ../sass/screen.scss */
+  /* line 2161, ../sass/screen.scss */
   a,
   a:visited {
     text-decoration: underline;
   }
 
-  /* line 2152, ../sass/screen.scss */
+  /* line 2166, ../sass/screen.scss */
   a[href]:after {
     content: " (" attr(href) ")";
   }
 
-  /* line 2156, ../sass/screen.scss */
+  /* line 2170, ../sass/screen.scss */
   abbr[title]:after {
     content: " (" attr(title) ")";
   }
 
-  /* line 2160, ../sass/screen.scss */
+  /* line 2174, ../sass/screen.scss */
   a[href^="#"]:after,
   a[href^="javascript:"]:after {
     content: "";
   }
 
-  /* line 2165, ../sass/screen.scss */
+  /* line 2179, ../sass/screen.scss */
   pre,
   blockquote {
     border: 1px solid #999;
     page-break-inside: avoid;
   }
 
-  /* line 2171, ../sass/screen.scss */
+  /* line 2185, ../sass/screen.scss */
   thead {
     display: table-header-group;
   }
 
-  /* line 2175, ../sass/screen.scss */
+  /* line 2189, ../sass/screen.scss */
   tr,
   img {
     page-break-inside: avoid;
   }
 
-  /* line 2180, ../sass/screen.scss */
+  /* line 2194, ../sass/screen.scss */
   img {
     max-width: 100% !important;
   }
 
-  /* line 2184, ../sass/screen.scss */
+  /* line 2198, ../sass/screen.scss */
   p,
   h2,
   h3 {
@@ -2706,7 +2719,7 @@ h1.overlay__heading--founded a {
     widows: 3;
   }
 
-  /* line 2191, ../sass/screen.scss */
+  /* line 2205, ../sass/screen.scss */
   h2,
   h3 {
     page-break-after: avoid;
