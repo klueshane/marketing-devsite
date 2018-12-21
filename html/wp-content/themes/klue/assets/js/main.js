@@ -192,8 +192,8 @@ var ninjaFormsResourcesListener = Marionette.Object.extend({
   $("#modal__webinar form").submit(function(event){
       var location = $(this).attr("data-location");
 
-      $('.nf-response-msg').html("<h1 class='modal__success'>Request Sent</h1>");
-      $('.nf-response-msg').show();
+      $('#modal__webinar > .nf-response-msg').html("<h1 class='modal__success'>Request Sent</h1>");
+      $('#modal__webinar > .nf-response-msg').show();
 
       setTimeout(
         function()
