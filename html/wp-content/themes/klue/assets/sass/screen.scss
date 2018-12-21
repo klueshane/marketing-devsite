@@ -57,8 +57,7 @@ audio,
 canvas,
 iframe,
 img,
-svg,
-video {
+svg {
     vertical-align: middle;
     max-width:100%;
 }
@@ -301,15 +300,14 @@ body {
         height:30px;
         margin:20px auto 40px;
       }
-      }
-      #header-video {
+    }
+  }
+#header-video {
         @media (max-width: 640px) {
           margin: 230px auto 0;
           max-width:300%;
         }
       }
-  }
-
   .page--webinars .header__heading { background-color: #9378AC; }
 
 
