@@ -1306,7 +1306,11 @@ body {
     color: $bright-green;
   }
 }
-
+.alm-btn-wrap {
+  @media (max-width: 680px) {
+    margin:auto;
+  }
+}
 
 .blogfeatured__more,
 .blogitem__more {
