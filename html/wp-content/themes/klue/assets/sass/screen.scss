@@ -214,11 +214,9 @@ body {
   background-position: center;
 
   @media (max-width: $breakpoint-tablet) {
-    height: 308px;
+    height: 660px;
   }
-  @media (min-width: $breakpoint-tablet) {
-    height: 620px;
-  }
+ 
 }
 
 

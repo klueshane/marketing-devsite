@@ -12,7 +12,7 @@ https://angel.co/klue
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/stylesheets/screen.css?v=35">
+        <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/stylesheets/screen.css?v=36">
         <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets-home2/css-dist/main.css">
 
         <link href="<?php echo get_template_directory_uri() ?>/assets/css-standalone/plugin.css" rel="stylesheet">
