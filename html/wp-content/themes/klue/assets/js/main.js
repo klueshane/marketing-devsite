@@ -19,7 +19,7 @@ var ninjaFormsResourcesListener = Marionette.Object.extend({
       }else if(response.data.form_id == '8' && errors == false) {
         var location = "https://player.vimeo.com/external/192695291.hd.mp4?s=7c1f70716c1092882f158410d23acddbf6e7e99b&profile_id=174";
         console.log(location);
-        $('#modal__webinar > .nf-response-msg').html("<h1 class='modal__success'>Request Sent</h1><p><em>Check your popup blocker, the webinar will load in a new tab.</em></p>");
+        $('#modal__webinar .nf-response-msg').html("<h1 class='modal__success'>Request Sent</h1><p><em>Check your popup blocker, the webinar will load in a new tab.</em></p>");
 
         setTimeout(
           function()
