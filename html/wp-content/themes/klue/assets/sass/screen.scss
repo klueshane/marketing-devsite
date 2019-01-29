@@ -1500,11 +1500,14 @@ body {
     text-decoration:none;
   }
 .blogitem .post-categories a {
-    font-size: 1.5em;
+    font-size: 1em;
     color: $bright-green;
     line-height: 9px;
-    text-decoration:none;
-    z-index:2;
+    text-decoration: none;
+    z-index: 2;
+    position: absolute;
+    right: 39px;
+    bottom: 55px;
 }
   .blogitem__more {
     margin: 0 40px 40px;
