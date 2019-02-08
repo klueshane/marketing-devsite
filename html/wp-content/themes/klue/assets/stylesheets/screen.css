@@ -1097,7 +1097,7 @@ h1.overlay__heading--founded a {
 /* line 869, ../sass/screen.scss */
 .jobs__listing {
   max-width: 950px;
-  margin: 90px auto;
+  margin: 0 auto;
 }
 
 /* line 874, ../sass/screen.scss */
@@ -2017,7 +2017,7 @@ h1.overlay__heading--founded a {
 @media (min-width: 1024px) {
   /* line 1623, ../sass/screen.scss */
   .blogbody__content {
-    padding: 40px 260px 60px 70px;
+    padding: 0 260px 60px 70px;
     min-height: 720px;
   }
 }
