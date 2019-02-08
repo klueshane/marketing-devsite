@@ -2018,7 +2018,7 @@ h1.overlay__heading--founded a {
 @media (min-width: 1024px) {
   /* line 1624, ../sass/screen.scss */
   .blogbody__content {
-    padding: 0 260px 60px 70px;
+    padding: 10px 260px 60px 70px;
     min-height: 720px;
   }
 }
