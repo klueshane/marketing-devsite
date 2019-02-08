@@ -43,8 +43,7 @@
   <div class="awards__box">
     <h1 class="heading heading--awards">Our Awards</h1>
     <p>Here's a peak at Klue's trophy self. We are humbled to have been selected as the recipient of so many prestigious awards.</p>
-   <?php $images = get_field('awards');
-   var_dump($images);
+   <?php $images = get_sub_field('awards');
 
   if( $images ): ?>
     <ul>
