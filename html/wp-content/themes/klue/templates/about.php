@@ -42,7 +42,7 @@
   
   <div class="awards__box">
     <h1 class="heading heading--awards">Our Awards</h1>
-    <p>Here's a peak at Klue's trophy self. We are humbled to have been selected as the recipient of so many prestigious awards.</p>
+    <p>Here’s a peek at Klue’s trophy shelf. We’re humbled to have been selected as the recipient of so many prestigious awards.</p>
       <ul>
              <li>
                 <img src="/wp-content/uploads/2019/02/2018-F50-300x57.png" />
@@ -51,7 +51,7 @@
                 <img src="/wp-content/uploads/2019/02/bc-tech-impact-awards-300x159.png" />
             </li>            
             <li>
-                <img src="/wp-content/uploads/2019/02/CIX-2-300x109.png" />
+                <img src="/wp-content/uploads/2019/02/CIX-2-300x109.png" height="50" />
             </li>
             <li>
                 <img src="/wp-content/uploads/2019/02/UX-award-300x60.png" />
