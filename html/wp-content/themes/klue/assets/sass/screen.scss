@@ -1699,6 +1699,8 @@ body {
 }
 .blogitem__header small {
   color:#fff;
+  position:relative;
+  z-index:2;
 }
 
 .blogbody__sociallinks {
