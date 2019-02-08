@@ -51,7 +51,7 @@
                 <img src="/wp-content/uploads/2019/02/bc-tech-impact-awards-300x159.png" />
             </li>            
             <li>
-                <img src="/wp-content/uploads/2019/02/CIX-2-300x109.png" height="50" />
+                <img src="/wp-content/uploads/2019/02/CIX-2-300x109.png" height="60" />
             </li>
             <li>
                 <img src="/wp-content/uploads/2019/02/UX-award-300x60.png" />
