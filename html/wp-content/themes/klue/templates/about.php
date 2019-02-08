@@ -60,7 +60,7 @@
                 <img src="/wp-content/uploads/2019/02/bc-tech-impact-awards-300x159.png" />
             </li>
     </ul>
-<?php endif; ?>
+
 
   </div>
 </section>
