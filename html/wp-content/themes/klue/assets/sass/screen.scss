@@ -868,7 +868,7 @@ body {
 
 .jobs__listing {
   max-width: 950px;
-  margin: 90px auto;
+  margin: 0 auto;
 }
 
   .section__heading--jobs {
@@ -1627,7 +1627,7 @@ body {
   padding: 10px;
 
   @media (min-width: $breakpoint-desktop) {
-    padding: 40px 260px 60px 70px;
+    padding: 0 260px 60px 70px;
     min-height: 720px;
   }
 
