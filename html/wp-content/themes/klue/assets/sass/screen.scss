@@ -777,7 +777,8 @@ body {
     padding-bottom: 100px;
 
     @media (max-width: $breakpoint-large) {
-      padding-left: 60px;
+      padding-left: 40px;
+      padding-right: 20px;
       padding-top: 20px;
     }
     @media (min-width: $breakpoint-large) {
