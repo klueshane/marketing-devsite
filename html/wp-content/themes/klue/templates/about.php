@@ -43,15 +43,22 @@
   <div class="awards__box">
     <h1 class="heading heading--awards">Our Awards</h1>
     <p>Here's a peak at Klue's trophy self. We are humbled to have been selected as the recipient of so many prestigious awards.</p>
-   <?php $images = get_sub_field('about-awards');
-
-  if( $images ): ?>
-    <ul>
-        <?php foreach( $images as $image ): ?>
+      <ul>
             <li>
-                <img src="<?php echo $image['sizes']['medium']; ?>" alt="<?php echo $image['alt']; ?>" />
+                <img src="/wp-content/uploads/2019/02/READY-TO-ROCKET-REAL-300x300.png" />
             </li>
-        <?php endforeach; ?>
+            <li>
+                <img src="/wp-content/uploads/2019/02/CIX-2-300x109.png" />
+            </li>
+            <li>
+                <img src="/wp-content/uploads/2019/02/UX-award-300x60.png" />
+            </li>
+            <li>
+                <img src="/wp-content/uploads/2019/02/2018-F50-300x57.png" />
+            </li>
+            <li>
+                <img src="/wp-content/uploads/2019/02/bc-tech-impact-awards-300x159.png" />
+            </li>
     </ul>
 <?php endif; ?>
 
