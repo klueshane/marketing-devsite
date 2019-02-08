@@ -6,9 +6,9 @@
   <div class="intro__box">
     <?php if(get_field('contact-banner-sublabel')): ?><h1 class="intro__heading"><?php the_field('contact-banner-sublabel'); ?></h1><?php endif; ?>
     <?php if(get_field('contact-content')): ?><?php the_field('contact-content'); ?><?php endif; ?>
-    <?php if(get_field('contact-intercom-text')): ?><a href="#" class="contact__chat" ><?php the_field('contact-intercom-text'); ?></a><?php endif; ?>
+    <?php if(get_field('contact-intercom-text')): ?><a href="#" js-intercom-trigger class="contact__chat" ><?php the_field('contact-intercom-text'); ?></a><?php endif; ?>
     <?php if(get_field('contact-form-heading')): ?><p class="contact__email"><?php the_field('contact-form-heading'); ?></p><?php endif; ?>
-    <p class="contact__message"><a class="button button--green button--message" js-intercom-trigger href="mailto:info@klue.com">Message Us</a></p>
+    <p class="contact__message"><a class="button button--green button--message" href="mailto:info@klue.com">Message Us</a></p>
   </div>
 </section>
 
