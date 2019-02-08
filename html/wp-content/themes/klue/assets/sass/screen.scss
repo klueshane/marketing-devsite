@@ -212,6 +212,7 @@ body {
   padding: 1px;
   background-color: #3E3750;
   background-position: center;
+  min-height:633px;
 
   @media (max-width: $breakpoint-tablet) {
     height: 660px;
