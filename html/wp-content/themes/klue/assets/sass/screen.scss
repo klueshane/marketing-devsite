@@ -217,6 +217,9 @@ body {
   @media (max-width: $breakpoint-tablet) {
     height: 660px;
   }
+  @media (max-width: $breakpoint-phone) {
+    height: 319px;
+  }
  
 }
 
@@ -1444,7 +1447,7 @@ body {
     position: relative;
     background-size: cover;
     background-position: center;
-    min-height: 188px;
+    min-height: 210px;
     box-sizing: border-box;
   }
 
