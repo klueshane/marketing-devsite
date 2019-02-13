@@ -16,6 +16,8 @@ $allowedFiles = array(
 );
 // check if query param fileName is in the list of approved downloads
 // check if referer is ok
+echo $file['path'];
+echo $referer['path'];
 if(in_array($file['path'], $allowedFiles) && $referer['path'] == "/competitive-strategy-resources") {
 	
 	header("Content-Description: File Transfer"); 
