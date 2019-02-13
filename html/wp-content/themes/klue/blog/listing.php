@@ -21,7 +21,7 @@
                     <p class="blogfeatured__category">
 <?php $cat = new WPSEO_Primary_Term('category', get_the_ID());
     $cat = $cat->get_primary_term();
-    echo $cat;
+    echo get_cat_name($cat);
 ?>
                     </p>
                     <?php the_title( sprintf( '<h1 class="blogfeatured__title"><a class="" href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h1>' ); ?>
