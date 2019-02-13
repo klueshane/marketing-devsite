@@ -1849,12 +1849,12 @@ h1.overlay__heading--founded a {
 
 /* line 1491, ../sass/screen.scss */
 .blogitem__content {
-  padding: 40px;
+  padding: 40px 40px 0 40px;
   font-size: 1.1em;
   color: #72687B;
   font-weight: 300;
   line-height: 1.875em;
-  min-height: 290px;
+  min-height: 250px;
 }
 
 /* line 1499, ../sass/screen.scss */
