@@ -16,7 +16,7 @@ $allowedFiles = array(
 );
 // check if query param fileName is in the list of approved downloads
 // check if referer is ok
-
+echo $file['path'];
 if(in_array($file['path'], $allowedFiles)) {
 	
 	header("Content-Description: File Transfer"); 
