@@ -251,6 +251,7 @@ body {
   .blog .header,
   .category .header {
     border-bottom: 90px solid #3E3750;
+    min-height:
   }
   .header--blog ul {
     list-style:none;
@@ -1307,7 +1308,7 @@ body {
  }
  .blog__category_description {
   @extend .blog__content;
-  margin: 0 0 20px;
+  margin: -36  0 50px;
   padding: 20px;
   background: transparent;
   width:100%;
