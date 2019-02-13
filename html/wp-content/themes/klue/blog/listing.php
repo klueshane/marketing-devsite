@@ -22,7 +22,7 @@
 <?php $cat = new WPSEO_Primary_Term('category', get_the_ID());
     $cat = $cat->get_primary_term();
     echo $cat;
-} ?>
+?>
                     </p>
                     <?php the_title( sprintf( '<h1 class="blogfeatured__title"><a class="" href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h1>' ); ?>
                     <p class="blogfeatured__content">The role that competitive and market intelligence teams play in sales is clear; to arm sales teams to close deals…</p>
