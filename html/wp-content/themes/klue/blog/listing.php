@@ -18,7 +18,14 @@
               			$thumb_url = wp_get_attachment_image_src($thumb_id,'large');
               		?>
                   <div class="blogfeatured__text">
-                    <p class="blogfeatured__category">News</p>
+                    <p class="blogfeatured__category">
+<?php $primary_cat_id=get_post_meta($product->id,'_yoast_wpseo_primary_product_cat',true);
+if($primary_cat_id){
+   $product_cat = get_term($primary_cat_id, 'product_cat');
+   if(isset($product_cat->name)) 
+       echo $product_cat->name;
+} ?>
+                    </p>
                     <?php the_title( sprintf( '<h1 class="blogfeatured__title"><a class="" href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h1>' ); ?>
                     <p class="blogfeatured__content">The role that competitive and market intelligence teams play in sales is clear; to arm sales teams to close deals…</p>
                     <a class="blogfeatured__more" href="<?php echo esc_url( get_permalink() ); ?>">Read</a>
