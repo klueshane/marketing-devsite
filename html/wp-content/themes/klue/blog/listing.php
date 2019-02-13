@@ -43,7 +43,11 @@
                   $thumb_url = wp_get_attachment_image_src($thumb_id,'large', true);
                 ?>
                 <div class="blogitem__header blogitem__header--featured" style="background-image: url(<?php echo $thumb_url[0];?>);">
-                  <p class="blogitem__category">Marketing</p>
+                  <p class="blogitem__category">
+                    <?php $cat = new WPSEO_Primary_Term('category', get_the_ID());
+    $cat = $cat->get_primary_term();
+    echo get_cat_name($cat);
+?></p>
                   <?php the_title( sprintf( '<h1 class="blogitem__blogtitle"><a class="blogtitle__bloglink" href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h1>' ); ?>
                   <span class="blogitem__color blogitem__color--green"></span>
                 </div>
