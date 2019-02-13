@@ -19,12 +19,9 @@
               		?>
                   <div class="blogfeatured__text">
                     <p class="blogfeatured__category">
-<?php $primary_cat_id=get_post_meta(get_the_ID(),'_yoast_wpseo_primary_product_cat',true);
-var_dump($primary_cat_id);
-if($primary_cat_id){
-   $product_cat = get_term($primary_cat_id, 'product_cat');
-   if(isset($product_cat->name)) 
-       echo $product_cat->name;
+<?php $cat = new WPSEO_Primary_Term('category', get_the_ID());
+    $cat = $cat->get_primary_term();
+    echo $cat;
 } ?>
                     </p>
                     <?php the_title( sprintf( '<h1 class="blogfeatured__title"><a class="" href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h1>' ); ?>
