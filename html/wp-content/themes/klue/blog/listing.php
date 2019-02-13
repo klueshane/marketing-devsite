@@ -20,7 +20,7 @@
                   <div class="blogfeatured__text">
                     <p class="blogfeatured__category">
 <?php $primary_cat_id=get_post_meta($featured_posts->current_post->id,'_yoast_wpseo_primary_product_cat',true);
-var_dump($primary_cat_id);
+var_dump($featured_posts->current_post);
 if($primary_cat_id){
    $product_cat = get_term($primary_cat_id, 'product_cat');
    if(isset($product_cat->name)) 
