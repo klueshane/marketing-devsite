@@ -7,7 +7,7 @@ $referer = parse_url($_SERVER["HTTP_REFERER"]);
 // hardcode list of allowed files to prevent abuse
 
 $allowedFiles = array(
-	"/wp-content/uploads/2019/02/Klue-Ebook-Bundle-for-Product-Marketers.pdf",
+	"/wp-content/uploads/2019/02/Klue-Battlecard-Examples-2018-1-1.pdf",
 	"/wp-content/uploads/2019/02/Klue-Ebook-Bundle-for-Product-Marketers.pdf",
 	"/wp-content/uploads/2019/02/06-25-2018_Klue-Battlecard-Examples-1.pdf",
 	"/wp-content/uploads/2019/02/WinLoss_Interview_Checklist_Klue-1.pdf",
