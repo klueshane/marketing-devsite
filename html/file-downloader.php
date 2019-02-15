@@ -11,7 +11,7 @@ $allowedFiles = array(
 	"/wp-content/uploads/2019/02/Klue-Ebook-Bundle-for-Product-Marketers.pdf",
 	"/wp-content/uploads/2019/02/06-25-2018_Klue-Battlecard-Examples-1.pdf",
 	"/wp-content/uploads/2019/02/WinLoss_Interview_Checklist_Klue-1.pdf",
-	"/wp-content/uploads/2019/02/K2-Case-Study-May-7.pdf",
+	"/wp-content/uploads/2019/02/K2-Digital-Case-Study-1.pdf",
 	"/wp-content/uploads/2019/02/Dell-EMC-Digital-Case-Study.pdf",
 );
 // check if query param fileName is in the list of approved downloads
