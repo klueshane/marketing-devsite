@@ -38,7 +38,7 @@ https://angel.co/klue
 
 <!-- Styles (should be compiled into one) -->
 <link rel='stylesheet' href='<?php echo get_template_directory_uri(); ?>/assets/fonts/font-awesome-4.6.3/css/font-awesome.min.css' type='text/css' media='all' />
-<link rel='stylesheet' href='<?php echo get_template_directory_uri(); ?>/assets/stylesheets/screen.css?v=12' type='text/css' media='all' />
+<link rel='stylesheet' href='<?php echo get_template_directory_uri(); ?>/assets/stylesheets/screen.css?v=13' type='text/css' media='all' />
 
 <script type="text/javascript">
   setTimeout(function(){var a=document.createElement("script");
