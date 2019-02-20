@@ -1845,7 +1845,7 @@ h1.overlay__heading--founded a {
 .blogtitle__bloglink {
   text-decoration: none;
   color: white;
-  font-weight: normal;
+  font-weight: 100;
 }
 
 /* line 1492, ../sass/screen.scss */
