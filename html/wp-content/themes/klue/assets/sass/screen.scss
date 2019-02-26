@@ -873,11 +873,25 @@ body {
 
 .jobs__listing {
   max-width: 950px;
-  margin: 0 auto;
+  margin: 80px auto;
 }
+.whr-item {
+  color: $medium-purple;
+  padding:10px 0 10px 60px;
 
+}
+.whr-title a{
+  font-size:20px;
+  color: #57506A;
+}
+.whr-group {
+  color:$bright-green;
+  font-size:22px;
+  padding:45px 0 0 60px;
+  }
   .section__heading--jobs {
     margin-left: 40px;
+    padding-bottom: 40px;
   }
 
   .jobs__list,
@@ -1923,20 +1937,6 @@ body {
   }
 }
 
-.whr-item {
-  color: $medium-purple;
-  padding:10px 0 10px 60px;
-
-}
-.whr-title a{
-  font-size:20px;
-  color: #57506A;
-}
-.whr-group {
-  color:$bright-green;
-  font-size:22px;
-  padding-left:60px;
-}
 .slick-next,
 .slick-prev {
   height: 60px;
