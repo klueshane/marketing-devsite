@@ -61,7 +61,13 @@
 
       <div class="jobs__listing">
         <h1 class="section__heading section__heading--jobs">Current Openings</h1>
-        <script data-startup="klue" src="https://angel.co/javascripts/embed_jobs.js" id="angellist_embed" async></script>
+        <script src='https://www.workable.com/assets/embed.js' type='text/javascript'></script>
+        <script type='text/javascript' charset='utf-8'>
+          whr(document).ready(function(){
+          whr_embed(347060, {detail: 'titles', base: 'jobs', zoom: 'city', grouping: 'departments'});
+          });
+          </script>
+          <div id="whr_embed_hook"></div>
       </div>
 
 
