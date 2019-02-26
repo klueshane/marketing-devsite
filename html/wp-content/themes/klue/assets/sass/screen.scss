@@ -892,7 +892,9 @@ body {
   .section__heading--jobs {
     margin-left: 40px;
   }
-
+.alm-load-more-btn {
+  cursor:pointer;
+}
   .jobs__list,
   .angellist_jobs {
     display: flex;
