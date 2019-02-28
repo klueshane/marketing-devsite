@@ -169,8 +169,8 @@ body {
   text-decoration: none;
   display: inline-block;
   text-transform: uppercase;
-  font-weight: 600;
-  font-size: .8em;
+  font-weight: 300;
+  font-size: 1em;
   margin-top: 50px;
   border-radius: 0;
   letter-spacing: .05em;
@@ -1782,7 +1782,7 @@ h1.overlay__heading--founded a {
     margin-right: auto;
     left: 40px;
     position: relative;
-    padding: 15px 35px 10px;
+    padding: 12px 35px 12px;
   }
 }
 
