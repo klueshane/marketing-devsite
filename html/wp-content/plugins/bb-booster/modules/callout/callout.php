@@ -68,10 +68,10 @@ class FLCalloutModule extends FLBuilderModule {
 
 		$this->render_image( 'left-title' );
 
-		echo '<span>';
+		echo '<span' . ( empty( $this->settings->link ) ? ' class="fl-callout-title-text"' : '' ) . '>';
 
 		if ( ! empty( $this->settings->link ) ) {
-			echo '<a href="' . $this->settings->link . '" target="' . $this->settings->link_target . '" class="fl-callout-title-link">';
+			echo '<a href="' . $this->settings->link . '" target="' . $this->settings->link_target . '" class="fl-callout-title-link fl-callout-title-text">';
 		}
 
 		echo $this->settings->title;
@@ -188,7 +188,7 @@ class FLCalloutModule extends FLBuilderModule {
 			);
 
 			FLBuilder::render_module_html( 'icon', $icon_settings );
-		}// End if().
+		}
 	}
 }
 
@@ -207,7 +207,7 @@ FLBuilder::register_module('FLCalloutModule', array(
 						'label'         => __( 'Heading', 'bb-booster' ),
 						'preview'       => array(
 							'type'          => 'text',
-							'selector'      => '.fl-callout-title',
+							'selector'      => '.fl-callout-title-text',
 						),
 						'connections'   => array( 'string' ),
 					),
@@ -328,6 +328,7 @@ FLBuilder::register_module('FLCalloutModule', array(
 				'fields'        => array(
 					'photo'         => array(
 						'type'          => 'photo',
+						'show_remove'   => true,
 						'label'         => __( 'Photo', 'bb-booster' ),
 						'connections'   => array( 'photo' ),
 					),
@@ -494,7 +495,7 @@ FLBuilder::register_module('FLCalloutModule', array(
 							),
 							'button'        => array(
 								'fields'        => array( 'cta_text', 'btn_icon', 'btn_icon_position', 'btn_icon_animation' ),
-								'sections'      => array( 'btn_style', 'btn_colors', 'btn_structure' ),
+								'sections'      => array( 'btn_style', 'btn_colors', 'btn_structure', 'btn_responsive_style' ),
 							),
 						),
 					),
@@ -503,6 +504,10 @@ FLBuilder::register_module('FLCalloutModule', array(
 						'label'         => __( 'Text', 'bb-booster' ),
 						'default'		=> __( 'Read More', 'bb-booster' ),
 						'connections'   => array( 'string' ),
+						'preview'		=> array(
+							'type'			=> 'text',
+							'selector'		=> '.fl-callout-cta-link, .fl-button-text',
+						),
 					),
 					'btn_icon'      => array(
 						'type'          => 'icon',
@@ -655,6 +660,24 @@ FLBuilder::register_module('FLCalloutModule', array(
 						'maxlength'     => '3',
 						'size'          => '4',
 						'description'   => 'px',
+					),
+				),
+			),
+			'btn_responsive_style' 	=> array(
+				'title'         		=> __( 'Responsive Button Style', 'bb-booster' ),
+				'fields'        		=> array(
+					'btn_mobile_align' => array(
+						'type'          => 'select',
+						'label'         => __( 'Alignment', 'bb-booster' ),
+						'default'       => 'center',
+						'options'       => array(
+							'center'        => __( 'Center', 'bb-booster' ),
+							'left'          => __( 'Left', 'bb-booster' ),
+							'right'         => __( 'Right', 'bb-booster' ),
+						),
+						'preview'       => array(
+							'type'          => 'none',
+						),
 					),
 				),
 			),

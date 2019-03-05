@@ -162,7 +162,7 @@ if (!class_exists('WPDBBackup_Destination_Dropbox_API')) {
             }
 
             if (!isset($this->job_object->steps_data[$this->job_object->step_working]['uploadid'])) {
-                $this->job_object->log(__('Beginning new file upload session', 'backwpup'));
+                //$this->job_object->log(__('Beginning new file upload session', 'backwpup'));
                 $session = $this->filesUploadSessionStart();
                 $this->job_object->steps_data[$this->job_object->step_working]['uploadid'] = $session['session_id'];
             }
@@ -544,65 +544,79 @@ if (!class_exists('WPDBBackup_Destination_Dropbox_API')) {
             }
 
             // Build cURL Request
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_POST, true);
+           // $ch = curl_init();
+           // curl_setopt($ch, CURLOPT_URL, $url);
+           // curl_setopt($ch, CURLOPT_POST, true);
 
-            $headers[] = 'Expect:';
+            $headers['Expect'] = '';
 
             if ($endpointFormat != 'oauth') {
-                $headers[] = 'Authorization: Bearer ' . $this->oauth_token['access_token'];
+                $headers['Authorization'] = 'Bearer ' . $this->oauth_token['access_token'];
             }
 
             if ($endpointFormat == 'oauth') {
-                curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($args, null, '&'));
-                $headers[] = 'Content-Type: application/x-www-form-urlencoded';
+                $POSTFIELDS = http_build_query($args, null, '&');
+                //curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($args, null, '&'));
+                $headers['Content-Type'] = 'application/x-www-form-urlencoded';
             } elseif ($endpointFormat == 'rpc') {
                 if (!empty($args)) {
-                    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($args));
+                    $POSTFIELDS = $args;
                 } else {
-                    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode(null));
+                    $POSTFIELDS = array();
                 }
-                $headers[] = 'Content-Type: application/json';
+                $headers['Content-Type'] = 'application/json';
             } elseif ($endpointFormat == 'upload') {
                 if (isset($args['contents'])) {
-                    curl_setopt($ch, CURLOPT_POSTFIELDS, $args['contents']);
+                    $POSTFIELDS = $args['contents'];
                     unset($args['contents']);
                 } else {
-                    curl_setopt($ch, CURLOPT_POSTFIELDS, '');
+                    $POSTFIELDS = array();
                 }
-                $headers[] = 'Content-Type: application/octet-stream';
+                $headers['Content-Type'] = 'application/octet-stream';
                 if (!empty($args)) {
-                    $headers[] = 'Dropbox-API-Arg: ' . json_encode($args);
+                    $headers['Dropbox-API-Arg'] =  json_encode($args);
                 } else {
-                    $headers[] = 'Dropbox-API-Arg: {}';
+                    $headers['Dropbox-API-Arg'] = '{}';
                 }
             } else {
-                curl_setopt($ch, CURLOPT_BINARYTRANSFER, true);
-                $headers[] = 'Dropbox-API-Arg: ' . json_encode($args);
+             //   curl_setopt($ch, CURLOPT_BINARYTRANSFER, true);
+                $headers['Dropbox-API-Arg'] = json_encode($args);
             }
             $Agent = 'WP-Database-Backup/V.4.5.1; WordPress/4.8.2; ' . home_url();
-            curl_setopt($ch, CURLOPT_USERAGENT, $Agent);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+          //  curl_setopt($ch, CURLOPT_USERAGENT, $Agent);
+          //  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+           // curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            //curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
             $output = '';
             if ($echo) {
-                echo curl_exec($ch);
+             //   echo curl_exec($ch);
             } else {
-                curl_setopt($ch, CURLOPT_HEADER, true);
-                $responce = explode("\r\n\r\n", curl_exec($ch), 2);
-                if (!empty($responce[1])) {
-                    $output = json_decode($responce[1], true);
-                }
+                //curl_setopt($ch, CURLOPT_HEADER, true);
+              //  $responce = explode("\r\n\r\n", curl_exec($ch), 2);
+               // if (!empty($responce[1])) {
+                    //$output = json_decode($responce[1], true);
+               // }
             }
-            $status = curl_getinfo($ch);
+           // $status = curl_getinfo($ch);
+
+
+            $request = new WP_Http;
+            $result = $request->request( $url ,
+                array(
+                    'method' => 'POST',
+                    'body'=>$POSTFIELDS,
+                    'user-agent' => $Agent,
+                    'sslverify' => false,
+                    'headers' => $headers
+                ) );
+            $responce =  wp_remote_retrieve_body( $result );
+            $output = json_decode($responce, true);
 
             // Handle error codes
             // If 409 (endpoint-specific error), let the calling method handle it
 
             // Code 429 = rate limited
-            if ($status['http_code'] == 429) {
+            if (wp_remote_retrieve_response_code( $result ) == 429) {
                 $wait = 0;
                 if (preg_match("/retry-after:\s*(.*?)\r/i", $responce[0], $matches)) {
                     $wait = trim($matches[1]);
@@ -618,28 +632,29 @@ if (!class_exists('WPDBBackup_Destination_Dropbox_API')) {
                 //redo request
                 return $this->request($url, $args, $endpointFormat, $data, $echo);
             } // We can't really handle anything else, so throw it back to the caller
-            elseif (isset($output['error']) || $status['http_code'] >= 400 || curl_errno($ch) > 0) {
-                $code = $status['http_code'];
-                if (curl_errno($ch) != 0) {
-                    $message = '(' . curl_errno($ch) . ') ' . curl_error($ch);
-                    $code = 0;
-                } elseif ($status['http_code'] == 400) {
+            elseif (isset($output['error']) || wp_remote_retrieve_response_code( $result ) >= 400 ) {
+                $code = wp_remote_retrieve_response_code( $result );
+              //  if (curl_errno($ch) != 0) {
+                 //   $message = '(' . curl_errno($ch) . ') ' . curl_error($ch);
+                   // $code = 0;
+               // } else
+                    if (wp_remote_retrieve_response_code( $result ) == 400) {
                     $message = '(400) Bad input parameter: ' . strip_tags($responce[1]);
-                } elseif ($status['http_code'] == 401) {
+                } elseif (wp_remote_retrieve_response_code( $result ) == 401) {
                     $message = '(401) Bad or expired token. This can happen if the user or Dropbox revoked or expired an access token. To fix, you should re-authenticate the user.';
-                } elseif ($status['http_code'] == 409) {
+                } elseif (wp_remote_retrieve_response_code( $result ) == 409) {
                     $message = $output['error_summary'];
-                } elseif ($status['http_code'] >= 500) {
-                    $message = '(' . $status['http_code'] . ') There is an error on the Dropbox server.';
+                } elseif (wp_remote_retrieve_response_code( $result ) >= 500) {
+                    $message = '(' . wp_remote_retrieve_response_code( $result ) . ') There is an error on the Dropbox server.';
                 } else {
-                    $message = '(' . $status['http_code'] . ') Invalid response.';
+                    $message = '(' . wp_remote_retrieve_response_code( $result ) . ') Invalid response.';
                 }
                 if ($this->job_object && $this->job_object->is_debug()) {
                     $this->job_object->log('Response with header: ' . $responce[0]);
                 }
                 throw new WPDBBackup_Destination_Dropbox_API_Request_Exception($message, $code, null, isset($output['error']) ? $output['error'] : null);
             } else {
-                curl_close($ch);
+                //curl_close($ch);
                 if (!is_array($output)) {
                     return $responce[1];
                 } else {

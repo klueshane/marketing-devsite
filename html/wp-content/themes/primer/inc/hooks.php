@@ -22,7 +22,7 @@ function primer_elements() {
 
 	}
 
-	if ( ( is_front_page() && (bool) get_post_meta( get_queried_object_id(), '_fl_builder_enabled', true ) ) || is_home() ) {
+	if ( is_home() ) {
 
 		remove_action( 'primer_after_header', 'primer_add_page_title', 12 );
 
@@ -32,14 +32,14 @@ function primer_elements() {
 add_action( 'template_redirect', 'primer_elements' );
 
 /**
- * Display video header
+ * Display the video header.
  *
  * @action primer_before_header_wrapper
  * @since  1.7.0
  */
 function primer_video_header() {
 
-	if ( ! is_front_page() || ! has_header_video() ) {
+	if ( ! is_front_page() || ! function_exists( 'has_header_video' ) || ! has_header_video() ) {
 
 		return;
 
@@ -258,6 +258,36 @@ function primer_add_credit() {
 add_action( 'primer_site_info', 'primer_add_credit' );
 
 /**
+ * Display privacy policy link
+ *
+ * @action the_privacy_policy_link
+ * @since  1.8.3
+ */
+function primer_privacy_policy_link() {
+
+	if ( function_exists( 'the_privacy_policy_link' ) ) {
+
+		/**
+		 * Filter the footer privacy policy link display.
+		 *
+		 * @since 1.8.3
+		 *
+		 * @var bool
+		 */
+		if ( ! (bool) apply_filters( 'primer_privacy_policy_link', true ) ) {
+
+			return;
+
+		}
+
+		the_privacy_policy_link();
+
+	}
+
+}
+add_action( 'primer_site_info', 'primer_privacy_policy_link', 7 );
+
+/**
  * Set the post excerpt length to 20 words.
  *
  * To override this in a child theme, remove the filter and add
@@ -422,6 +452,52 @@ function primer_wp_title( $title, $sep ) {
 
 }
 add_filter( 'wp_title', 'primer_wp_title', 10, 2 );
+
+/**
+ * Filter the site title HTML wrapper.
+ *
+ * @filter primer_the_site_title_args
+ * @since  1.8.0
+ *
+ * @param  array $args The site title args.
+ *
+ * @return array
+ */
+function primer_the_site_title_wrapper( $args ) {
+
+	if ( is_home() ) {
+
+		$args['wrapper'] = 'h1';
+
+	}
+
+	return $args;
+
+}
+add_filter( 'primer_the_site_title_args', 'primer_the_site_title_wrapper' );
+
+/**
+ * Filter the page title HTML wrapper.
+ *
+ * @filter primer_the_page_title_args
+ * @since  1.8.0
+ *
+ * @param  array $args The page title args.
+ *
+ * @return array
+ */
+function primer_the_page_title_wrapper( $args ) {
+
+	if ( is_single() ) {
+
+		$args['wrapper'] = 'h2';
+
+	}
+
+	return $args;
+
+}
+add_filter( 'primer_the_page_title_args', 'primer_the_page_title_wrapper' );
 
 /**
  * Customize the default pagination links template.

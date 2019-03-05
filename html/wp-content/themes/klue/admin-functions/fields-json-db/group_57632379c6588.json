@@ -82,8 +82,8 @@
         },
         {
             "key": "field_5a6e8b5753539",
-            "label": "Secondary",
-            "name": "secondary",
+            "label": "Competitors",
+            "name": "competitors",
             "type": "group",
             "instructions": "",
             "required": 0,
@@ -98,8 +98,8 @@
                 {
                     "ID": 2243,
                     "key": "field_5a6e8bb9074b2",
-                    "label": "Secondary - Headline",
-                    "name": "secondary_headline",
+                    "label": "Headline",
+                    "name": "headline",
                     "prefix": "acf",
                     "type": "text",
                     "value": null,
@@ -115,7 +115,7 @@
                         "class": "",
                         "id": ""
                     },
-                    "_name": "secondary_headline",
+                    "_name": "headline",
                     "_prepare": 0,
                     "_valid": 1,
                     "default_value": "",
@@ -127,8 +127,8 @@
                 {
                     "ID": 2244,
                     "key": "field_5a6e8bc9074b3",
-                    "label": "Secondary - Content",
-                    "name": "secondary_content",
+                    "label": "Content",
+                    "name": "content",
                     "prefix": "acf",
                     "type": "textarea",
                     "value": null,
@@ -144,7 +144,7 @@
                         "class": "",
                         "id": ""
                     },
-                    "_name": "secondary_content",
+                    "_name": "content",
                     "_prepare": 0,
                     "_valid": 1,
                     "default_value": "",
@@ -820,5 +820,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1520482323
+    "modified": 1549665788
 }

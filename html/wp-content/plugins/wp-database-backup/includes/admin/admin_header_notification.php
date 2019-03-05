@@ -6,17 +6,13 @@ $changelogMsg='';
 
 @$changeMessage="<strong><a href='http://www.wpseeds.com/product/wp-all-backup/' target='_blank'>WP All Backup Plugin.</a></strong> will backup and restore your entire site at will,
                         complete with FTP & S3 integration";
-$coupon="Use Coupon code <strong>'WPDB30'</strong> and Get Flat 30% off on <strong><a href='http://wpallbackup.com/' target='_blank'>WP All Backup Plugin.</a></strong>";
-if (function_exists('curl_init')) { // if cURL is available, use it...
-    $ch = curl_init($notifier_file_url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_HEADER, 0);
-    curl_setopt($ch, CURLOPT_TIMEOUT, 10);
-    $notifier_data = curl_exec($ch);
-    curl_close($ch);
-} else {
-    @$notifier_data = file_get_contents($notifier_file_url); // ...if not, use the common file_get_contents()
-}
+$coupon="Use Coupon code <strong>'WPDB30'</strong> and Get Flat 30% off on <strong><a href='https://wpallbackup.com//' target='_blank'>WP All Backup Plugin.</a></strong>";
+
+$url = $notifier_file_url;
+$request = new WP_Http;
+$result = $request->request( $url );
+$notifier_data = $result['body'];
+
 if (strpos((string) $notifier_data, '<notifier>') === false) {
     $notifier_data = '<?xml version="1.0" encoding="UTF-8"?><notifier><latest>1.0</latest><changelog></changelog>';
 }
@@ -42,7 +38,7 @@ if (!empty($xml)) {
         $changelog = '';
         
     } else {
-        @$alert = '<strong><a href="http://wpallbackup.com/" title="Change Log" target="_blank">Plugin Updates</a></strong><br/>             
+        @$alert = '<strong><a href="https://wpallbackup.com//" title="Change Log" target="_blank">Plugin Updates</a></strong><br/>             
                 <strong>There is a new version of the <br/>WP Database Backup plugin available.</strong>
                  You have version ' . WPDB_VERSION . ' Update to version ' . $xml->latest . '.';
         @$changelog = $xml->changelog;
@@ -206,12 +202,12 @@ if (!empty($xml)) {
                     </a>
                 </li>
                 <li >
-                    <a href="http://wpallbackup.com/" target="_blank" >
+                    <a href="https://wpallbackup.com//" target="_blank" >
                         <h5 ><?php _e('Documentation', 'wpdbbkp'); ?></h5>
                     </a>
                 </li>
                 <li >
-                    <a href="http://wpallbackup.com/support/" target="_blank" >
+                    <a href="https://wpallbackup.com//support/" target="_blank" >
                         <h5 ><?php _e('Support', 'wpdbbkp'); ?></h5>
                     </a>
                 </li>

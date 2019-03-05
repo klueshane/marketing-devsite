@@ -18,6 +18,7 @@
 function primer_get_the_page_title() {
 
 	$title = '';
+	$post  = get_queried_object();
 
 	switch ( true ) {
 
@@ -35,7 +36,7 @@ function primer_get_the_page_title() {
 
 		case is_archive() :
 
-			$title = get_the_archive_title();
+			$title = wp_strip_all_tags( get_the_archive_title() );
 
 			break;
 
@@ -44,10 +45,7 @@ function primer_get_the_page_title() {
 			$title = sprintf(
 				/* translators: search term */
 				esc_html__( 'Search Results for: %s', 'primer' ),
-				sprintf(
-					'<span>%s</span>',
-					get_search_query()
-				)
+				get_search_query()
 			);
 
 			break;
@@ -64,7 +62,7 @@ function primer_get_the_page_title() {
 
 			break;
 
-		case ( ( $post = get_queried_object() ) && ! is_post_type_hierarchical( get_post_type( $post ) ) ) :
+		case ( ! is_post_type_hierarchical( get_post_type( $post ) ) ) :
 
 			$show_on_front  = get_option( 'show_on_front' );
 			$page_for_posts = get_option( 'page_for_posts' );
@@ -83,7 +81,7 @@ function primer_get_the_page_title() {
 
 			break;
 
-	}
+	} // End switch().
 
 	/**
 	 * Filter the page title.
@@ -263,7 +261,7 @@ function primer_get_hero_image_selector() {
  */
 function primer_use_featured_hero_image() {
 
-	$enabled = (bool) get_theme_mod( 'use_featured_hero_image' );
+	$enabled = (bool) get_theme_mod( 'use_featured_hero_image', 1 );
 
 	/**
 	 * Filter if a post's featured image should be the header image.
@@ -318,10 +316,12 @@ function primer_get_hero_image() {
 	 */
 	$size = (string) apply_filters( 'primer_hero_image_size', 'primer-hero' );
 
+	$post = get_queried_object();
+
 	/**
 	 * Featured Image (if enabled)
 	 */
-	if ( primer_use_featured_hero_image() && ( $post = get_queried_object() ) && has_post_thumbnail( $post ) ) {
+	if ( primer_use_featured_hero_image() && has_post_thumbnail( $post ) ) {
 
 		$image = wp_get_attachment_image_src( get_post_thumbnail_id( $post ), $size );
 
@@ -490,7 +490,9 @@ function primer_has_footer_menu() {
  */
 function primer_has_active_categories() {
 
-	if ( WP_DEBUG || false === ( $has_active_categories = get_transient( 'primer_has_active_categories' ) ) ) {
+	$has_active_categories = get_transient( 'primer_has_active_categories' );
+
+	if ( WP_DEBUG || false === $has_active_categories ) {
 
 		$categories = get_categories(
 			array(
@@ -576,13 +578,16 @@ function primer_array_replace_recursive( array $array1, array $array2 ) {
 
 	if ( function_exists( 'array_replace_recursive' ) ) {
 
-		return call_user_func_array( 'array_replace_recursive', func_get_args() );
+		$args = func_get_args();
+
+		return call_user_func_array( 'array_replace_recursive', $args );
 
 	}
 
+	$total  = func_num_args();
 	$result = array();
 
-	for ( $i = 0, $total = func_num_args(); $i < $total; $i++ ) {
+	for ( $i = 0; $i < $total; $i++ ) {
 
 		$_array = func_get_arg( $i );
 

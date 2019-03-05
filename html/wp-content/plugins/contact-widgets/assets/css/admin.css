@@ -72,7 +72,8 @@
 /**
  * Default fields
  */
-.wpcw-widget .default-fields {
+.wpcw-widget .default-fields,
+.components-panel__row .default-fields {
 	display: none;
 }
 

@@ -23,7 +23,7 @@
  *
  * @var string
  */
-define( 'PRIMER_VERSION', '1.7.0' );
+define( 'PRIMER_VERSION', '1.8.6' );
 
 /**
  * Minimum WordPress version required for Primer.
@@ -126,6 +126,14 @@ if ( class_exists( 'FLBuilder' ) ) {
 	require_once get_template_directory() . '/inc/compat/beaver-builder.php';
 
 }
+
+/**
+ * Load Gutenberg compatiblity.
+ *
+ * @since 1.8.5
+ */
+require_once get_template_directory() . '/inc/compat/gutenberg.php';
+
 
 /**
  * Load Jetpack compatibility file.
@@ -481,7 +489,7 @@ function primer_scripts() {
 
 	wp_style_add_data( $stylesheet, 'rtl', 'replace' );
 
-	$nav_dependencies = ( is_front_page() && has_header_video() ) ? array( 'jquery', 'wp-custom-header' ) : array( 'jquery' );
+	$nav_dependencies = ( is_front_page() && function_exists( 'has_header_video' ) && has_header_video() ) ? array( 'jquery', 'wp-custom-header' ) : array( 'jquery' );
 
 	wp_enqueue_script( 'primer-navigation', get_template_directory_uri() . "/assets/js/navigation{$suffix}.js", $nav_dependencies, PRIMER_VERSION, true );
 	wp_enqueue_script( 'primer-skip-link-focus-fix', get_template_directory_uri() . "/assets/js/skip-link-focus-fix{$suffix}.js", array(), PRIMER_VERSION, true );

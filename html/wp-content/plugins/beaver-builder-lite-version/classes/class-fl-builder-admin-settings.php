@@ -76,10 +76,10 @@ final class FLBuilderAdminSettings {
 	 * @return void
 	 */
 	static public function menu() {
-		if ( current_user_can( 'delete_users' ) ) {
+		if ( FLBuilderAdmin::current_user_can_access_settings() ) {
 
 			$title = FLBuilderModel::get_branding();
-			$cap   = 'delete_users';
+			$cap   = FLBuilderAdmin::admin_settings_capability();
 			$slug  = 'fl-builder-settings';
 			$func  = __CLASS__ . '::render';
 
@@ -123,7 +123,7 @@ final class FLBuilderAdminSettings {
 		$name = FLBuilderModel::get_branding();
 
 		if ( ! empty( $icon ) ) {
-			echo '<img src="' . $icon . '" />';
+			echo '<img role="presentation" src="' . $icon . '" />';
 		}
 
 		echo '<span>' . sprintf( _x( '%s Settings', '%s stands for custom branded "Page Builder" name.', 'fl-builder' ), FLBuilderModel::get_branding() ) . '</span>';
@@ -335,7 +335,7 @@ final class FLBuilderAdminSettings {
 	 */
 	static public function save() {
 		// Only admins can save settings.
-		if ( ! current_user_can( 'delete_users' ) ) {
+		if ( ! FLBuilderAdmin::current_user_can_access_settings() ) {
 			return;
 		}
 
@@ -363,8 +363,13 @@ final class FLBuilderAdminSettings {
 
 			$modules = array();
 
-			if ( is_array( $_POST['fl-modules'] ) ) {
+			if ( isset( $_POST['fl-modules'] ) && is_array( $_POST['fl-modules'] ) ) {
 				$modules = array_map( 'sanitize_text_field', $_POST['fl-modules'] );
+			}
+
+			if ( empty( $modules ) ) {
+				self::add_error( __( 'Error! You must have at least one module enabled.', 'fl-builder' ) );
+				return;
 			}
 
 			FLBuilderModel::update_admin_settings_option( '_fl_builder_enabled_modules', $modules, true );
@@ -444,6 +449,8 @@ final class FLBuilderAdminSettings {
 					fl_builder_filesystem()->rmdir( $sets[ $key ]['path'], true );
 					FLBuilderIcons::remove_set( $key );
 				}
+
+				do_action( 'fl_builder_admin_settings_remove_icon_set', $key );
 			}
 
 			// Upload a new set?
@@ -451,12 +458,20 @@ final class FLBuilderAdminSettings {
 
 				$dir		 = FLBuilderModel::get_cache_dir( 'icons' );
 				$id			 = (int) $_POST['fl-new-icon-set'];
-				$path		 = get_attached_file( $id );
-				$new_path	 = $dir['path'] . 'icon-' . time() . '/';
+				$path		 = apply_filters( 'fl_builder_icon_set_upload_path', get_attached_file( $id ) );
+				$new_path	 = apply_filters( 'fl_builder_icon_set_new_path', $dir['path'] . 'icon-' . time() . '/' );
 
 				fl_builder_filesystem()->get_filesystem();
 
+				do_action( 'fl_builder_before_unzip_icon_set', $id, $path, $new_path );
+
 				$unzipped	 = unzip_file( $path, $new_path );
+
+				// unzip returned a WP_Error
+				if ( is_wp_error( $unzipped ) ) {
+					self::add_error( sprintf( __( 'Unzip Error: %s', 'fl-builder' ), $unzipped->get_error_message() ) );
+					return;
+				}
 
 				// Unzip failed.
 				if ( ! $unzipped ) {
@@ -487,9 +502,13 @@ final class FLBuilderAdminSettings {
 					}
 				}
 
+				do_action( 'fl_builder_after_unzip_icon_set', $new_path );
+
+				$check_path = apply_filters( 'fl_builder_icon_set_check_path', $new_path );
+
 				// Check for supported sets.
-				$is_icomoon	 = fl_builder_filesystem()->file_exists( $new_path . 'selection.json' );
-				$is_fontello = fl_builder_filesystem()->file_exists( $new_path . 'config.json' );
+				$is_icomoon	 = fl_builder_filesystem()->file_exists( $check_path . 'selection.json' );
+				$is_fontello = fl_builder_filesystem()->file_exists( $check_path . 'config.json' );
 
 				// Show an error if we don't have a supported icon set.
 				if ( ! $is_icomoon && ! $is_fontello ) {
@@ -500,7 +519,7 @@ final class FLBuilderAdminSettings {
 
 				// check for valid Icomoon
 				if ( $is_icomoon ) {
-					$data = json_decode( fl_builder_filesystem()->file_get_contents( $new_path . 'selection.json' ) );
+					$data = json_decode( fl_builder_filesystem()->file_get_contents( $check_path . 'selection.json' ) );
 					if ( ! isset( $data->metadata ) ) {
 						fl_builder_filesystem()->rmdir( $new_path, true );
 						self::add_error( __( 'Error! When downloading from Icomoon, be sure to click the Download Font button and not Generate SVG.', 'fl-builder' ) );
@@ -510,7 +529,7 @@ final class FLBuilderAdminSettings {
 
 				// Enable the new set.
 				if ( is_array( $enabled_icons ) ) {
-					$key = FLBuilderIcons::get_key_from_path( $new_path );
+					$key = FLBuilderIcons::get_key_from_path( $check_path );
 					$enabled_icons[] = $key;
 				}
 			}
@@ -552,7 +571,7 @@ final class FLBuilderAdminSettings {
 	 * @return void
 	 */
 	static private function clear_cache() {
-		if ( ! current_user_can( 'delete_users' ) ) {
+		if ( ! FLBuilderAdmin::current_user_can_access_settings() ) {
 			return;
 		} elseif ( isset( $_POST['fl-cache-nonce'] ) && wp_verify_nonce( $_POST['fl-cache-nonce'], 'cache' ) ) {
 			if ( is_network_admin() ) {
@@ -579,7 +598,7 @@ final class FLBuilderAdminSettings {
 	 * @return void
 	 */
 	static private function debug() {
-		if ( ! current_user_can( 'delete_users' ) ) {
+		if ( ! FLBuilderAdmin::current_user_can_access_settings() ) {
 			return;
 		} elseif ( isset( $_POST['fl-debug-nonce'] ) && wp_verify_nonce( $_POST['fl-debug-nonce'], 'debug' ) ) {
 			$debugmode = get_option( 'fl_debug_mode', false );

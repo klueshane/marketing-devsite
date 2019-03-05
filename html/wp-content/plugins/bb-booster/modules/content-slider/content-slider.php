@@ -28,8 +28,7 @@ class FLContentSliderModule extends FLBuilderModule {
 		// Background photo
 		if ( 'photo' == $slide->bg_layout && ! empty( $slide->bg_photo_src ) ) {
 			echo '<div class="fl-slide-bg-photo" style="background-image: url(' . $slide->bg_photo_src . ');"></div>';
-		} // End if().
-		elseif ( 'video' == $slide->bg_layout && ! empty( $slide->bg_video ) ) {
+		} elseif ( 'video' == $slide->bg_layout && ! empty( $slide->bg_video ) ) {
 			echo '<div class="fl-slide-bg-video">' . $slide->bg_video . '</div>';
 		}
 
@@ -93,8 +92,7 @@ class FLContentSliderModule extends FLBuilderModule {
 
 			echo '</div>';
 			echo '</div>';
-		} // End if().
-		elseif ( 'video' == $slide->content_layout && ! empty( $slide->fg_video ) ) {
+		} elseif ( 'video' == $slide->content_layout && ! empty( $slide->fg_video ) ) {
 			echo '<div class="fl-slide-photo-wrap">';
 			echo '<div class="fl-slide-photo">' . $slide->fg_video . '</div>';
 			echo '</div>';
@@ -130,8 +128,7 @@ class FLContentSliderModule extends FLBuilderModule {
 				echo '<img class="fl-slide-mobile-photo-img wp-image-' . $id . '" src="' . $src . '" alt="' . esc_attr( $alt ) . '" />';
 				echo '</div>';
 			}
-		} // End if().
-		elseif ( 'video' == $slide->content_layout && ! empty( $slide->fg_video ) ) {
+		} elseif ( 'video' == $slide->content_layout && ! empty( $slide->fg_video ) ) {
 			echo '<div class="fl-slide-mobile-photo">' . $slide->fg_video . '</div>';
 		} // BG Photo
 		elseif ( 'photo' == $slide->bg_layout ) {
@@ -253,13 +250,22 @@ FLBuilder::register_module('FLContentSliderModule', array(
 							),
 						),
 					),
+					'auto_hover'     => array(
+						'type'          => 'select',
+						'label'         => __( 'Pause On Hover', 'bb-booster' ),
+						'default'       => '1',
+						'options'       => array(
+							'0'             => __( 'No', 'bb-booster' ),
+							'1'             => __( 'Yes', 'bb-booster' ),
+						),
+					),
 					'delay'         => array(
 						'type'          => 'text',
 						'label'         => __( 'Delay', 'bb-booster' ),
 						'default'       => '5',
 						'maxlength'     => '4',
 						'size'          => '5',
-						'sanitize'		=> 'absint',
+						'sanitize'			=> 'FLBuilderUtils::sanitize_non_negative_number',
 						'description'   => _x( 'seconds', 'Value unit for form field of time in seconds. Such as: "5 seconds"', 'bb-booster' ),
 					),
 					'loop'          => array(
@@ -286,7 +292,7 @@ FLBuilder::register_module('FLContentSliderModule', array(
 						'default'       => '0.5',
 						'maxlength'     => '4',
 						'size'          => '5',
-						'sanitize'		=> 'absint',
+						'sanitize'			=> 'FLBuilderUtils::sanitize_non_negative_number',
 						'description'   => _x( 'seconds', 'Value unit for form field of time in seconds. Such as: "5 seconds"', 'bb-booster' ),
 					),
 					'play_pause'    => array(
@@ -441,6 +447,7 @@ FLBuilder::register_settings_form('content_slider_slide', array(
 						),
 						'bg_photo'      => array(
 							'type'          => 'photo',
+							'show_remove'   => true,
 							'label'         => __( 'Background Photo', 'bb-booster' ),
 						),
 						'bg_color'      => array(
@@ -486,6 +493,7 @@ FLBuilder::register_settings_form('content_slider_slide', array(
 						),
 						'fg_photo'      => array(
 							'type'          => 'photo',
+							'show_remove'   => true,
 							'label'         => __( 'Photo', 'bb-booster' ),
 						),
 						'fg_video'      => array(
@@ -572,9 +580,14 @@ FLBuilder::register_settings_form('content_slider_slide', array(
 							'maxlength'     => '3',
 							'size'          => '5',
 						),
+					),
+				),
+				'text_margins'	=> array(
+					'title'     	=> __( 'Text Margins', 'bb-booster' ),
+					'fields'		=> array(
 						'text_margin_top' => array(
 							'type'          => 'text',
-							'label'         => __( 'Top Margin', 'bb-booster' ),
+							'label'         => __( 'Top', 'bb-booster' ),
 							'default'       => '60',
 							'description'   => 'px',
 							'maxlength'     => '4',
@@ -582,7 +595,7 @@ FLBuilder::register_settings_form('content_slider_slide', array(
 						),
 						'text_margin_bottom' => array(
 							'type'          => 'text',
-							'label'         => __( 'Bottom Margin', 'bb-booster' ),
+							'label'         => __( 'Bottom', 'bb-booster' ),
 							'default'       => '60',
 							'description'   => 'px',
 							'maxlength'     => '4',
@@ -590,7 +603,7 @@ FLBuilder::register_settings_form('content_slider_slide', array(
 						),
 						'text_margin_left' => array(
 							'type'          => 'text',
-							'label'         => __( 'Left Margin', 'bb-booster' ),
+							'label'         => __( 'Left', 'bb-booster' ),
 							'default'       => '60',
 							'description'   => 'px',
 							'maxlength'     => '4',
@@ -598,8 +611,45 @@ FLBuilder::register_settings_form('content_slider_slide', array(
 						),
 						'text_margin_right' => array(
 							'type'          => 'text',
-							'label'         => __( 'Right Margin', 'bb-booster' ),
+							'label'         => __( 'Right', 'bb-booster' ),
 							'default'       => '60',
+							'description'   => 'px',
+							'maxlength'     => '4',
+							'size'          => '5',
+						),
+					),
+				),
+				'text_paddings'	=> array(
+					'title'     	=> __( 'Text Padding', 'bb-booster' ),
+					'fields'		=> array(
+						'text_padding_top' => array(
+							'type'          => 'text',
+							'label'         => __( 'Top', 'bb-booster' ),
+							'default'       => '30',
+							'description'   => 'px',
+							'maxlength'     => '4',
+							'size'          => '5',
+						),
+						'text_padding_bottom' => array(
+							'type'          => 'text',
+							'label'         => __( 'Bottom', 'bb-booster' ),
+							'default'       => '30',
+							'description'   => 'px',
+							'maxlength'     => '4',
+							'size'          => '5',
+						),
+						'text_padding_left' => array(
+							'type'          => 'text',
+							'label'         => __( 'Left', 'bb-booster' ),
+							'default'       => '30',
+							'description'   => 'px',
+							'maxlength'     => '4',
+							'size'          => '5',
+						),
+						'text_padding_right' => array(
+							'type'          => 'text',
+							'label'         => __( 'Right', 'bb-booster' ),
+							'default'       => '30',
 							'description'   => 'px',
 							'maxlength'     => '4',
 							'size'          => '5',
@@ -876,6 +926,7 @@ FLBuilder::register_settings_form('content_slider_slide', array(
 						),
 						'r_photo'    => array(
 							'type'          => 'photo',
+							'show_remove'   => true,
 							'label'         => __( 'Photo', 'bb-booster' ),
 						),
 					),

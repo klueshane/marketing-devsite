@@ -33,11 +33,11 @@ final class FLBuilderServiceMailChimp extends FLBuilderService {
 		if ( $this->api_instance ) {
 			return $this->api_instance;
 		}
-		if ( ! class_exists( 'Mailchimp' ) ) {
+		if ( ! class_exists( 'FLBuilderMailChimp' ) ) {
 			require_once FL_BUILDER_DIR . 'includes/vendor/mailchimp/mailchimp.php';
 		}
 
-		$this->api_instance = new Mailchimp( $api_key );
+		$this->api_instance = new FLBuilderMailChimp( $api_key );
 
 		return $this->api_instance;
 	}
@@ -258,6 +258,13 @@ final class FLBuilderServiceMailChimp extends FLBuilderService {
 
 			try {
 				$api     = $this->get_api( $account_data['api_key'] );
+				/**
+				 * Use this filter to enable double opt-ins for MailChimp integrations.
+				 * Returning true enables double opt-ins; returning false enables single opt-ins.
+				 * The default return value for this filter is false.
+				 * @see fl_builder_mailchimp_double_option
+				 * @link https://kb.wpbeaverbuilder.com/article/117-plugin-filter-reference
+				 */
 				$double  = apply_filters( 'fl_builder_mailchimp_double_option', false );
 				$data    = array(
 					'email'        => $email,
@@ -266,14 +273,11 @@ final class FLBuilderServiceMailChimp extends FLBuilderService {
 
 				// Name
 				if ( $name ) {
-
 					$names = explode( ' ', $name );
 
 					if ( isset( $names[0] ) ) {
 						$data['FNAME'] = $names[0];
-					}
-					if ( isset( $names[1] ) ) {
-						$data['LNAME'] = $names[1];
+						$data['LNAME'] = ltrim( str_replace( $names[0], '', $name ) );
 					}
 				}
 

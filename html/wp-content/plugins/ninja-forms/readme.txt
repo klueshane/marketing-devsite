@@ -1,9 +1,9 @@
 === Ninja Forms - The Easy and Powerful Forms Builder ===
 Contributors: wpninjasllc, kstover, jameslaws, kbjohnson90, klhall1987, krmoorhouse, jmcelhaney, wpnzach
 Tags: form, forms, contact form, custom form, form builder, form creator, form manager, form creation, contact forms, custom forms, forms builder, forms creator, forms manager, forms creation, form administration,
-Requires at least: 4.7
-Tested up to: 4.9
-Stable tag: 3.3.3
+Requires at least: 4.8
+Tested up to: 5.0
+Stable tag: 3.4.4
 License: GPLv2 or later
 
 Drag and drop fields in an intuitive UI to create contact forms, email subscription forms, order forms, payment forms, send emails and more!
@@ -67,7 +67,7 @@ Want access to everything we offer, or perhaps just our form building toolkit "B
 
 = For Developers =
 
-The Ninja Forms framework is on [GitHub](https://github.com/wpninjas/ninja-forms)! If you're a developer and want to help make Ninja Forms better, check it out. It's also a great resource for developers who are interested in creating add-ons for our online store.
+The Ninja Forms framework is on [GitLab](https://git.saturdaydrive.io/ninja-forms/ninja-forms)! If you're a developer and want to help make Ninja Forms better, check it out. It's also a great resource for developers who are interested in creating add-ons for our online store.
 
 If you're a developer and would like to talk about creating some premium extensions for Ninja Forms, send us an email: info@wpninjas.com.
 
@@ -93,7 +93,7 @@ Documentation for Ninja Forms can be found at <a href="https://ninjaforms.com/do
 
 = Where can I report a bug? =
 
-Report bugs, suggest ideas, and participate in development at <a href="https://github.com/wpninjas/ninja-forms">https://github.com/wpninjas/ninja-forms</a>.
+Report bugs, suggest ideas, and participate in development at <a href="https://git.saturdaydrive.io/ninja-forms/ninja-forms">https://git.saturdaydrive.io/ninja-forms/ninja-forms</a>.
 
 == Installation ==
 
@@ -111,26 +111,261 @@ For help and video tutorials, please visit our website: [Ninja Forms Documentati
 
 == Upgrade Notice ==
 
-= 3.3.3 (5 June 2018) =
+= 3.4.4 (13 February 2019) =
 
 *Bugs:*
 
-* Resolved an issue that sometimes caused our opt-in modal to become undismissable.
-* Fields that do not actually save data should no longer appear in the include/exclude fields list for the store submission action.
-* Improved performance of our Add Form modal in the post editor.
-* Resolved an issue that sometimes caused the Submissions page to display as a white screen.
+* Resolved an issue that was sometimes causing the submission sequence to reset.
+
+== Changelog ==
+
+= 3.4.4 (13 February 2019) =
+
+*Bugs:*
+
+* Resolved an issue that was sometimes causing the submission sequence to reset.
+
+= 3.4.3 (5 February 2019) =
+
+*Bugs:*
+
+* Resolved an issue that was causing some form imports to fail.
+* Submission exports of checkbox fields that have been modified by an admin should now display their proper value in the csv.
+* Resolved an issue that was rarely causing actions to fire twice.
+
+= 3.4.2 (17 January 2019) =
+
+*Bugs:*
+
+* Resolved an issue that sometimes caused fields to not appear on the form after publish. (Special thanks to Tim de Hoog and Sidekick-IT).
+
+= 3.4.1 (15 January 2019) =
+
+*Bugs:*
+
+* Corrected an error that was causing form duplication to fail.
+* Sites with WP_DEBUG enabled should no longer display an undefined 'maintenance' column error on form load.
+
+= 3.4.0 (14 January 2019) =
 
 *Changes:*
 
-* (GDPR) Fields excluded by the store submission action will now show their values as (redacted) in the edit submission screen, rather than displaying nothing.
-* (GDPR) The delete data request action now includes a setting to specify anonimization of Ninja Forms data, rather than full deletion.
-* (GDPR) Fields now have a setting to specify if they are personally identifiable data.
-* Registered a cleanup process to take care of some outdated and unnecessary data we have been storing in various data records.
-* Added several ARIA attributes to the fields that were missing them.
-* The Delete All Data button now cleans up several additional options that we'd recently added.
-* The list of actions in the form builder has been updated, and non-enabled actions now include a short blurb describing their usage.
+* Implemented a new import process, which should be more reliable with large form imports.
+* Upgraded our data structure to reduce loading times for forms and the form builder.
 
-== Changelog ==
+= 3.3.21.3 (10 January 2019) =
+
+*Security:*
+
+* (2.9x) Duplicated previous blind SQL injection patch for our deprecated 2.9x codebase. Many thanks to Plugin Vulnerabilities for reporting that our initial pass missed this.
+
+= 3.3.21.2 (7 January 2019) =
+
+*Security:*
+
+* Patched a blind SQL injection vulnerability in the search filter on our submissions page. Thank you to Samuel Anttila at netsec.expert for practicing responsible disclosure.
+
+= 3.3.21.1 (3 January 2019) =
+
+*Security:*
+
+* Patched a reflected XSS vulnerability in our administrative dashboard. Thank you to Samuel Anttila at netsec.expert for practicing responsible disclosure.
+
+= 3.3.21 (2 January 2019) =
+
+*Bugs:*
+
+* Resolved an issue that caused our Gutenberg Block to not dispaly in the post editor when the Twenty Nineteen theme is active.
+
+*Changes:*
+
+* Product and quantity field merge tags can no longer be referenced in calculations.
+
+= 3.3.20 (6 December 2018) =
+
+*Changes:*
+
+* Finalized the Gutenberg block. (No longer a Beta feature.)
+
+= 3.3.19.1 (29 November 2018) =
+
+*Security:*
+
+* Patched an open redirect vulnerability using a url parameter in our submission download page. Thank you to Muhammad Talha Khan for practicing responsible disclosure.
+
+= 3.3.19 (20 November 2018) =
+
+*Bugs:*
+
+* Placeholder text should now be visible in number fields that have a minimum value.
+* Corrected an error that was sometimes causing number fields to clear themselves when Multi-part Forms is active.
+
+*Changes:*
+
+* The rich text editor in the form builder should now wrap lines while in code view.
+
+= 3.3.18 (14 November 2018) =
+
+*Security:*
+
+* Patched a redirect XSS vulnerability using code injection on our submissions page. Thank you to Muhammad Talha Khan for practicing responsible disclosure.
+
+*Bugs:*
+
+* Resolved an issue where the WordPress is_search function was being called incorrectly in some cases.
+* Custom columns should no longer be added to non-Ninja Forms custom post types with meta values containing '_field'.
+* Resolved an issue that sometimes caused error log entries related to an invalid IP.
+* The form selector on the submissions page should now be visible on mobile devices.
+* Resolved an issue that sometimes caused CSV exports to have multiple header rows.
+
+= 3.3.17 (16 October 2018) =
+
+*Bugs:*
+
+* Pressing the tab key while in the delete a form modal should now shift focus to the delete button.
+* Resolved an issue that could have caused some display issues on the dashboard due to cached scripts.
+
+*Changes:*
+
+* Updated several of our product images on the apps & integrations tab of the dashboard.
+* Our in-app marketing feed will now fetch from a remote site for more swift product updates.
+* [Ninja Shop](https://getninjashop.com/?utm_medium=dashboard_banner&utm_source=ninja-forms&utm_campaign=Awareness) has arrived!
+
+= 3.3.16 (17 September 2018) =
+
+*Bugs:*
+
+* Resolved an issue that was sometimes causing upgrades on multi-site to delete forms from other sites on the installation.
+* Corrected a bad reference in our Create a Post template documentation.
+* List field values sent in an email via CSV should no longer display as NULL if their value was 0.
+* Resolved a couple issues that were causing server warnings.
+
+*Changes:*
+
+* Removed some outdated objects to improve speed of publish.
+* Added modal on downgrade to prevent accidental usage.
+* Password fields have been deprecated in Ninja Forms core. Some of our add-ons will still utilize them.
+
+= 3.3.15 (31 August 2018) =
+
+*Bugs:*
+
+* Fixed an issue causing errors when forms containing checkboxes had csv files attached to Email Actions
+
+= 3.3.14.1 (28 August 2018) =
+
+*Security:*
+
+* Corrected patch for CSV injection vulnerability to include a previously overlooked input.
+
+= 3.3.14 (27 August 2018) =
+
+*Security:*
+
+* Patched an XSS vulnerability that allowed javascript injection into the form import function. Many thanks to Adam Roberts for practicing responsible disclosure.
+* Patched a CSV injection vulnerability that allowed user values to run some scripts when opening exported CSV files with Excel.
+
+*Bugs:*
+
+* The selector in the add a form modal should now scroll properly instead of being cut off by the bottom of the browser when it contains a large number of forms.
+* Resolved an issue that sometimes caused the character limit option for paragraph fields to count words instead.
+
+= 3.3.13 (8 August 2018) =
+
+*Changes:*
+
+* Added the abililty to have no default value for Country and State fields. 
+* Added the Indian Rupee to the list of available currencies
+* Removed unnecessary comments from the main field template
+
+*Bugs:*
+
+* User Meta Tags will no longer print out the tag when users are not logged in
+
+= 3.3.12 (31 July 2018) =
+
+*Bugs:*
+
+* Resolved an issue that sometimes caused form titles to not display in dropdown menus.
+
+= 3.3.11 (23 July 2018) =
+
+*Changes:*
+
+* Updated save methods for form settings to reduce potential encoding errors.
+
+= 3.3.10 (16 July 2018) =
+
+*Bugs:*
+
+* (Beta) The Ninja Forms Gutenberg block should now work properly on the newest version of Gutenberg.
+* Min and max values for number fields should once more accept decimal values.
+* Resolved an issue that was sometimes causing a description text block to be output, even if it contained no text.
+* Radio lists should now properly display the default value when using our opinionated styles.
+
+= 3.3.9 (6 July 2018) =
+
+*Security:*
+
+* Patched a vulnerability that could allow certain Export Personal Data requests to retrieve unrelated submission data.
+
+*Bugs:*
+
+* Fixed a broken image link in the Edit User Profile template.
+* Resolved an issue that was very rarely causing the conversion process to run again after upgrade, removing all forms but the default Contact Me.
+
+= 3.3.8 (2 July 2018) =
+
+*Bugs:*
+
+* The styling of the Ninja Forms settings page has been corrected.
+* Forms can once again be previewed before they have been published.
+* Resolved an issue that was sometimes causing submission expiration to not register properly on publish.
+* The submission expiration setting will no longer accept a negative number as valid input.
+
+*Changes:*
+
+* Ninja Forms has migrated to GitLab! All repository links should now be updated.
+* Added an expired submissions cleanup button to our settings page to supplement cleanup on sites with a large number of submissions.
+
+= 3.3.7 (21 June 2018) =
+
+*Bugs:*
+
+* Submissions removed by the expired submissions feature should now be moved to the trash instead of completely removed.
+
+= 3.3.6 (20 June 2018) =
+
+*Bugs:*
+
+* Resolved an issue that sometimes caused the form builder to crash when deleting a field.
+
+= 3.3.5 (18 June 2018) =
+
+*Bugs:*
+
+* Made some performance updates to several of our popup modals.
+* The agency remove marketing hook should now properly hide the new services tab.
+
+*Changes:*
+
+* Fields now display admin labels (if they exist) instead of labels in the store submission action settings.
+* Added a tooltip to the value section of list fields, giving details about allowed characters.
+* List field merge tags can now be configured to show labels instead of values by appending ":label" to the merge tag.
+* The store submissions action can now be configured to remove submissions that exceed a defined timeframe.
+* Added a confirm modal to field deletion to prevent accidental removal of data.
+
+= 3.3.4 (11 June 2018) =
+
+*Bugs:*
+
+* Resolved an issue that was preventing placeholder text from appearing in paragraph text fields.
+
+*Chnages:*
+
+* Unlocked the services tab.
+* (Beta) Ninja Forms Add-on Manager is now available.
+* Ninja Mail - Transactional Email is now available.
 
 = 3.3.3 (5 June 2018) =
 

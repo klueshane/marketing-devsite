@@ -1,5 +1,5 @@
 <?php if ( $type == 'plugin' ) :?>
-<div class="updated" style="padding: 0; margin: 0; border: none; background: none;">
+<div class="updated" id="akismet_setup_prompt">
 	<form name="akismet_activate" action="<?php echo esc_url( Akismet_Admin::get_page_url() ); ?>" method="POST">
 		<div class="akismet_activate">
 			<div class="aa_a">A</div>
@@ -135,7 +135,7 @@
 <?php elseif ( $type == 'privacy' ) :?>
 <div class="notice notice-warning is-dismissible" id="akismet-privacy-notice-admin-notice">
 	<p><strong><?php esc_html_e( 'Akismet & Privacy.', 'akismet' );?></strong></p>
-	<p><?php esc_html_e( 'To help your site be compliant with GDPR and other laws requiring notification of tracking, Akismet can display a notice to your users under your comment forms. This feature is disabled by default, however, if you or your audience is located in Europe, you need to turn it on.', 'akismet' ); ?></p>
+	<p><?php esc_html_e( 'To help your site with transparency under privacy laws like the GDPR, Akismet can display a notice to your users under your comment forms. This feature is disabled by default, however, you can turn it on below.', 'akismet' ); ?></p>
 	<p><?php printf( __(' Please <a href="%s">enable</a> or <a href="%s">disable</a> this feature. <a href="%s" id="akismet-privacy-notice-control-notice-info-link" target="_blank">More information</a>.', 'akismet' ), admin_url( apply_filters( 'akismet_comment_form_privacy_notice_url_display', 'options-general.php?page=akismet-key-config&akismet_comment_form_privacy_notice=display' ) ), admin_url( apply_filters( 'akismet_comment_form_privacy_notice_url_hide', 'options-general.php?page=akismet-key-config&akismet_comment_form_privacy_notice=hide' ) ), 'https://akismet.com/privacy/' ); ?></p>
 </div>
 <?php endif;?>

@@ -185,10 +185,13 @@ final class FLBuilderModel {
 		add_action( 'save_post',                                        __CLASS__ . '::save_revision' );
 		add_action( 'save_post',                                        __CLASS__ . '::set_node_template_default_type', 10, 3 );
 		add_action( 'wp_restore_post_revision',                         __CLASS__ . '::restore_revision', 10, 2 );
+		add_action( 'fl_builder_after_save_layout',                     __CLASS__ . '::save_layout_revision' );
+		add_action( 'fl_builder_after_save_user_template',              __CLASS__ . '::save_layout_revision' );
 
 		/* Filters */
 		add_filter( 'heartbeat_received',                               __CLASS__ . '::lock_post', 10, 2 );
-		add_filter( 'fl_builder_register_settings_form', 				__CLASS__ . '::filter_row_settings_for_resize', 10, 2 );
+		add_filter( 'fl_builder_register_settings_form',                __CLASS__ . '::filter_row_settings_for_resize', 10, 2 );
+		add_filter( 'wp_revisions_to_keep',                             __CLASS__ . '::limit_revisions', 10, 2 );
 
 		/* Core Templates */
 		self::register_core_templates();
@@ -212,7 +215,15 @@ final class FLBuilderModel {
 
 		$scheme = ( isset( $matches[1] ) ) ? $matches[1] : false;
 
-		return set_url_scheme( add_query_arg( 'fl_builder', '', get_permalink( $post->ID ) ), $scheme );
+		$url = set_url_scheme( add_query_arg( 'fl_builder', '', get_permalink( $post->ID ) ), $scheme );
+
+		/**
+		 * Filter the bb edit url.
+		 * @see fl_get_edit_url
+		 * @param $url url
+		 * @param $post post object
+		 */
+		return apply_filters( 'fl_get_edit_url', $url, $post );
 	}
 
 	/**
@@ -225,6 +236,12 @@ final class FLBuilderModel {
 	 * @return string
 	 */
 	static public function get_upgrade_url( $params = array() ) {
+		/**
+		 * Use this filter to modify the upgrade URL in Beaver Builder Lite.
+		 * This can be used to add an affiliate ID.
+		 * @see fl_builder_upgrade_url
+		 * @link https://kb.wpbeaverbuilder.com/article/117-plugin-filter-reference
+		 */
 		return apply_filters( 'fl_builder_upgrade_url', self::get_store_url( '', $params ) );
 	}
 
@@ -310,6 +327,11 @@ final class FLBuilderModel {
 			$value[] = 'fl-builder-template';
 		}
 
+		/**
+		 * Use this filter to modify the post types that the builder works with.
+		 * @see fl_builder_post_types
+		 * @link https://kb.wpbeaverbuilder.com/article/117-plugin-filter-reference
+		 */
 		return apply_filters( 'fl_builder_post_types', $value );
 	}
 
@@ -321,6 +343,12 @@ final class FLBuilderModel {
 	 * @return array
 	 */
 	static public function get_global_posts() {
+		/**
+		 * Use this filter to specify a post or posts whose CSS and JavaScript assets should be loaded globally.
+		 * @link https://kb.wpbeaverbuilder.com/article/117-plugin-filter-reference
+		 * @see fl_builder_global_posts
+		 * @since 1.0
+		 */
 		return apply_filters( 'fl_builder_global_posts', array() );
 	}
 
@@ -670,6 +698,11 @@ final class FLBuilderModel {
 			fl_builder_filesystem()->file_put_contents( $dir_info['path'] . 'index.html', '' );
 		}
 
+		/**
+		 * Use this filter to modify the upload directory path and URL that the builder uses to store things like the cache and custom icons.
+		 * @see fl_builder_get_upload_dir
+		 * @link https://kb.wpbeaverbuilder.com/article/117-plugin-filter-reference
+		 */
 		return apply_filters( 'fl_builder_get_upload_dir', $dir_info );
 	}
 
@@ -705,7 +738,11 @@ final class FLBuilderModel {
 			// Add an index file for security.
 			fl_builder_filesystem()->file_put_contents( $dir_info['path'] . 'index.html', '' );
 		}
-
+		/**
+		 * Use this filter to modify the cache directory path and URL that the builder uses to store cached images, JavaScript, and CSS files.
+		 * @link https://kb.wpbeaverbuilder.com/article/117-plugin-filter-reference
+		 * @see fl_builder_get_cache_dir
+		 */
 		return apply_filters( 'fl_builder_get_cache_dir', $dir_info );
 	}
 
@@ -767,6 +804,19 @@ final class FLBuilderModel {
 	}
 
 	/**
+	 * Returns the method used to enqueue layout css and js assets.
+	 * Possible values are 'file' and 'inline'. By default, the file
+	 * method is used. Return true for the fl_builder_render_assets_inline
+	 * filter to enable inline enqueuing.
+	 *
+	 * @since 2.1.5
+	 * @return string
+	 */
+	static public function get_asset_enqueue_method() {
+		return apply_filters( 'fl_builder_render_assets_inline', false ) ? 'inline' : 'file';
+	}
+
+	/**
 	 * Deletes either the preview, draft or live CSS and/or JS asset cache
 	 * for the current post based on the data returned from get_asset_info.
 	 * Both the CSS and JS asset cache will be delete if a type is not specified.
@@ -776,6 +826,11 @@ final class FLBuilderModel {
 	 * @return void
 	 */
 	static public function delete_asset_cache( $type = false ) {
+
+		if ( 'inline' === FLBuilderModel::get_asset_enqueue_method() ) {
+			return false;
+		}
+
 		$info  = self::get_asset_info();
 		$types = $type ? array( $type ) : array( 'css', 'css_partial', 'js', 'js_partial' );
 
@@ -800,7 +855,7 @@ final class FLBuilderModel {
 		$post_id   = $post_id ? $post_id : self::get_post_id();
 		$cache_dir = self::get_cache_dir();
 
-		if ( $post_id ) {
+		if ( $post_id && 'file' === FLBuilderModel::get_asset_enqueue_method() ) {
 
 			$paths = array(
 				$cache_dir['path'] . $post_id . '-layout.css',
@@ -1119,14 +1174,19 @@ final class FLBuilderModel {
 	static public function get_child_nodes( $parent_id, $status = null ) {
 		$parent           = is_object( $parent_id ) ? $parent_id : self::get_node( $parent_id );
 		$template_post_id = self::is_node_global( $parent );
+		$template_node_id = null;
 		$status           = $template_post_id && ! self::is_post_node_template() ? 'published' : $status;
 		$data             = self::get_layout_data( $status, $template_post_id );
 		$nodes            = array();
 
+		if ( $template_post_id ) {
+			$template_node_id = apply_filters( 'fl_builder_parent_template_node_id', $parent->template_node_id, $parent, $data );
+		}
+
 		if ( is_object( $parent ) ) {
 			foreach ( $data as $node_id => $node ) {
 				if ( ( isset( $node->parent ) && $node->parent == $parent->node )
-					|| ( $template_post_id && $parent->template_node_id == $node->parent ) ) {
+					|| ( $template_node_id && $template_node_id == $node->parent ) ) {
 					$nodes[ $node_id ] = $node;
 				}
 			}
@@ -1315,19 +1375,44 @@ final class FLBuilderModel {
 				$settings = $post_data['node_preview_processed_settings'];
 			}
 		} else {
-			$defaults = self::get_node_defaults( $node );
-			$settings = (object) array_merge( (array) $defaults, (array) $node->settings );
-
-			if ( 'module' == $node->type ) {
-				$settings = self::merge_nested_module_defaults( $node->settings->type, $settings );
-			} elseif ( 'column' == $node->type ) {
-				$settings = self::merge_nested_form_defaults( 'general', 'col', $settings );
-			} elseif ( 'row' == $node->type ) {
-				$settings = self::merge_nested_form_defaults( 'general', 'row', $settings );
-			}
+			$settings = self::get_node_settings_with_defaults_merged( $node->type, $node->settings );
 		}
 
 		return ! $filter ? $settings : apply_filters( 'fl_builder_node_settings', $settings, $node );
+	}
+
+	/**
+	 * Returns node settings that are merged with the defaults. In general,
+	 * you should use get_node_settings instead of this method unless you
+	 * don't want any of the other logic that it applies.
+	 *
+	 * @since 2.2
+	 * @param string $type A node type.
+	 * @param object $settings A node settings object.
+	 * @return object
+	 */
+	static public function get_node_settings_with_defaults_merged( $type, $settings ) {
+		$defaults = array();
+
+		if ( 'row' == $type ) {
+			$defaults = FLBuilderModel::get_row_defaults();
+		} elseif ( 'column' == $type ) {
+			$defaults = FLBuilderModel::get_col_defaults();
+		} elseif ( 'module' == $type ) {
+			$defaults = FLBuilderModel::get_module_defaults( $settings->type );
+		}
+
+		$settings = (object) array_merge( (array) $defaults, (array) $settings );
+
+		if ( 'row' == $type ) {
+			$settings = FLBuilderModel::merge_nested_form_defaults( 'general', 'row', $settings );
+		} elseif ( 'column' == $type ) {
+			$settings = FLBuilderModel::merge_nested_form_defaults( 'general', 'col', $settings );
+		} elseif ( 'module' == $type ) {
+			$settings = FLBuilderModel::merge_nested_module_defaults( $settings->type, $settings );
+		}
+
+		return $settings;
 	}
 
 	/**
@@ -1592,9 +1677,10 @@ final class FLBuilderModel {
 	 * @since 1.0
 	 * @param string $cols The type of column layout to use.
 	 * @param int $position The position of the new row.
+	 * @param string $module Optional. The node ID of an existing module to move to this row.
 	 * @return object The new row object.
 	 */
-	static public function add_row( $cols = '1-col', $position = false ) {
+	static public function add_row( $cols = '1-col', $position = false, $module = null ) {
 		$data			 = self::get_layout_data();
 		$settings		 = self::get_row_defaults();
 		$row_node_id	 = self::generate_node_id();
@@ -1616,7 +1702,14 @@ final class FLBuilderModel {
 		}
 
 		// Add a column group.
-		self::add_col_group( $row_node_id, $cols, 0 );
+		$group = self::add_col_group( $row_node_id, $cols, 0 );
+
+		// Move an existing module to the row.
+		if ( $module ) {
+			$cols = self::get_nodes( 'column', $group->node );
+			$col = array_shift( $cols );
+			self::move_node( $module, $col->node, 0 );
+		}
 
 		// Return the updated row.
 		return self::get_node( $row_node_id );
@@ -1747,49 +1840,6 @@ final class FLBuilderModel {
 		$settings = self::get_settings_form_defaults( 'row' );
 		$settings = self::merge_nested_form_defaults( 'general', 'row', $settings );
 		return $settings;
-	}
-
-	/**
-	 * Returns an array of spacing placeholders for row
-	 * margins and padding.
-	 *
-	 * @since 1.9
-	 * @return array
-	 */
-	static public function get_row_spacing_placeholders() {
-		$settings     = FLBuilderModel::get_global_settings();
-		$placeholders = array();
-
-		// Default.
-		$placeholders['row_margins'] = $settings->row_margins;
-		$placeholders['row_padding'] = $settings->row_padding;
-
-		// Medium.
-		$placeholders['row_margins_medium'] = ( '' != $settings->row_margins_medium ) ? $settings->row_margins_medium : $settings->row_margins;
-		$placeholders['row_padding_medium'] = ( '' != $settings->row_padding_medium ) ? $settings->row_padding_medium : $settings->row_padding;
-
-		// Responsive row margins.
-		if ( '' != $settings->row_margins_responsive ) {
-			$placeholders['row_margins_responsive'] = $settings->row_margins_responsive;
-		} elseif ( $settings->auto_spacing ) {
-			$placeholders['row_margins_responsive'] = 0;
-		} else {
-			$placeholders['row_margins_responsive'] = $placeholders['row_margins_medium'];
-		}
-
-		// Responsive row padding.
-		if ( '' != $settings->row_padding_responsive ) {
-			$placeholders['row_padding_tb_responsive'] = $settings->row_padding_responsive;
-			$placeholders['row_padding_lr_responsive'] = $settings->row_padding_responsive;
-		} elseif ( $settings->auto_spacing ) {
-			$placeholders['row_padding_tb_responsive'] = $placeholders['row_padding_medium'];
-			$placeholders['row_padding_lr_responsive'] = 0;
-		} else {
-			$placeholders['row_padding_tb_responsive'] = $placeholders['row_padding_medium'];
-			$placeholders['row_padding_lr_responsive'] = $placeholders['row_padding_medium'];
-		}
-
-		return $placeholders;
 	}
 
 	/**
@@ -1938,9 +1988,10 @@ final class FLBuilderModel {
 	 * @param string $node_id A row node ID.
 	 * @param string $cols The type of column group layout or the ID of an existing column to add.
 	 * @param int $position The position of the new column group.
+	 * @param string $module Optional. The node ID of an existing module to move to this group.
 	 * @return object The new column group object.
 	 */
-	static public function add_col_group( $node_id = null, $cols = '1-col', $position = false ) {
+	static public function add_col_group( $node_id = null, $cols = '1-col', $position = false, $module = null ) {
 		$data				= self::get_layout_data();
 		$group_node_id		= self::generate_node_id();
 		$parent 			= self::get_node( $node_id );
@@ -2020,6 +2071,13 @@ final class FLBuilderModel {
 		// Position the column group.
 		if ( false !== $position ) {
 			self::reorder_node( $group_node_id, $position );
+		}
+
+		// Move an existing module to the group.
+		if ( $module ) {
+			$cols = self::get_nodes( 'column', $group_node_id );
+			$col = array_shift( $cols );
+			self::move_node( $module, $col->node, 0 );
 		}
 
 		// Return the column group.
@@ -2127,7 +2185,7 @@ final class FLBuilderModel {
 			foreach ( $cols as $col_id => $col ) {
 
 				// Set the new size.
-				$data[ $col_id ]->settings->size = round( $new_width, 2 );
+				$data[ $col_id ]->settings->size = round( $new_width, 3 );
 			}
 
 			// Update the layout data.
@@ -2237,7 +2295,7 @@ final class FLBuilderModel {
 		}
 
 		// Save new sibling size.
-		$data[ $sibling->node ]->settings->size = round( 100 - $siblings_width - $new_width, 2 );
+		$data[ $sibling->node ]->settings->size = round( 100 - $siblings_width - $new_width, 3 );
 
 		// Save new column size.
 		$data[ $col->node ]->settings->size = $new_width;
@@ -2290,7 +2348,7 @@ final class FLBuilderModel {
 		$data 			= self::get_layout_data();
 		$post_data		= self::get_post_data();
 		$cols			= self::get_nodes( 'column', $group_id );
-		$width			= round( 100 / count( $cols ), 2 );
+		$width			= round( 100 / count( $cols ), 3 );
 
 		foreach ( $cols as $col_id => $col ) {
 			$data[ $col_id ]->settings->size = $width;
@@ -2344,9 +2402,10 @@ final class FLBuilderModel {
 	 * @param string $insert Either before or after.
 	 * @param string $type The type of column(s) to insert.
 	 * @param boolean $nested Whether these columns are nested or not.
+	 * @param string $module Optional. The node ID of an existing module to move to this group.
 	 * @return object
 	 */
-	static public function add_cols( $col_id, $insert = 'before', $type = '1-col', $nested = false ) {
+	static public function add_cols( $col_id, $insert = 'before', $type = '1-col', $nested = false, $module = null ) {
 		$data		  = self::get_layout_data();
 		$col	 	  = self::get_node( $col_id );
 		$parent 	  = self::get_node( $col->parent );
@@ -2372,7 +2431,7 @@ final class FLBuilderModel {
 		} elseif ( 7 === $num_cols ) {
 			$new_width = 14.28;
 		} else {
-			$new_width = round( 100 / $num_cols, 2 );
+			$new_width = round( 100 / $num_cols, 3 );
 		}
 
 		// Get the new column position.
@@ -2427,6 +2486,11 @@ final class FLBuilderModel {
 
 		// Update the layout data.
 		self::update_layout_data( $data );
+
+		// Move an existing module to the group.
+		if ( $module ) {
+			self::move_node( $module, $new_col_id, 0 );
+		}
 
 		// Return the column group.
 		return $parent;
@@ -2623,18 +2687,28 @@ final class FLBuilderModel {
 	 * @return void
 	 */
 	static public function load_modules() {
-		$path			= FL_BUILDER_DIR . 'modules/';
-		$dir			= dir( $path );
-		$module_path	= '';
+		$paths = glob( FL_BUILDER_DIR . 'modules/*' );
+		$paths = apply_filters( 'fl_builder_load_modules_paths', $paths );
+		$module_path = '';
 
-		while ( false !== ( $entry = $dir->read() ) ) { // @codingStandardsIgnoreLine
+		// Make sure we have an array.
+		if ( ! is_array( $paths ) ) {
+			return;
+		}
 
-			if ( ! is_dir( $path . $entry ) || '.' == $entry || '..' == $entry ) {
+		// Load all found modules.
+		foreach ( $paths as $path ) {
+
+			// Make sure we have a directory.
+			if ( ! is_dir( $path ) ) {
 				continue;
 			}
 
+			// Get the module slug.
+			$slug = basename( $path );
+
 			// Paths to check.
-			$module_path	= $entry . '/' . $entry . '.php';
+			$module_path	= $slug . '/' . $slug . '.php';
 			$child_path		= get_stylesheet_directory() . '/fl-builder/modules/' . $module_path;
 			$theme_path		= get_template_directory() . '/fl-builder/modules/' . $module_path;
 			$builder_path	= FL_BUILDER_DIR . 'modules/' . $module_path;
@@ -2672,13 +2746,21 @@ final class FLBuilderModel {
 				return;
 			}
 
-			// Filter the enabled flag.
+			/**
+			 * Use this filter to override the modules that are enabled in the builder.
+			 * @see fl_builder_register_module
+			 * @link https://kb.wpbeaverbuilder.com/article/117-plugin-filter-reference
+			 */
 			$instance->enabled = apply_filters( 'fl_builder_register_module', $instance->enabled, $instance );
 
 			// Save the instance in the modules array.
 			self::$modules[ $instance->slug ] = $instance;
 
-			// Add the form to the instance.
+			/**
+			 * Use this filter to modify the config array for a settings form when it is registered.
+			 * @see fl_builder_register_settings_form
+			 * @link https://kb.wpbeaverbuilder.com/article/117-plugin-filter-reference
+			 */
 			self::$modules[ $instance->slug ]->form = apply_filters( 'fl_builder_register_settings_form', $form, $instance->slug );
 			self::$modules[ $instance->slug ]->form['advanced'] = self::$settings_forms['module_advanced'];
 		}
@@ -2830,6 +2912,8 @@ final class FLBuilderModel {
 			}
 		}
 
+		ksort( $groups );
+
 		return $groups;
 	}
 
@@ -2842,7 +2926,11 @@ final class FLBuilderModel {
 	static public function get_module_categories() {
 		$categories = array();
 
-		// Add any predefined custom categories.
+		/**
+		 * Use this filter to add custom module categories that will show up before the default module categories in the builder’s UI.
+		 * @see fl_builder_module_categories
+		 * @link https://kb.wpbeaverbuilder.com/article/117-plugin-filter-reference
+		 */
 		foreach ( apply_filters( 'fl_builder_module_categories', array() ) as $custom_category ) {
 			$categories[ $custom_category ] = array();
 		}
@@ -3537,6 +3625,11 @@ final class FLBuilderModel {
 	 * @return void
 	 */
 	static public function register_settings_form( $id, $form ) {
+		/**
+		 * Use this filter to modify the config array for a settings form when it is registered.
+		 * @see fl_builder_register_settings_form
+		 * @link https://kb.wpbeaverbuilder.com/article/117-plugin-filter-reference
+		 */
 		self::$settings_forms[ $id ] = apply_filters( 'fl_builder_register_settings_form', $form, $id );
 
 		// Since 2.0 we need to store the form ID on each tab to ensure that
@@ -3587,6 +3680,9 @@ final class FLBuilderModel {
 				foreach ( $tab['sections'] as $section ) {
 					if ( isset( $section['fields'] ) ) {
 						foreach ( $section['fields'] as $name => $field ) {
+							if ( ! isset( $field['type'] ) ) {
+								continue;
+							}
 							$fields[ $name ] = $field;
 						}
 					}
@@ -3627,12 +3723,24 @@ final class FLBuilderModel {
 		// Get the fields.
 		$fields = self::get_settings_form_fields( $tabs );
 
-		// Handle dimension fields. We have to do it this way for backwards compat
-		// with old margin, padding, and border fields as the settings expect margin_top
-		// or margin_bottom to exist instead of just the margin key.
+		// Handle a few special cases before getting the defaults.
 		foreach ( $fields as $name => $field ) {
+
+			// Add the root name if needed later for synthetic fields like
+			// the dimension fields being synthesized below.
+			$fields[ $name ]['root_name'] = $name;
+			$field['root_name'] = $name;
+
+			// Handle dimension fields. We have to do it this way for backwards compat
+			// with old margin, padding, and border fields as the settings expect margin_top
+			// or margin_bottom to exist instead of just the margin key.
 			if ( 'dimension' == $field['type'] ) {
-				foreach ( array( 'top', 'right', 'bottom', 'left' ) as $position ) {
+				if ( isset( $field['keys'] ) ) {
+					$keys = array_keys( $field['keys'] );
+				} else {
+					$keys = array( 'top', 'right', 'bottom', 'left' );
+				}
+				foreach ( $keys as $position ) {
 					$fields[ $name . '_' . $position ] = $field;
 				}
 				unset( $fields[ $name ] );
@@ -3644,18 +3752,32 @@ final class FLBuilderModel {
 
 			$default           = isset( $field['default'] ) ? $field['default'] : '';
 			$is_multiple       = isset( $field['multiple'] ) && true === $field['multiple'];
-			$supports_multiple = 'editor' != $field['type'] && 'photo' != $field['type'];
+			$supports_multiple = 'editor' != $field['type'] && 'service' != $field['type'];
 			$responsive        = isset( $field['responsive'] ) && $field['responsive'] ? $field['responsive'] : false;
-			$responsive_name   = '';
 
+			// Get the default unit if this field has more than one unit.
+			if ( isset( $field['units'] ) && count( $field['units'] ) > 1 ) {
+				$default_unit = isset( $field['default_unit'] ) ? $field['default_unit'] : $field['units'][0];
+			} else {
+				$default_unit = null;
+			}
+
+			// Set the default.
 			if ( $is_multiple && $supports_multiple ) {
 				$defaults->$name = is_array( $default ) ? $default : array( $default );
-			} elseif ( $responsive ) {
+			} else {
 
 				foreach ( array( 'default', 'medium', 'responsive' ) as $device ) {
 
-					$responsive_name = $name . ( 'default' == $device ? '' : '_' . $device );
+					if ( ! $responsive && 'default' !== $device ) {
+						continue;
+					}
 
+					$response_suffix = ( 'default' == $device ? '' : '_' . $device );
+					$responsive_name = $name . $response_suffix;
+					$unit_name = $field['root_name'] . $response_suffix . '_unit';
+
+					// Add the default value.
 					if ( is_array( $responsive ) && isset( $responsive['default'] ) && isset( $responsive['default'][ $device ] ) ) {
 						$defaults->{ $responsive_name } = $responsive['default'][ $device ];
 					} elseif ( 'default' == $device ) {
@@ -3663,13 +3785,39 @@ final class FLBuilderModel {
 					} else {
 						$defaults->{ $responsive_name } = '';
 					}
+
+					// Add the unit default value.
+					if ( null !== $default_unit ) {
+						if ( is_array( $responsive ) && isset( $responsive['default_unit'] ) && isset( $responsive['default_unit'][ $device ] ) ) {
+							$defaults->{ $unit_name } = $responsive['default_unit'][ $device ];
+						} else {
+							$defaults->{ $unit_name } = $default_unit;
+						}
+					}
+
+					// Add the photo source default value.
+					if ( 'photo' === $field['type'] ) {
+						$defaults->{ $name . $response_suffix . '_src' } = '';
+					}
+
+					// Add the link target and nofollow default values.
+					if ( 'link' === $field['type'] ) {
+						if ( isset( $field['show_target'] ) && $field['show_target'] ) {
+							$defaults->{ $name . '_target' } = '_self';
+						}
+						if ( isset( $field['show_nofollow'] ) && $field['show_nofollow'] ) {
+							$defaults->{ $name . '_nofollow' } = 'no';
+						}
+					}
 				}
-			} else {
-				$defaults->$name = $default;
 			}
 		}
 
-		// Cache the defaults.
+		/**
+		 * Use this filter to change the defaults for any of the settings forms in the builder including global, row, column and module settings.
+		 * @see fl_builder_settings_form_defaults
+		 * @link https://kb.wpbeaverbuilder.com/article/117-plugin-filter-reference
+		 */
 		self::$settings_form_defaults[ $type ] = apply_filters( 'fl_builder_settings_form_defaults', $defaults, $form_type );
 
 		return self::$settings_form_defaults[ $type ];
@@ -3955,7 +4103,9 @@ final class FLBuilderModel {
 
 		// Update template ID and template node ID
 		$template_id = get_post_meta( $new_post_id, '_fl_builder_template_id', true );
-		if ( $template_id ) {
+		$global = get_post_meta( $post_id, '_fl_builder_template_global', true );
+
+		if ( $template_id && $global ) {
 			foreach ( $data as $node_id => $node ) {
 				$data[ $node_id ]->template_id = $template_id;
 				$data[ $node_id ]->template_node_id = $node_id;
@@ -3999,6 +4149,7 @@ final class FLBuilderModel {
 	 * @return void
 	 */
 	static public function save_revision( $post_id ) {
+
 		$parent_id = wp_is_post_revision( $post_id );
 
 		if ( $parent_id ) {
@@ -4012,6 +4163,46 @@ final class FLBuilderModel {
 				self::update_layout_settings( $settings, 'published', $post_id );
 			}
 		}
+	}
+
+	/**
+	 * Limit the amount of revisions possible for fl-builder-template type.
+	 * @since 2.1.5
+	 */
+	static public function limit_revisions( $num, $post ) {
+
+		if ( 'fl-builder-template' == $post->post_type ) {
+			/**
+			 * Limit the ammount of revisions for the fl-builder-template type.
+			 * @see fl_builder_template_revisions
+			 */
+			$num = apply_filters( 'fl_builder_template_revisions', 25 );
+		}
+		return $num;
+	}
+
+	/**
+	 * Maybe save a post revision when templates/rows etc are published.
+	 * @since 2.1.5
+	 */
+	static public function save_layout_revision( $post_id ) {
+		add_filter( 'wp_save_post_revision_post_has_changed',    array( __CLASS__, 'save_layout_revision_changed_filter' ), 10, 3 );
+		wp_save_post_revision( $post_id );
+		remove_filter( 'wp_save_post_revision_post_has_changed', array( __CLASS__, 'save_layout_revision_changed_filter' ), 10, 3 );
+	}
+
+	/**
+	 * Filter save_layout_revision_changed_filter return true here if the builder data has $post_has_changed
+	 * this forces a post revision.
+	 * @since 2.1.5
+	 */
+	static public function save_layout_revision_changed_filter( $post_has_changed, $last_revision, $post ) {
+
+		// get builder data for compare
+		$old = serialize( get_post_meta( $last_revision->ID, '_fl_builder_data', true ) );
+		$new = serialize( get_post_meta( $post->ID,          '_fl_builder_data', true ) );
+
+		return $old != $new;
 	}
 
 	/**
@@ -4060,13 +4251,14 @@ final class FLBuilderModel {
 		$post_id	= ! $post_id ? self::get_post_id() : $post_id;
 		$status		= ! $status ? self::get_node_status() : $status;
 
-		// Get published data?
+		// Get layout metadata.
 		if ( 'published' == $status || 'revision' == get_post_type( $post_id ) ) {
 			if ( isset( self::$published_layout_data[ $post_id ] ) ) {
 				$data = self::$published_layout_data[ $post_id ];
 			} else {
 				$data = get_metadata( 'post', $post_id, '_fl_builder_data', true );
 				$data = self::clean_layout_data( $data );
+				$data = FLBuilderSettingsCompat::filter_layout_data( $data );
 				self::$published_layout_data[ $post_id ] = apply_filters( 'fl_builder_get_layout_metadata', $data, $status, $post_id );
 			}
 		} elseif ( 'draft' == $status ) {
@@ -4075,6 +4267,7 @@ final class FLBuilderModel {
 			} else {
 				$data = get_metadata( 'post', $post_id, '_fl_builder_draft', true );
 				$data = self::clean_layout_data( $data );
+				$data = FLBuilderSettingsCompat::filter_layout_data( $data );
 				self::$draft_layout_data[ $post_id ] = apply_filters( 'fl_builder_get_layout_metadata', $data, $status, $post_id );
 			}
 		}
@@ -4357,7 +4550,11 @@ final class FLBuilderModel {
 		$data			= self::get_layout_data( 'draft', $post_id );
 		$settings 		= self::get_layout_settings( 'draft', $post_id );
 
-		// Fire the before action.
+		/**
+		 * This action allows you to hook into before the data is saved for a layout.
+		 * @see fl_builder_before_save_layout
+		 * @link https://kb.wpbeaverbuilder.com/article/116-plugin-action-reference
+		 */
 		do_action( 'fl_builder_before_save_layout', $post_id, $publish, $data, $settings );
 
 		// Delete the old published layout.
@@ -4401,7 +4598,11 @@ final class FLBuilderModel {
 		// Rerender the assets for this layout.
 		FLBuilder::render_assets();
 
-		// Fire the after action.
+		/**
+		 * This action allows you to hook into after the data is saved for a layout.
+		 * @see fl_builder_after_save_layout
+		 * @link https://kb.wpbeaverbuilder.com/article/116-plugin-action-reference
+		 */
 		do_action( 'fl_builder_after_save_layout', $post_id, $publish, $data, $settings );
 	}
 
@@ -4588,15 +4789,16 @@ final class FLBuilderModel {
 		);
 
 		$posts = get_posts( array(
-			'post_type' 				=> 'fl-builder-template',
-			'orderby' 					=> 'menu_order title',
-			'order' 					=> 'ASC',
-			'posts_per_page' 			=> '-1',
+			'post_type'        => 'fl-builder-template',
+			'orderby'          => 'menu_order title',
+			'order'            => 'ASC',
+			'posts_per_page'   => '-1',
+			'suppress_filters' => false,
 			'tax_query' => array(
 				array(
 					'taxonomy' => 'fl-builder-template-type',
-					'field' => 'slug',
-					'terms' => $type,
+					'field'    => 'slug',
+					'terms'    => $type,
 				),
 			),
 		) );
@@ -4876,10 +5078,6 @@ final class FLBuilderModel {
 
 		$is_visible = true;
 
-		if ( self::is_builder_active() && self::get_post_id() == $wp_the_query->post->ID ) {
-			return $is_visible;
-		}
-
 		if ( isset( $node->settings->visibility_display ) && ('' != $node->settings->visibility_display) ) {
 
 			// For logged out users
@@ -4904,6 +5102,16 @@ final class FLBuilderModel {
 		}
 
 		return apply_filters( 'fl_builder_is_node_visible', $is_visible, $node );
+	}
+
+	/**
+	 * Checks if a node has visibility rules or not.
+	 *
+	 * @param object $node
+	 * @return bool
+	 */
+	static public function node_has_visibility_rules( $node ) {
+		return isset( $node->settings->visibility_display ) && ( '' !== $node->settings->visibility_display );
 	}
 
 	/**
@@ -5635,6 +5843,9 @@ final class FLBuilderModel {
 			// Get new ids for the template nodes.
 			$template->nodes = self::generate_new_node_ids( $template->nodes );
 
+			// Filter the nodes for backwards compatibility with old settings.
+			$template->nodes = FLBuilderSettingsCompat::filter_layout_data( $template->nodes );
+
 			// Get the existing layout data and settings.
 			$layout_data = self::get_layout_data();
 			$layout_settings = self::get_layout_settings();
@@ -5737,7 +5948,9 @@ final class FLBuilderModel {
 						foreach ( $template_data as $key => $template ) {
 
 							// Add the main group to each template.
-							$template_data[ $key ]->group = $args['group'];
+							if ( ! isset( $template_data[ $key ]->group ) ) {
+								$template_data[ $key ]->group = $args['group'];
+							}
 
 							// Reserialize the node data as it's expensive to store in memory.
 							if ( isset( $template->nodes ) ) {
@@ -5779,12 +5992,14 @@ final class FLBuilderModel {
 		$type            = apply_filters( 'fl_builder_template_selector_data_type', $type );
 		$categorized     = array();
 		$templates       = array();
+		$groups 		 = array();
+
+		// This is needed for backwards compat with the old core templates category.
 		$core_categories = array(
 			'general' => __( 'General', 'fl-builder' ),
 			'landing' => __( 'Landing Pages', 'fl-builder' ),
 			'company' => __( 'Content Pages', 'fl-builder' ),
 		);
-		$groups = array();
 
 		// Build the the templates array.
 		foreach ( self::get_templates( $type ) as $key => $template ) {
@@ -5871,6 +6086,7 @@ final class FLBuilderModel {
 						);
 					}
 				}
+				ksort( $groups[ $group_key ]['categories'] );
 				$template['group'][] = $group_key;
 			}
 
@@ -5984,6 +6200,24 @@ final class FLBuilderModel {
 	 */
 	static public function is_codechecking_enabled() {
 		return apply_filters( 'fl_code_checking_enabled', true );
+	}
+
+	/**
+	 * Returns Ace Editor defaults as an array.
+	 *
+	 * @since 2.1
+	 * @return array
+	 */
+	static public function ace_editor_settings() {
+
+		$defaults = array(
+			'enableBasicAutocompletion' => true,
+			'enableLiveAutocompletion'  => true,
+			'enableSnippets'            => false,
+			'showLineNumbers'           => false,
+			'showFoldWidgets'           => false,
+		);
+		return apply_filters( 'fl_ace_editor_settings', $defaults );
 	}
 
 	/**

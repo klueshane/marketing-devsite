@@ -3,7 +3,7 @@
  * Plugin Name: Beaver Builder Booster
  * Plugin URI: http://www.wpbeaverbuilder.com
  * Description: Additional functionality for Beaver Builder lite.
- * Version: 1.0.8
+ * Version: 1.0.9
  * Author: The Beaver Builder Team
  * Author URI: http://www.wpbeaverbuilder.com
  * Text Domain: bb-booster

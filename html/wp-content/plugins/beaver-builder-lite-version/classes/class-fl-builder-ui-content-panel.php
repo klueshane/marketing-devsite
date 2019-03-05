@@ -61,6 +61,7 @@ class FLBuilderUIContentPanel {
 		*
 		* @since 2.0
 		* @param Array $data the initial tab data
+		* @see fl_builder_content_panel_data
 		*/
 		return apply_filters( 'fl_builder_content_panel_data', $data );
 	}
@@ -158,6 +159,7 @@ class FLBuilderUIContentPanel {
 				$data['views'][] = array(
 					'handle' => $slug,
 					'name' => $group['name'],
+					'hasChildren' => count( $group['categories'] ) > 1,
 					'query' => array(
 						'kind' => 'template',
 						'type' => 'core',
@@ -176,6 +178,7 @@ class FLBuilderUIContentPanel {
 						'handle' => $cat_slug,
 						'name' => $category['name'],
 						'isSubItem' => true,
+						'parent' => $slug,
 						'query' => array(
 							'kind' => 'template',
 							'type' => 'core',
@@ -229,6 +232,7 @@ class FLBuilderUIContentPanel {
 			$data['views'][] = array(
 				'handle' => $slug,
 				'name' => $group['name'],
+				'hasChildren' => count( $group['categories'] ) > 1,
 				'query' => array(
 					'kind' => 'template',
 					'type' => 'core',
@@ -247,6 +251,7 @@ class FLBuilderUIContentPanel {
 					'handle' => $cat_slug,
 					'name' => $category['name'],
 					'isSubItem' => true,
+					'parent' => $slug,
 					'query' => array(
 						'kind' => 'template',
 						'type' => 'core',
@@ -315,6 +320,7 @@ class FLBuilderUIContentPanel {
 		*
 		* @since 2.0
 		* @param Array $data the initial content elements
+		* @see fl_builder_content_elements_data
 		*/
 		return apply_filters( 'fl_builder_content_elements_data', $data );
 	}

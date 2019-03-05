@@ -204,18 +204,21 @@ abstract class Base_Widget extends \WP_Widget {
 	 */
 	protected function order_field( array $fields ) {
 
-		uksort( $fields, function( $a, $b ) use ( $fields ) {
+		uksort(
+			$fields,
+			function( $a, $b ) use ( $fields ) {
 
-			// We want title first and order of non sortable fields doesn't matter
-			if ( ! $fields[ $a ]['sortable'] && 'title' !== $a ) {
+				// We want title first and order of non sortable fields doesn't matter
+				if ( ! $fields[ $a ]['sortable'] && 'title' !== $a ) {
 
-				return 1;
+					return 1;
+
+				}
+
+				return ( $fields[ $a ]['order'] < $fields[ $b ]['order'] ) ? -1 : 1;
 
 			}
-
-			return ( $fields[ $a ]['order'] < $fields[ $b ]['order'] ) ? -1 : 1;
-
-		} );
+		);
 
 		return $fields;
 
@@ -295,9 +298,9 @@ abstract class Base_Widget extends \WP_Widget {
 
 		}
 
-		printf( // xss ok.
+		printf(
 			'<p class="%s">',
-			implode( ' ', $classes )
+			implode( ' ', $classes ) // @codingStandardsIgnoreLine
 		);
 
 		if ( ! $field['label_after'] ) {
@@ -362,11 +365,11 @@ abstract class Base_Widget extends \WP_Widget {
 
 		foreach ( $field['select_options'] as $value => $name ) {
 
-			printf( // xss ok.
+			printf(
 				'<option value="%s" %s>%s</option>',
-				$value,
+				esc_attr( $value ),
 				$field['value'] === $value ? 'selected' : '',
-				$name
+				esc_html( $name )
 			);
 
 		}
@@ -432,7 +435,7 @@ abstract class Base_Widget extends \WP_Widget {
 
 		$title = array_shift( $fields );
 
-		echo $args['before_widget']; // xss ok.
+		echo $args['before_widget']; // @codingStandardsIgnoreLine
 
 		if ( ! empty( $title['value'] ) ) {
 
@@ -445,7 +448,7 @@ abstract class Base_Widget extends \WP_Widget {
 			 */
 			$title = (string) apply_filters( 'widget_title', $title['value'] );
 
-			echo $args['before_title'] . $title . $args['after_title']; // xss ok.
+			echo $args['before_title'] . $title . $args['after_title']; // @codingStandardsIgnoreLine
 
 		}
 
@@ -493,7 +496,7 @@ abstract class Base_Widget extends \WP_Widget {
 
 		}
 
-		echo $args['after_widget']; // xss ok.
+		echo $args['after_widget']; // @codingStandardsIgnoreLine
 
 	}
 
@@ -512,7 +515,7 @@ abstract class Base_Widget extends \WP_Widget {
 
 		if ( $echo ) {
 
-			echo $result; // xss ok.
+			echo $result; // @codingStandardsIgnoreLine
 
 		}
 
@@ -530,13 +533,11 @@ abstract class Base_Widget extends \WP_Widget {
 
 		wp_enqueue_style( 'wpcw-admin', \Contact_Widgets::$assets_url . "css/admin{$rtl}{$suffix}.css", [], Plugin::$version );
 
-		wp_enqueue_script( 'font-awesome', \Contact_Widgets::$fa_url, [], '5.0.6', true );
+		wp_enqueue_style( 'font-awesome', \Contact_Widgets::$fa_url, [], '4.7.0' );
 
 		wp_enqueue_script( 'wpcw-admin', \Contact_Widgets::$assets_url . "js/admin{$suffix}.js", [ 'jquery' ], Plugin::$version, true );
 
 		include 'social-networks.php';
-
-		wp_localize_script( 'wpcw-admin', 'fieldsArray', $fields );
 
 		if ( $GLOBALS['is_IE'] ) {
 
@@ -553,8 +554,8 @@ abstract class Base_Widget extends \WP_Widget {
 
 		$this->enqueue_scripts();
 
-		wp_print_styles( [ 'wpcw-admin', 'wpcw-admin-ie' ] );
-		wp_print_scripts( 'font-awesome', 'wpcw-admin' );
+		wp_print_styles( [ 'font-awesome', 'wpcw-admin', 'wpcw-admin-ie' ] );
+		wp_print_scripts( 'wpcw-admin' );
 
 	}
 
@@ -570,7 +571,7 @@ abstract class Base_Widget extends \WP_Widget {
 
 		wp_enqueue_style( 'wpcw', \Contact_Widgets::$assets_url . "css/style{$rtl}{$suffix}.css", [], Plugin::$version );
 
-		wp_enqueue_script( 'font-awesome', \Contact_Widgets::$fa_url, [], '5.0.6', true );
+		wp_enqueue_style( 'font-awesome', \Contact_Widgets::$fa_url, [], '4.7.0' );
 
 		if ( is_customize_preview() ) {
 

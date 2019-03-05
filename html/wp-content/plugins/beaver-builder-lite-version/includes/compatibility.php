@@ -9,7 +9,7 @@
  *
  * Runs cropped photos stored in cache through tinyPNG.
  */
-function fl_builder_tinypng_support( $cropped_path ) {
+function fl_builder_tinypng_support( $cropped_path, $editor ) {
 
 	if ( class_exists( 'Tiny_Settings' ) ) {
 		try {
@@ -24,7 +24,7 @@ function fl_builder_tinypng_support( $cropped_path ) {
 		}
 	}
 }
-add_action( 'fl_builder_photo_cropped', 'fl_builder_tinypng_support' );
+add_action( 'fl_builder_photo_cropped', 'fl_builder_tinypng_support', 10, 2 );
 
 /**
  * Support for WooCommerce Memberships.
@@ -261,18 +261,6 @@ function fl_bwp_minify_is_loadable_filter( $args ) {
 add_filter( 'bwp_minify_is_loadable', 'fl_bwp_minify_is_loadable_filter' );
 
 /**
- * Stop autoptimize from optimizing when builder is open.
- * @since 1.10.9
- */
-function fl_autoptimize_filter_noptimize_filter( $args ) {
-	if ( FLBuilderModel::is_builder_active() ) {
-		return true;
-	}
-	return $args;
-}
-add_filter( 'autoptimize_filter_noptimize', 'fl_autoptimize_filter_noptimize_filter' );
-
-/**
 * Fixes an issue on search archives if one of the results contains same shortcode
 * as is currently trying to render.
 *
@@ -379,7 +367,7 @@ add_action( 'template_redirect', 'fl_fix_tasty_recipes' );
 function fl_fix_tasty_recipes() {
 	if ( FLBuilderModel::is_builder_active() ) {
 		remove_action( 'wp_enqueue_editor', array( 'Tasty_Recipes\Assets', 'action_wp_enqueue_editor' ) );
-		remove_action( 'media_buttons',     array( 'Tasty_Recipes\Editor', 'action_media_buttons' ) );
+		remove_action( 'media_buttons', array( 'Tasty_Recipes\Editor', 'action_media_buttons' ) );
 	}
 }
 
@@ -412,8 +400,7 @@ function fl_render_ninja_forms_js( $response ) {
 
 /**
  * Reorder font awesome css.
- * If font-awesome-4 and font-awesome-5 are both in the styles queue font-awesome-5
- * must load first.
+ * @since 2.1
  */
 function fl_builder_fa_fix() {
 
@@ -421,17 +408,26 @@ function fl_builder_fa_fix() {
 
 	$queue = $wp_styles->queue;
 
-	$fa4 = array_search( 'font-awesome',   $queue );
+	$fa4 = array_search( 'font-awesome', $queue );
 	$fa5 = array_search( 'font-awesome-5', $queue );
 
-	if ( $fa4 && $fa5 && $fa4 < $fa5 ) {
-		wp_dequeue_style( 'font-awesome' );
-		wp_dequeue_style( 'font-awesome-5' );
-		wp_deregister_style( 'font-awesome' );
-		wp_enqueue_style( 'font-awesome', FLBuilder::$fa4_url, array( 'font-awesome-5' ) );
+	// if fa4 is disabled and both are detected, load fa4 FIRST.
+	if ( false !== $fa4 && false !== $fa5 && $fa4 > $fa5 && ! in_array( 'font-awesome', FLBuilderModel::get_enabled_icons() ) ) {
+		unset( $wp_styles->queue[ $fa4 ] );
+		array_unshift( $wp_styles->queue, 'font-awesome' );
+	}
+	// If fa4 is detected, add a compatibility layer in the footer.
+	// This fixes various theme/themer issues.
+	if ( false !== $fa4 ) {
+			add_action( 'wp_footer', 'fl_builder_fa_fix_callback' );
 	}
 }
-add_action( 'wp_enqueue_scripts', 'fl_builder_fa_fix', 11 );
+add_action( 'wp_enqueue_scripts', 'fl_builder_fa_fix', 99999 );
+
+function fl_builder_fa_fix_callback() {
+	echo '<style>[class*="fa fa-"]{font-family: FontAwesome !important;}</style>';
+}
+
 
 /**
  * Turn off Hummingbird minification
@@ -454,3 +450,211 @@ function fl_fix_enjoy_instagram() {
 		remove_action( 'wp_head', 'funzioni_in_head' );
 	}
 }
+
+/**
+ * Fix Event Calendar widget not loading assets when added as a widget module.
+ * @since 2.1.5
+ */
+add_action( 'tribe_events_pro_widget_render', 'fl_tribe_events_pro_widget_render_fix', 10, 3 );
+function fl_tribe_events_pro_widget_render_fix( $class, $args, $instance ) {
+	if ( isset( $args['widget_id'] ) && false !== strpos( $args['widget_id'], 'fl_builder_widget' ) ) {
+		if ( class_exists( 'Tribe__Events__Pro__Mini_Calendar' ) ) {
+			if ( method_exists( Tribe__Events__Pro__Mini_Calendar::instance(), 'register_assets' ) ) {
+				Tribe__Events__Pro__Mini_Calendar::instance()->register_assets();
+			} else {
+				if ( class_exists( 'Tribe__Events__Pro__Widgets' ) && method_exists( 'Tribe__Events__Pro__Widgets', 'enqueue_calendar_widget_styles' ) ) {
+					Tribe__Events__Pro__Widgets::enqueue_calendar_widget_styles();
+				}
+			}
+		}
+	}
+}
+
+/**
+ * Fix for Enfold theme always loading wp-mediaelement
+ * @since 2.1.5
+ */
+add_filter( 'avf_enqueue_wp_mediaelement', 'fl_builder_not_load_mediaelement', 10, 2 );
+function fl_builder_not_load_mediaelement( $condition, $options ) {
+	if ( FLBuilderModel::is_builder_active() ) {
+		$condition = true;
+	}
+	return $condition;
+}
+
+/**
+ * Fix issue with Templator plugin.
+ * @since 2.1.6
+ */
+add_action( 'template_redirect', 'fl_builder_fix_templator' );
+function fl_builder_fix_templator() {
+	if ( FLBuilderModel::is_builder_active() && class_exists( 'Templator_Import' ) ) {
+		remove_action( 'media_buttons', array( Templator_Import::get_instance(), 'import_template_button' ) );
+	}
+}
+
+/**
+ * Fix issue with Prevent Direct Access Gold.
+ * @since 2.1.6
+ */
+add_action( 'template_redirect', 'fl_builder_fix_protector_gold' );
+function fl_builder_fix_protector_gold() {
+	if ( FLBuilderModel::is_builder_active() && class_exists( 'Prevent_Direct_Access_Gold' ) && ! function_exists( 'get_current_screen' ) ) {
+		function get_current_screen() {
+			$args         = new StdClass;
+			$args->id     = 'Beaver';
+			$args->action = 'Builder';
+			return $args;
+		}
+	}
+}
+
+/**
+ * Fix issue with WPMUDEV Smush It.
+ * @since 2.1.6
+ */
+add_action( 'template_redirect', 'fl_builder_fix_smush_it' );
+function fl_builder_fix_smush_it() {
+	if ( FLBuilderModel::is_builder_active() ) {
+		add_filter( 'wp_smush_enqueue', '__return_false' );
+	}
+}
+
+/**
+ * Whitelist files in bb-theme and bb-theme-builder in PHPCompatibility Checker plugin.
+ * @since 2.1.6
+ */
+add_filter( 'phpcompat_whitelist', 'fl_builder_bbtheme_compat_fix' );
+function fl_builder_bbtheme_compat_fix( $folders ) {
+
+	// Theme
+	$folders[] = '*/bb-theme/includes/vendor/Less/*';
+	// Themer
+	$folders[] = '*/bb-theme-builder/includes/post-grid-default-html.php';
+	$folders[] = '*/bb-theme-builder/includes/post-grid-default-css.php';
+	// bb-plugin
+	$folders[] = '*/bb-plugin/includes/ui-field*.php';
+	$folders[] = '*/bb-plugin/includes/ui-settings-form*.php';
+	// lite
+	$folders[] = '*/beaver-builder-lite-version/includes/ui-field*.php';
+	$folders[] = '*/beaver-builder-lite-version/includes/ui-settings-form*.php';
+	return $folders;
+};
+
+/**
+ * Remove wpbb post:content from post_content as it causes inception.
+ * @since 2.1.7
+ */
+add_filter( 'fl_builder_editor_content', 'fl_theme_post_content_fix' );
+function fl_theme_post_content_fix( $content ) {
+	return preg_replace( '#\[wpbb\s?post:content.*\]#', '', $content );
+}
+
+/**
+ * Remove Popup-Maker post-type from admin settings post-types.
+ * @since 2.1.7
+ */
+add_filter( 'fl_builder_admin_settings_post_types', 'fl_builder_admin_settings_post_types_popup' );
+function fl_builder_admin_settings_post_types_popup( $types ) {
+	if ( class_exists( 'Popup_Maker' ) && isset( $types['popup'] ) ) {
+		unset( $types['popup'] );
+	}
+	return $types;
+}
+
+/**
+ * If short description is blank and there is a layout in the product content
+ * css will not be enqueued because woocommerce adds the css to the json+ld
+ * @since 2.1.7
+ */
+add_filter( 'woocommerce_product_get_short_description', 'fl_fix_woo_short_description' );
+function fl_fix_woo_short_description( $content ) {
+
+	global $post, $fl_woo_description_fix;
+
+	// if there is a short description no need to carry on.
+	if ( '' != $content ) {
+		return $content;
+	}
+
+	// if the product content contains a layout shortcode then extract any css to add to footer later.
+	if ( false !== strpos( $post->post_content, '[fl_builder_insert_layout' ) ) {
+		$dummy   = do_shortcode( $post->post_content );
+		$scripts = preg_match_all( "#<link rel='stylesheet'.*#", $dummy, $out );
+		if ( is_array( $out ) ) {
+			if ( ! is_array( $fl_woo_description_fix ) ) {
+				$fl_woo_description_fix = array();
+			}
+			foreach ( $out[0] as $script ) {
+				$fl_woo_description_fix[] = $script;
+			}
+		}
+		// now we will use the content as the short description.
+		$content = strip_shortcodes( wp_strip_all_tags( $post->post_content ) );
+	}
+	return $content;
+}
+
+/**
+ * Footer action for fl_fix_woo_short_description to print foundf css.
+ * @since 2.1.7
+ */
+add_action( 'wp_footer', 'fl_fix_woo_short_description_footer' );
+function fl_fix_woo_short_description_footer() {
+	global $fl_woo_description_fix;
+	if ( is_array( $fl_woo_description_fix ) && ! empty( $fl_woo_description_fix ) ) {
+		echo implode( "\n", $fl_woo_description_fix );
+	}
+}
+
+/**
+ * Fix fatal error on adding Themer layouts and Templates with seopress.
+ * @since 2.1.8
+ */
+add_action( 'save_post', 'fl_fix_seopress', 9 );
+function fl_fix_seopress() {
+	if ( isset( $_POST['fl-template'] ) ) {
+		remove_action( 'save_post', 'seopress_bulk_quick_edit_save_post' );
+	}
+}
+
+/**
+ * SiteGround Optimizer is known to break the builder.
+ * @since 2.1.7
+ */
+if ( isset( $_GET['fl_builder'] ) ) {
+	$options = array(
+		'optimize_html',
+		'remove_query_strings',
+		'fix_insecure_content',
+		'optimize_css',
+		'optimize_javascript',
+	);
+	foreach ( $options as $option ) {
+		add_filter( "option_siteground_optimizer_$option", '__return_false' );
+	}
+}
+
+/**
+ * Enlighter stops builder from loading.
+ * @since 2.2
+ */
+add_filter( 'enlighter_startup', 'fl_enlighter_frontend_editing' );
+function fl_enlighter_frontend_editing( $enabled ) {
+	if ( isset( $_GET['fl_builder'] ) ) {
+		return false;
+	}
+	return $enabled;
+}
+
+/**
+ * Set sane settings for SSL
+ * @since 2.2.1
+ */
+function fl_set_curl_safe_opts( $handle ) {
+	curl_setopt( $handle, CURLOPT_SSL_VERIFYPEER, 1 );
+	curl_setopt( $handle, CURLOPT_SSL_VERIFYHOST, 2 );
+	curl_setopt( $handle, CURLOPT_CAINFO, ABSPATH . WPINC . '/certificates/ca-bundle.crt' );
+	return $handle;
+}
+

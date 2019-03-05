@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Contact Widgets
  * Description: Beautifully display social media and contact information on your website with these simple widgets.
- * Version: 1.5.0
+ * Version: 1.6.2
  * Author: GoDaddy
  * Author URI: https://godaddy.com
  * Text Domain: contact-widgets
@@ -38,6 +38,13 @@ if ( ! class_exists( 'Contact_Widgets' ) ) {
 		public static $assets_url;
 
 		/**
+		 * Font Awesome 5
+		 *
+		 * @var boolean
+		 */
+		public static $fontawesome_5;
+
+		/**
 		 * Font Awesome CSS locations
 		 *
 		 * @var string
@@ -52,6 +59,13 @@ if ( ! class_exists( 'Contact_Widgets' ) ) {
 		public function __construct( $cur_php_version = PHP_VERSION ) {
 
 			static::$assets_url = plugin_dir_url( __FILE__ ) . 'assets/';
+
+			/**
+			 * Should Font Awesome 5 be loaded.
+			 *
+			 * @var boolean
+			 */
+			static::$fontawesome_5 = (bool) apply_filters( 'wpcw_social_icons_fontawesome_5', false );
 
 			static::$fa_url = $this->font_awesome_url();
 
@@ -87,32 +101,30 @@ if ( ! class_exists( 'Contact_Widgets' ) ) {
 		 */
 		public function font_awesome_url() {
 
-			/**
-			 * Should Font Awesome be loaded from the CDN.
-			 *
-			 * @var boolean
-			 */
-			$use_cdn = (boolean) apply_filters( 'wpcw_widget_social_icons_use_cdn', false );
+			$suffix = SCRIPT_DEBUG ? '' : '.min';
 
 			/**
 			 * Font Awesome CDN URL.
 			 *
 			 * @var string
 			 */
-			$fontawesome_cdn_url = (string) esc_url( apply_filters( 'wpcw_widget_social_icons_cdn_url', 'https://use.fontawesome.com/releases/v5.0.6/js/all.js' ) );
+			$fontawesome_cdn_url = (string) esc_url( apply_filters( 'wpcw_social_icons_cdn_url', ( self::$fontawesome_5 ? 'https://use.fontawesome.com/releases/v5.0.13/css/all.css' : "//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome{$suffix}.css" ) ) );
 
-			$suffix = SCRIPT_DEBUG ? '' : '.min';
+			if ( self::$fontawesome_5 ) {
 
-			return $use_cdn ? $fontawesome_cdn_url : static::$assets_url . "js/fontawesome-all{$suffix}.js";
+				// Font Awesome 5 CDN URL
+				return $fontawesome_cdn_url;
 
-		}
+			}
 
-		/**
-		 * Enqueue Font Awesome
-		 */
-		public function enqueue_font_awesome() {
+			/**
+			 * Should Font Awesome be loaded from the CDN.
+			 *
+			 * @var boolean
+			 */
+			$use_cdn = (bool) apply_filters( 'wpcw_social_icons_use_cdn', false );
 
-			wp_enqueue_script( 'font-awesome', self::$fa_url, [], '5.0.6', true );
+			return ! $use_cdn ? static::$assets_url . "css/font-awesome{$suffix}.css" : $fontawesome_cdn_url;
 
 		}
 

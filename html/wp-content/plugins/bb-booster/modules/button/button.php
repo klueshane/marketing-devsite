@@ -24,6 +24,7 @@ class FLButtonModule extends FLBuilderModule {
 	public function enqueue_scripts() {
 		if ( $this->settings && 'lightbox' == $this->settings->click_action ) {
 			$this->add_js( 'jquery-magnificpopup' );
+			$this->add_css( 'font-awesome-5' );
 			$this->add_css( 'jquery-magnificpopup' );
 		}
 	}
@@ -366,29 +367,44 @@ FLBuilder::register_module('FLButtonModule', array(
 					'font_size'     => array(
 						'type'          => 'text',
 						'label'         => __( 'Font Size', 'bb-booster' ),
-						'default'       => '16',
+						'default'       => '',
 						'maxlength'     => '3',
 						'size'          => '4',
 						'description'   => 'px',
-						'sanitize'		=> 'absint',
 					),
 					'padding'       => array(
 						'type'          => 'text',
 						'label'         => __( 'Padding', 'bb-booster' ),
-						'default'       => '12',
+						'default'       => '',
 						'maxlength'     => '3',
 						'size'          => '4',
 						'description'   => 'px',
-						'sanitize'		=> 'absint',
 					),
 					'border_radius' => array(
 						'type'          => 'text',
 						'label'         => __( 'Round Corners', 'bb-booster' ),
-						'default'       => '4',
+						'default'       => '',
 						'maxlength'     => '3',
 						'size'          => '4',
 						'description'   => 'px',
-						'sanitize'		=> 'absint',
+					),
+				),
+			),
+			'responsive_style' 	=> array(
+				'title'         		=> __( 'Responsive Style', 'bb-booster' ),
+				'fields'        		=> array(
+					'mobile_align' => array(
+						'type'          => 'select',
+						'label'         => __( 'Alignment', 'bb-booster' ),
+						'default'       => 'center',
+						'options'       => array(
+							'center'        => __( 'Center', 'bb-booster' ),
+							'left'          => __( 'Left', 'bb-booster' ),
+							'right'         => __( 'Right', 'bb-booster' ),
+						),
+						'preview'       => array(
+							'type'          => 'none',
+						),
 					),
 				),
 			),
