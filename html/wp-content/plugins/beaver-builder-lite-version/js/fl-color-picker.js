@@ -139,8 +139,8 @@ var FLBuilderColorPicker;
 			}
 
 			endStop = 100 - parseFloat( endColor.stop ) + '%';
-			startColor.octoHex = new Color( startColor.color ).toIEOctoHex();
-			endColor.octoHex = new Color( endColor.color ).toIEOctoHex();
+			startColor.octoHex = new FLBuilderColor( startColor.color ).toIEOctoHex();
+			endColor.octoHex = new FLBuilderColor( endColor.color ).toIEOctoHex();
 			filterVal = 'progid:DXImageTransform.Microsoft.Gradient(GradientType=' + type + ', StartColorStr=\'' + startColor.octoHex + '\', EndColorStr=\'' + endColor.octoHex + '\')';
 			html += template.replace( '%start%', startColor.stop ).replace( '%end%', endStop ).replace( '%filter%', filterVal );
 		});
@@ -452,7 +452,14 @@ var FLBuilderColorPicker;
 			var self  = this,
 				el    = $( self.options.elements );
 
-			this._color = new Color( '#ff0000' ).setHSpace( self.options.mode );
+			// Just prep the color inputs and bail early if the color picker
+			// markup has already been initialized in the DOM.
+			if( $('html').hasClass( 'fl-color-picker-init' ) ){
+				this._prepareColorFields();
+				return;
+			}
+
+			this._color = new FLBuilderColor( '#ff0000' ).setHSpace( self.options.mode );
 
 			// Set picker color presets
 			FLBuilderColorPresets = this.options.presets;
@@ -463,11 +470,7 @@ var FLBuilderColorPicker;
 
 			// appends color picker markup to the body
 			// check if there's already a color picker instance
-			if( $('html').hasClass( 'fl-color-picker-init' ) ){
-				self.picker = $( '.fl-color-picker-ui' );
-			} else {
-				self.picker = $( this._html ).appendTo( 'body' );
-			}
+			self.picker = $( this._html ).appendTo( 'body' );
 
 			// Browsers / Versions
 			// Feature detection doesn't work for these, and $.browser is deprecated
@@ -510,11 +513,9 @@ var FLBuilderColorPicker;
 			this._iris 	  = $( '.iris-picker' );
 			this._wrapper = $( 'body' );
 
-			if( !$('html').hasClass( 'fl-color-picker-init' ) ){
-				this._ui
-					.prepend( this._hexHtml )
-					.append( this._presetsHtml );
-			}
+			this._ui
+				.prepend( this._hexHtml )
+				.append( this._presetsHtml );
 
 			self.element = this._ui.find( '.fl-color-picker-input' );
 			self._initControls();
@@ -606,7 +607,7 @@ var FLBuilderColorPicker;
 					'<ul class="fl-color-picker-presets-list"></ul>' +
 				'</div>';
 
-			this._hexHtml = '<input type="text" class="fl-color-picker-input" maxlength="7" placeholder="' + this.options.labels.placeholder + '">' +
+			this._hexHtml = '<input type="text" class="fl-color-picker-input" placeholder="' + this.options.labels.placeholder + '">' +
 					   '<div class="fl-color-picker-preset-add"></div>';
 
 			this._presetsTpl = '<li class="fl-color-picker-preset"><span class="fl-color-picker-preset-color"></span> <span class="fl-color-picker-preset-label"></span> <span class="fl-color-picker-preset-remove fl-color-picker-icon-remove"></span></li>';
@@ -672,7 +673,7 @@ var FLBuilderColorPicker;
 			}
 
 			var tpl   = $( this._presetsTpl ),
-				color = Color( val );
+				color = FLBuilderColor( val );
 
 			tpl
 				.attr( 'data-color', val )
@@ -793,7 +794,7 @@ var FLBuilderColorPicker;
 				} )
 				// set preset as current color
 				.on( 'click', '.fl-color-picker-preset', function( e ){
-					var currentColor = new Color( $( this ).data( 'color' ).toString() );
+					var currentColor = new FLBuilderColor( $( this ).data( 'color' ).toString() );
 
 					self._setColor( currentColor );
 					self._currentElement
@@ -857,6 +858,11 @@ var FLBuilderColorPicker;
 		 * @since  1.6.4
 		 */
 		_addPreset: function( preset ){
+
+			if( ! this._CheckValidColor( preset ) ) {
+				alert( this.options.labels.noneColorSelected );
+				return false;
+			}
 			var color = preset.toString().replace( /^#/, '' );
 
 			// check if color is empty
@@ -877,6 +883,32 @@ var FLBuilderColorPicker;
 				// CALLBACK FOR COLOR ADDED
 				$(this).trigger( 'presetAdded', { presets: FLBuilderColorPresets } );
 			}
+		},
+
+		/**
+		 * Validates a color string, supports all types.
+		 * If not hex, rgba? or hsl then return false.
+		 * @return {Boolean}
+		 */
+		_CheckValidColor: function(color) {
+
+			// first check we are valid.
+			if( ! color.match( /^#/ ) && ! color.match( /^rgb/ ) && ! color.match( /^hsl/ ) ) {
+				return false;
+			}
+
+			var e = document.getElementById( 'divValidColor' );
+			if ( !e ) {
+				e = document.createElement( 'div' );
+				e.id = 'divValidColor';
+			}
+			e.style.borderColor = '';
+			e.style.borderColor = color;
+			var tmpcolor = e.style.borderColor;
+			if ( tmpcolor.length == 0 ) {
+				return false;
+			}
+			return true;
 		},
 
 		/**
@@ -1088,7 +1120,7 @@ var FLBuilderColorPicker;
 			var self = this,
 				debounceTimeout = 100,
 				callback = function( event ){
-					var color = new Color( input.val() ),
+					var color = new FLBuilderColor( input.val() ),
 						val = input.val().replace( /^#/, '' ),
 						isPickerEmpty = self._currentElement.hasClass( 'fl-color-picker-empty' );
 
@@ -1112,7 +1144,7 @@ var FLBuilderColorPicker;
 								self._currentElement
 									.parent()
 									.find( '.fl-color-picker-color' )
-									.css({ backgroundColor: Color( val ).toString() })
+									.css({ backgroundColor: FLBuilderColor( val ).toString() })
 									.removeClass( 'fl-color-picker-empty' );
 
 								self._currentElement
@@ -1121,7 +1153,7 @@ var FLBuilderColorPicker;
 
 							} else if( event.type === 'paste' ){
 								val = event.originalEvent.clipboardData.getData( 'text' ).replace( /^#/, '' );
-								hex = Color( val ).toString();
+								hex = FLBuilderColor( val ).toString();
 
 								self._setColor( val );
 								input.val( hex );
@@ -1278,17 +1310,27 @@ var FLBuilderColorPicker;
 		_setColor: function( value ) {
 			var self = this,
 				oldValue = self.options.color,
+				defaultColor = '#ff0000',
 				doDimensions = false,
 				hexLessColor,
 				newColor,
 				method;
+
+			// Set default if value is empty.
+			if ( '' === value ) {
+				value = defaultColor;
+				self.default = true;
+			}
+			else {
+				self.default = false;
+			}
 
 			// ensure the new value is set. We can reset to oldValue if some check wasn't met.
 			self.options.color = value;
 			// cast to string in case we have a number
 			value = '' + value;
 			hexLessColor = value.replace( /^#/, '' );
-			newColor = new Color( value ).setHSpace( self.options.mode );
+			newColor = new FLBuilderColor( value ).setHSpace( self.options.mode );
 			if ( newColor.error ) {
 				self.options.color = oldValue;
 			} else {
@@ -1398,12 +1440,18 @@ var FLBuilderColorPicker;
 					self.element.val( self._color.toString() );
 
 					if( this._currentElement ){
-						this._currentElement
-							.val( self._color.toString().replace( /^#/, '' ) )
-							.parent()
-							.find( '.fl-color-picker-color' )
-							.css({ backgroundColor: self._color.toString() })
-							.removeClass( 'fl-color-picker-empty' );
+						// Check if picker is not a default or an empty.
+						if ( ! self.default || (self.default && 'external' !== self.active ) ) {
+							this._currentElement
+								.val( self._color.toString().replace( /^#/, '' ) )
+								.parent()
+								.find( '.fl-color-picker-color' )
+								.css({ backgroundColor: self._color.toString() })
+								.removeClass( 'fl-color-picker-empty' );
+						}
+						else {
+							this._currentElement.val( '' );
+						}
 
 						self._wrapper.find('.fl-alpha-slider-offset').css('background-color', self._color.toString());
 						this._currentElement.trigger( 'change' );
@@ -1472,6 +1520,7 @@ var FLBuilderColorPicker;
 					self._pickerAlphaControls();
 				}
 				else {
+					self.picker.removeClass('fl-color-alpha-enabled');
 					self._ui.find('.fl-alpha-wrap').remove();
 				}
 			});
@@ -1532,7 +1581,7 @@ var FLBuilderColorPicker;
               	// slider: options
               	value: picker.alpha,
               	step: 1,
-             	min: 1,
+             	min: 0,
               	max: 100
             });
 		},
@@ -2136,9 +2185,11 @@ var FLBuilderColorPicker;
 	}
 
 	// play nicely with Node + browser
-	if ( typeof exports === 'object' )
+	if ( typeof exports === 'object' ) {
 		module.exports = Color;
-	else
-		global.Color = Color;
+	} else {
+		global.FLBuilderColor = Color;
+		global.Color = Color; // Add for backwards compatibility.
+	}
 
 }(this));

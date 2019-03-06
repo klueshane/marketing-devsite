@@ -22,14 +22,16 @@ class WPDBBackupGoogle {
             $client->setScopes(array("https://www.googleapis.com/auth/drive"));
             $service = new Google_DriveService($client);
             // Exchange authorisation code for access token
-            if (!file_exists("token.json")) {
+            if (!get_option("wpdb_google_drive_token")) {
                 // Save token for future use
                 $accessToken = $client->authenticate($authCode);
-                file_put_contents("token.json", $accessToken);
+                update_option("wpdb_google_drive_token", $accessToken);
+                //file_put_contents("token.json", $accessToken);
             } else
-                $accessToken = file_get_contents("token.json");
+              $accessToken = get_option("wpdb_google_drive_token");
+              //  $accessToken = file_get_contents("token.json");
             $client->setAccessToken($accessToken);
-            // Upload file to Google Drive  
+            // Upload file to Google Drive
             $file = new Google_DriveFile();
             $file->setTitle($args[0]);
             $file->setDescription("WP Database Backup : database backup file-".site_url());
@@ -38,7 +40,7 @@ class WPDBBackupGoogle {
             $createdFile = $service->files->insert($file, array('data' => $data, 'mimeType' => "application/gzip",));
             $args[2] =$args[2]. '<br> Upload Database Backup on google drive';
             $args[4] = $args[4] .="Drive, ";
-            // Process response here....            
+            // Process response here....
         }
     }
 

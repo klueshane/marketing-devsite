@@ -63,9 +63,9 @@ $templates = array(
     ),
 
     'formtemplate-exportdata'        => array(
-	    'id'                            => 'formtemplate-exportdata',
-	    'title'                         => __( 'Export Data Request', 'ninja-forms' ),
-	    'template-desc'                 => __( 'Includes action to add users to WordPress\' personal data export tool, allowing admins to comply with the GDPR and other privacy regulations from the site\'s front end.', 'ninja-forms' ),
+        'id'                            => 'formtemplate-exportdata',
+        'title'                         => __( 'Export Data Request', 'ninja-forms' ),
+        'template-desc'                 => __( 'Includes action to add users to WordPress\' personal data export tool, allowing admins to comply with the GDPR and other privacy regulations from the site\'s front end.', 'ninja-forms' ),
     ),
 );
 
@@ -81,7 +81,7 @@ $ads = array(
         'type'                          => 'ad',
         'modal-title'                   => 'Get MailChimp for Ninja Forms',
         'modal-content'                 => '<div class="modal-template">
-                                                <img src="' . Ninja_Forms::$url . 'assets/img/add-ons/mailchimp-for-ninja-forms.png"/>
+                                                <img src="' . Ninja_Forms::$url . 'assets/img/add-ons/mail-chimp.png"/>
                                                 <p>In order to use this template, you need MailChimp for Ninja Forms.</p>
                                                 <p>The MailChimp extension allows you to quickly create newsletter signup forms for your MailChimp account using the power and flexibility that Ninja Forms provides.</p>
                                                 <div class="actions">
@@ -144,11 +144,11 @@ $ads = array(
         'modal-title'                   => 'Get Front-End Posting for Ninja Forms',
         'modal-content'                 => '<div class="modal-template">
                                                 <img src="' . Ninja_Forms::$url . 'assets/img/add-ons/front-end-posting.png"/>
-                                                <p>In order to use this template, you need User Management for Ninja Forms.</p>
+                                                <p>In order to use this template, you need Front-End Posting for Ninja Forms.</p>
                                                 <p>Create posts, pages, or any custom post type from the front-end.</p>
-                                                <p>The Ninja Forms Front-end Posting extension gives you the power of the WordPress post editor on any publicly viewable page you choose.</p>
+                                                <p>The Ninja Forms Front-End Posting extension gives you the power of the WordPress post editor on any publicly viewable page you choose.</p>
                                                 <div class="actions">
-                                                    <a target="_blank" href="https://ninjaforms.com/extensions/user-management/?utm_medium=plugin&utm_source=dashboard&utm_campaign=New+Form+Templates&utm_content=Frontend+Posting" title="Create Post" class="primary nf-button">Learn More</a>
+                                                    <a target="_blank" href="https://ninjaforms.com/extensions/front-end-posting/?utm_medium=plugin&utm_source=dashboard&utm_campaign=New+Form+Templates&utm_content=Frontend+Posting" title="Create Post" class="primary nf-button">Learn More</a>
                                                 </div>
                                             </div>',
     ),
@@ -160,7 +160,7 @@ $ads = array(
         'type'                          => 'ad',
         'modal-title'                   => 'Get User Management for Ninja Forms',
         'modal-content'                 => '<div class="modal-template">
-                                                <img src="' . Ninja_Forms::$url . 'assets/img/add-ons/user-management-product-graphic.png"/>
+                                                <img src="' . Ninja_Forms::$url . 'assets/img/add-ons/user-management.png"/>
                                                 <p>In order to use this template, you need User Management for Ninja Forms.</p>
                                                 <p>User Management brings you the remarkable flexibility to register new WordPress users and manage existing ones through your Ninja Forms!</p>
                                                 <div class="actions">
@@ -176,7 +176,7 @@ $ads = array(
         'type'                          => 'ad',
         'modal-title'                   => 'Get User Management for Ninja Forms',
         'modal-content'                 => '<div class="modal-template">
-                                                <img src="' . Ninja_Forms::$url . 'assets/img/add-ons/user-management-product-graphic.png"/>
+                                                <img src="' . Ninja_Forms::$url . 'assets/img/add-ons/user-management.png"/>
                                                 <p>In order to use this template, you need User Management for Ninja Forms.</p>
                                                 <p>User Management brings you the remarkable flexibility to register new WordPress users and manage existing ones through your Ninja Forms!</p>
                                                 <div class="actions">

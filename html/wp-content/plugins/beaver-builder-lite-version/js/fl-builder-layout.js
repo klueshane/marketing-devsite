@@ -32,14 +32,14 @@
 			// Only init if the builder isn't active.
 			if ( 0 === $('.fl-builder-edit').length ) {
 
+				// Init module animations.
+				FLBuilderLayout._initModuleAnimations();
+
 				// Init anchor links.
 				FLBuilderLayout._initAnchorLinks();
 
 				// Init the browser hash.
 				FLBuilderLayout._initHash();
-
-				// Init module animations.
-				FLBuilderLayout._initModuleAnimations();
 
 				// Init forms.
 				FLBuilderLayout._initForms();
@@ -191,6 +191,23 @@
 				YUI().use('node-event-simulate', function(Y) {
 					Y.one(window).simulate("resize");
 				});
+			}
+		},
+
+		/**
+		 * Public method for reloading an embedded Google Map within the tabs or hidden element.
+		 *
+		 * @since 2.2
+		 * @method reloadGoogleMap
+		 */
+		reloadGoogleMap: function(element){
+			var $element  = 'undefined' == typeof element ? $( 'body' ) : $( element ),
+			    googleMap = $element.find( 'iframe[src*="google.com/maps"]' );
+
+			if ( googleMap.length ) {
+			    googleMap.attr( 'src', function(i, val) {
+			        return val;
+			    });
 			}
 		},
 
@@ -474,8 +491,12 @@
 				videoId 	= playerWrap.data('video-id'),
 				videoPlayer = playerWrap.find('.fl-bg-video-player'),
 				enableAudio = playerWrap.data('enable-audio'),
+				audioButton = playerWrap.find('.fl-bg-video-audio'),
 				startTime 	= 'undefined' !== typeof playerWrap.data('t') ? playerWrap.data('t') : 0,
 				loop 		= 'undefined' !== typeof playerWrap.data('loop') ? playerWrap.data('loop') : 1,
+				vidPlayed   = false,
+				didUnmute   = false,
+				stateCount  = 0,
 				player;
 
 			if ( videoId ) {
@@ -497,11 +518,34 @@
 									playerWrap.data('YTPlayer', player);
 									FLBuilderLayout._resizeYoutubeBgVideo.apply(playerWrap);
 
+									// Queue the video.
 									event.target.playVideo();
+
+									if ( audioButton.length > 0 ) {
+										audioButton.on( 'click', {button: audioButton, player: player}, FLBuilderLayout._toggleBgVideoAudio );
+									}
 								},
 								onStateChange: function( event ) {
+									// Manual check if video is not playable in some browsers.
+									// StateChange order: [-1, 3, -1]
+									if ( stateCount < 4 ) {
+										stateCount++;
+									}
+
+									// Comply with the audio policy in some browsers like Chrome and Safari.
+									if ( stateCount > 1 && -1 === event.data && "yes" === enableAudio ) {
+										player.mute();
+										player.playVideo();
+										audioButton.show();
+									}
+
 									if ( event.data === YT.PlayerState.ENDED && 1 === loop ) {
-										player.seekTo( startTime );
+										if ( startTime > 0 ) {
+											player.seekTo( startTime );
+										}
+										else {
+											player.playVideo();
+										}
 									}
 								},
 								onError: function(event) {
@@ -514,8 +558,6 @@
 								showinfo: 0,
 								rel : 0,
 								start: startTime,
-								loop: loop,
-								playlist: 1 === loop ? videoId : '',
 							}
 						} );
 					}, 1 );
@@ -572,17 +614,19 @@
 				videoId 	= playerWrap.data('video-id'),
 				videoPlayer = playerWrap.find('.fl-bg-video-player'),
 				enableAudio = playerWrap.data('enable-audio'),
+				audioButton = playerWrap.find('.fl-bg-video-audio'),
 				player,
 				width = playerWrap.outerWidth();
 
 			if ( typeof Vimeo !== 'undefined' && videoId )	{
 				player = new Vimeo.Player(videoPlayer[0], {
-					id: videoId,
-							loop: true,
-							title: false,
-							portrait: false,
-							background: true,
-							autopause: false
+					id         : videoId,
+					loop       : true,
+					title      : false,
+					portrait   : false,
+					background : true,
+					autopause  : false,
+					muted      : true
 				});
 
 				playerWrap.data('VMPlayer', player);
@@ -590,12 +634,66 @@
 					player.setVolume(0);
 				}
 				else if ("yes" === enableAudio ) {
-					player.setVolume(1);
+					// Chrome and Safari have audio policy restrictions for autoplay videos.
+					if ( $.browser.safari || $.browser.chrome ) {
+						player.setVolume(0);
+						audioButton.show();
+					}
+					else {
+						player.setVolume(1);
+					}
 				}
 
 				player.play().catch(function(error) {
 					FLBuilderLayout._onErrorYoutubeVimeo(playerWrap)
 				});
+
+				if ( audioButton.length > 0 ) {
+					audioButton.on( 'click', {button: audioButton, player: player}, FLBuilderLayout._toggleBgVideoAudio );
+				}
+			}
+		},
+
+		/**
+		 * Mute / unmute audio on row's video background.
+		 * It works for both Youtube and Vimeo.
+		 *
+		 * @since 2.1.3
+		 * @access private
+		 * @method _toggleBgVideoAudio
+		 * @param {Object} e Method arguments
+		 */
+		_toggleBgVideoAudio: function( e ) {
+			var player  = e.data.player,
+			    control = e.data.button.find('.fl-audio-control');
+
+			if ( control.hasClass( 'fa-volume-off' ) ) {
+				// Unmute
+				control
+					.removeClass( 'fa-volume-off' )
+					.addClass( 'fa-volume-up' );
+				e.data.button.find( '.fa-times' ).hide();
+
+				if ( 'function' === typeof player.unMute ) {
+					player.unMute();
+				}
+				else {
+					player.setVolume( 1 );
+				}
+			}
+			else {
+				// Mute
+				control
+					.removeClass( 'fa-volume-up' )
+					.addClass( 'fa-volume-off' );
+				e.data.button.find( '.fa-times' ).show();
+
+				if ( 'function' === typeof player.unMute ) {
+					player.mute();
+				}
+				else {
+					player.setVolume( 0 );
+				}
 			}
 		},
 
@@ -793,7 +891,7 @@
 		 */
 		_initModuleAnimations: function()
 		{
-			if(typeof jQuery.fn.waypoint !== 'undefined' && !FLBuilderLayout._isMobile()) {
+			if(typeof jQuery.fn.waypoint !== 'undefined') {
 				$('.fl-animation').each( function() {
 					var node = $( this ),
 						nodeTop = node.offset().top,
@@ -828,15 +926,21 @@
 		_doModuleAnimation: function()
 		{
 			var module = 'undefined' == typeof this.element ? $(this) : $(this.element),
-				delay  = parseFloat(module.data('animation-delay'));
+				delay = parseFloat(module.data('animation-delay')),
+				duration = parseFloat(module.data('animation-duration'));
+
+			if ( ! isNaN( duration ) ) {
+				module.css( 'animation-duration', duration + 's' );
+			}
 
 			if(!isNaN(delay) && delay > 0) {
 				setTimeout(function(){
 					module.addClass('fl-animated');
 				}, delay * 1000);
-			}
-			else {
-				module.addClass('fl-animated');
+			} else {
+				setTimeout(function(){
+					module.addClass('fl-animated');
+				}, 1);
 			}
 		},
 

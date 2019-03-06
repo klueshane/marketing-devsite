@@ -1,3 +1,8 @@
+<h4>1.0.9 - 08/13/2018</h4>
+<ul>
+	<li>Updated modules for Beaver Builder 2.1.4.2.</li>
+</ul>
+
 <h4>1.0.8 - 01/08/2018</h4>
 <ul>
 	<li>Updated modules for Beaver Builder 2.0.</li>

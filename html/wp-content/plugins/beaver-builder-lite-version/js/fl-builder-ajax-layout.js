@@ -16,12 +16,17 @@
 
 		// Setup the new CSS vars if we have new CSS.
 		if ( this._data.css ) {
-			this._loader  = $('<img src="' + this._data.css + '" />');
-			this._oldCss  = $('link[href*="/cache/' + this._post + '"]');
-			this._newCss  = $('<link rel="stylesheet" id="fl-builder-layout-' + this._post + '-css"  href="'+ this._data.css +'" />');
+			if ( 'inline' === FLBuilderConfig.enqueueMethod ) {
+				this._oldCss  = $('#fl-builder-layout-' + this._post + '-inline-css');
+				this._newCss  = $('<style id="fl-builder-layout-' + this._post + '-inline-css" type="text/css">'+ this._data.css +'</style>');
+			} else {
+				this._loader  = $('<img src="' + this._data.css + '" />');
+				this._oldCss  = $('link[href*="/cache/' + this._post + '-layout"]');
+				this._newCss  = $('<link rel="stylesheet" id="fl-builder-layout-' + this._post + '-css"  href="'+ this._data.css +'" />');
+			}
 		}
 
-		// Setup partial refresh vars.
+		// Setup partial or full JS refresh vars.
 		if ( this._data.partial ) {
 			if ( this._data.js ) {
 				this._oldJs = $('#fl-builder-partial-refresh-js');
@@ -31,17 +36,19 @@
 				if ( this._data.oldNodeId ) {
 					this._oldScriptsStyles 	= $( '.fl-builder-node-scripts-styles[data-node="' + this._data.oldNodeId + '"]' );
 					this._content 			= $( '.fl-node-' + this._data.oldNodeId );
-				}
-				else {
+				} else {
 					this._oldScriptsStyles 	= $( '.fl-builder-node-scripts-styles[data-node="' + this._data.nodeId + '"]' );
 					this._content 			= $( '.fl-node-' + this._data.nodeId ).eq(0);
 				}
 			}
-		}
-		// Setup full refresh vars.
-		else {
-			this._oldJs   			= $('script[src*="/cache/' + this._post + '"]');
-			this._newJs   			= $('<script src="'+ this._data.js +'"></script>');
+		} else {
+			if ( 'inline' === FLBuilderConfig.enqueueMethod ) {
+				this._oldJs = $('#fl-builder-layout-' + this._post + '-inline-js');
+				this._newJs = $('<script id="fl-builder-layout-' + this._post + '-inline-js">'+ this._data.js +'</script>');
+			} else {
+				this._oldJs = $('script[src*="/cache/' + this._post + '"]');
+				this._newJs = $('<script src="'+ this._data.js +'"></script>');
+			}
 			this._oldScriptsStyles 	= $( '.fl-builder-layout-scripts-styles' );
 			this._content 			= $( FLBuilder._contentClass );
 		}
@@ -200,43 +207,60 @@
 			this._body.height( this._body.height() );
 
 			// Load the new CSS.
-			if ( this._loader )  {
-
-				// Set the loader's error event.
-				this._loader.on( 'error', $.proxy( this._loadNewCSSComplete, this ) );
-
-				// Add the loader to the body.
-				this._body.append( this._loader );
-			}
-			// We don't have new CSS, finish the render.
-			else {
+			if ( this._data.css )  {
+				if ( 'inline' === FLBuilderConfig.enqueueMethod ) {
+					this._addNewCSS();
+					this._finish();
+				} else {
+					// Load CSS stylesheet using modern methods or fallback to the old way.
+					if ( 'onload' in document.createElement( 'link' ) ) {
+						this._newCss.on( 'load', $.proxy( this._finish, this ) );
+						this._addNewCSS();
+					} else {
+						this._loader.on( 'error', $.proxy( this._loadNewCSSFallbackComplete, this ) );
+						this._body.append( this._loader );
+					}
+				}
+			} else {
+				// We don't have new CSS, finish the render.
 				this._finish();
 			}
 		},
 
 		/**
-		 * Removes the loader, adds the new CSS once it has loaded,
+		 * Removes the fallback loader, adds the new CSS once it has loaded,
 		 * and sets a quick timeout to finish the render.
 		 *
 		 * @since 1.7
 		 * @access private
-		 * @method _loadNewCSSComplete
+		 * @method _loadNewCSSFallbackComplete
 		 */
-		_loadNewCSSComplete: function()
+		_loadNewCSSFallbackComplete: function()
 		{
 			// Remove the loader.
 			this._loader.remove();
 
 			// Add the new layout css.
-			if ( this._oldCss.length > 0 ) {
-				this._oldCss.after( this._newCss );
-			}
-			else {
-				this._head.append( this._newCss );
-			}
+			this._addNewCSS();
 
 			// Set a quick timeout to ensure the css has taken effect.
 			setTimeout( $.proxy( this._finish, this ), 250 );
+		},
+
+		/**
+		 * Adds the new CSS once it has been loaded.
+		 *
+		 * @since 2.2
+		 * @access private
+		 * @method _addNewCSS
+		 */
+		_addNewCSS: function()
+		{
+			if ( this._oldCss.length > 0 ) {
+				this._oldCss.after( this._newCss );
+			} else {
+				this._head.append( this._newCss );
+			}
 		},
 
 		/**
@@ -271,14 +295,6 @@
 
 			// Hide the loader.
 			FLBuilder.hideAjaxLoader();
-
-			// Run the callback.
-			if ( typeof this._callback != 'undefined' ) {
-				this._callback();
-			}
-
-			// Fire the complete hook.
-			FLBuilder.triggerHook( 'didRenderLayoutComplete' );
 		},
 
 		/**
@@ -340,7 +356,7 @@
 
 			// Remove elements that shouldn't be in data.html.
 			html.find( '> *, script' ).each( function() {
-				if ( ! $( this ).hasClass( nodeClass ) ) {
+				if ( ! $( this ).hasClass( nodeClass ) && 'application/json' != $( this ).attr( 'type' ) ) {
 					removed 	   = $( this ).remove();
 					scriptsStyles += removed[0].outerHTML;
 				}
@@ -399,7 +415,7 @@
 					siblings = siblings.filter( ':not(.fl-builder-node-clone)' );
 
 					// Add the new node.
-					if ( 0 === siblings.length || siblings.length == this._data.nodePosition ) {
+					if ( 0 === siblings.length || this._data.nodePosition >= siblings.length ) {
 						this._data.nodeParent.append( this._data.html );
 					}
 					else {
@@ -430,6 +446,11 @@
 				if ( isChild ) {
 					previewNode.html( FLBuilder.preview.elements.node.html() );
 				}
+			}
+
+			// Fire the addNewHTML callback if we have one.
+			if ( this._data.onAddNewHTML ) {
+				this._data.onAddNewHTML();
 			}
 		},
 
@@ -553,6 +574,8 @@
 					this._head.append( this._newJs );
 				}
 
+				FLBuilder.triggerHook( 'didRenderLayoutJSComplete' );
+
 			}, this ), 50 );
 		},
 
@@ -565,14 +588,21 @@
 		 */
 		_complete: function()
 		{
-			FLBuilder._setupEmptyLayout();
-			FLBuilder._highlightEmptyCols();
-			FLBuilder._initDropTargets();
-			FLBuilder._initSortables();
-			FLBuilder._resizeLayout();
+			if ( FLBuilder._dragging ) {
+				FLBuilder._highlightRowsAndColsForDrag();
+				FLBuilder._refreshSortables();
+			} else {
+				FLBuilder._setupEmptyLayout();
+				FLBuilder._highlightEmptyCols();
+				FLBuilder._initDropTargets();
+				FLBuilder._initSortables();
+				FLBuilder._resizeLayout();
+			}
+
 			FLBuilder._initMediaElements();
 			FLBuilderLayout.init();
-			FLBuilderResponsiveEditing.refreshPreview();
+			FLBuilderResponsiveEditing.refreshPreview( this._callback );
+			FLBuilder.triggerHook( 'didRenderLayoutComplete' );
 
 			this._body.height( 'auto' );
 		}

@@ -575,6 +575,11 @@ class Akismet {
 		if ( $new_status == $old_status )
 			return;
 
+		if ( 'spam' === $new_status || 'spam' === $old_status ) {
+			// Clear the cache of the "X comments in your spam queue" count on the dashboard.
+			wp_cache_delete( 'akismet_spam_count', 'widget' );
+		}
+
 		# we don't need to record a history item for deleted comments
 		if ( $new_status == 'delete' )
 			return;
@@ -762,7 +767,6 @@ class Akismet {
 				|| strtotime( $comment->comment_date_gmt ) < strtotime( "-15 days" ) // Comment is too old.
 				|| $comment->comment_approved !== "0" // Comment is no longer in the Pending queue
 				) {
-				echo "Deleting";
 				delete_comment_meta( $comment_id, 'akismet_error' );
 				delete_comment_meta( $comment_id, 'akismet_delayed_moderation_email' );
 				continue;
@@ -1416,7 +1420,7 @@ p {
 		echo apply_filters(
 			'akismet_comment_form_privacy_notice_markup',
 			'<p class="akismet_comment_form_privacy_notice">' . sprintf(
-				__( 'This site uses Akismet to reduce spam. <a href="%s" target="_blank">Learn how your comment data is processed</a>.', 'akismet' ),
+				__( 'This site uses Akismet to reduce spam. <a href="%s" target="_blank" rel="nofollow noopener">Learn how your comment data is processed</a>.', 'akismet' ),
 				'https://akismet.com/privacy/'
 			) . '</p>'
 		);

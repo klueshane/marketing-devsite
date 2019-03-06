@@ -37,12 +37,20 @@ if ( ! empty( $settings->bg_hover_color ) ) {
 .fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button,
 .fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:visited {
 
+	<?php if ( '' !== $settings->font_size ) : ?>
 	font-size: <?php echo $settings->font_size; ?>px;
 	line-height: <?php echo $settings->font_size + 2; ?>px;
+	<?php endif; ?>
+
+	<?php if ( '' !== $settings->padding ) : ?>
 	padding: <?php echo $settings->padding . 'px ' . ($settings->padding * 2) . 'px'; ?>;
+	<?php endif; ?>
+
+	<?php if ( '' !== $settings->border_radius ) : ?>
 	border-radius: <?php echo $settings->border_radius; ?>px;
 	-moz-border-radius: <?php echo $settings->border_radius; ?>px;
 	-webkit-border-radius: <?php echo $settings->border_radius; ?>px;
+	<?php endif; ?>
 
 	<?php if ( 'custom' == $settings->width ) : ?>
 	width: <?php echo $settings->custom_width; ?>px;
@@ -173,5 +181,22 @@ if ( isset( $settings->click_action ) && 'lightbox' == $settings->click_action )
 		top: -10px!important;
 	}
 	<?php endif; ?>
+
+<?php endif; ?>
+
+<?php
+
+/**
+ * Responsive enabled
+ */
+if ( $global_settings->responsive_enabled ) :
+
+	// Responsive styles
+	?>
+	@media ( max-width: <?php echo $global_settings->responsive_breakpoint ?>px ) {
+		.fl-node-<?php echo $id; ?> .fl-button-wrap {
+			text-align: <?php echo isset( $settings->mobile_align ) ? $settings->mobile_align : 'center'; ?>;
+		}
+	}
 
 <?php endif; ?>

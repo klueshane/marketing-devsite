@@ -198,6 +198,8 @@ class Primer_Customizer_Layouts {
 
 		}
 
+		global $post;
+
 		$rtl    = is_rtl() ? '-rtl' : '';
 		$suffix = SCRIPT_DEBUG ? '' : '.min';
 
@@ -207,6 +209,14 @@ class Primer_Customizer_Layouts {
 			array( 'jquery' ),
 			PRIMER_VERSION
 		);
+
+		if ( isset( $post->ID ) ) {
+
+			wp_localize_script( 'primer-layouts', 'primerLayouts', array(
+				'selected' => $this->get_post_layout( $post->ID ),
+			) );
+
+		}
 
 		wp_enqueue_style(
 			'primer-layouts',
@@ -561,6 +571,23 @@ class Primer_Customizer_Layouts {
 		$layout = (string) apply_filters( 'primer_current_layout', $layout, $post );
 
 		return $this->layout_exists( $layout ) ? $layout : $this->default;
+
+	}
+
+	/**
+	 * Magic getter for `$colors` and `$color_schemes` properties.
+	 *
+	 * @since  1.8.0
+	 *
+	 * @param  string $name Name of private property to retreive.
+	 *
+	 * @return string Return the specified property within the `Primer_Customizer_Layouts` class.
+	 */
+	public function __get( $name ) {
+
+		$properties = array( 'layouts', 'default', 'meta_box', 'page_widths' );
+
+		return in_array( $name, $properties, true ) ? $this->name : false;
 
 	}
 

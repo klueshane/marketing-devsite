@@ -21,7 +21,7 @@ final class FLBuilderBoosterUpdater {
 		FLUpdater::add_product(
 			array(
 				'name'    => __( 'Beaver Builder Booster', 'bb-booster' ),
-				'version' => '1.0.8',
+				'version' => '1.0.9',
 				'slug'    => 'bb-booster',
 				'type'    => 'plugin',
 			)

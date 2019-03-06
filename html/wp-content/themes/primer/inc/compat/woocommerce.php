@@ -201,6 +201,30 @@ function primer_wc_shop_title( $title ) {
 add_filter( 'primer_the_page_title', 'primer_wc_shop_title' );
 
 /**
+ * Filter the WooCommerce shop page title element.
+ *
+ * @filter primer_the_page_title_args
+ *
+ * @since  1.8.0
+ *
+ * @param  array $args The page title args.
+ *
+ * @return array
+ */
+function primer_wc_product_page_title_wrapper( $args ) {
+
+	if ( is_product() ) {
+
+		$args['wrapper'] = 'h2';
+
+	}
+
+	return $args;
+
+}
+add_filter( 'primer_the_page_title_args', 'primer_wc_product_page_title_wrapper' );
+
+/**
  * Change the number of shop columns based on the Primer layout.
  *
  * @filter loop_shop_columns
@@ -215,17 +239,13 @@ add_filter( 'primer_the_page_title', 'primer_wc_shop_title' );
  *
  * @since  1.0.0
  *
- * @param  int $columns $columns The default number of columns.
+ * @param  int $columns The default number of columns.
  *
  * @return int The number of columns to use.
  */
 function primer_wc_shop_columns( $columns ) {
 
-	global $post;
-
-	$page_id = ( is_shop() ) ? wc_get_page_id( 'shop' ) : $post->ID;
-
-	if ( 0 === strpos( primer_get_layout( absint( $page_id ) ), 'three-column-' ) ) {
+	if ( 0 === strpos( primer_get_layout( absint( wc_get_page_id( 'shop' ) ) ), 'three-column-' ) ) {
 
 		add_filter( 'post_class', 'primer_wc_product_classes' );
 
@@ -552,7 +572,11 @@ function primer_wc_cart_menu( $items, $args ) {
 		</li>',
 		implode( ' ', array_map( 'esc_attr', $classes ) ),
 		$woocommerce->cart->get_cart_total(),
-		esc_html( sprintf( _n( '%d item', '%d items', $woocommerce->cart->get_cart_contents_count(), 'primer' ), $woocommerce->cart->get_cart_contents_count() ) ),
+		esc_html( sprintf(
+			/* translators: WooCommerce shopping cart item count. */
+			_n( '%d item', '%d items', $woocommerce->cart->get_cart_contents_count(), 'primer' ),
+			$woocommerce->cart->get_cart_contents_count()
+		) ),
 		$woocommerce->cart->get_cart_contents_count() ? '<a class="expand" href="#"></a>' : '',
 		$sub_menu
 	);
@@ -651,7 +675,7 @@ if ( ! function_exists( 'primer_wc_promoted_products' ) ) {
 
 	}
 
-}
+} // End if().
 
 if ( ! function_exists( 'primer_wc_best_selling_products' ) ) {
 
@@ -691,7 +715,7 @@ if ( ! function_exists( 'primer_wc_best_selling_products' ) ) {
 
 	}
 
-}
+} // End if().
 
 /**
  * Prevent WooCommerce product image from loading as the header image

@@ -3,7 +3,7 @@
 Plugin Name: Ninja Forms
 Plugin URI: http://ninjaforms.com/
 Description: Ninja Forms is a webform builder with unparalleled ease of use and features.
-Version: 3.3.3
+Version: 3.4.4
 Author: The WP Ninjas
 Author URI: http://ninjaforms.com
 Text Domain: ninja-forms
@@ -17,7 +17,6 @@ require_once dirname( __FILE__ ) . '/lib/NF_Tracking.php';
 require_once dirname( __FILE__ ) . '/lib/NF_Conversion.php';
 require_once dirname( __FILE__ ) . '/lib/NF_ExceptionHandlerJS.php';
 require_once dirname( __FILE__ ) . '/lib/Conversion/Calculations.php';
-require_once dirname( __FILE__ ) . '/lib/NF_UpgradeThrottle.php';
 
 // Services require PHP v5.6+
 if( version_compare( PHP_VERSION, '5.6', '>=' ) ) {
@@ -58,9 +57,15 @@ if( get_option( 'ninja_forms_load_deprecated', FALSE ) && ! ( isset( $_POST[ 'nf
         /**
          * @since 3.0
          */
-        const VERSION = '3.3.3';
 
-        const WP_MIN_VERSION = '4.7';
+        const VERSION = '3.4.4';
+        
+        /**
+         * @since 3.4.0
+         */
+        const DB_VERSION = '1.4';
+
+        const WP_MIN_VERSION = '4.8';
 
         /**
          * @var Ninja_Forms
@@ -75,6 +80,16 @@ if( get_option( 'ninja_forms_load_deprecated', FALSE ) && ! ( isset( $_POST[ 'nf
          * @var string $dir
          */
         public static $dir = '';
+        
+        /**
+         * Plugin Database Version
+         * 
+         * This may be overwritten at a later point in this file.
+         *
+         * @since 3.4.0
+         * @var string $db_version
+         */
+        public static $db_version = self::DB_VERSION;
 
         /**
          * Plugin URL
@@ -205,14 +220,14 @@ if( get_option( 'ninja_forms_load_deprecated', FALSE ) && ! ( isset( $_POST[ 'nf
                 }
 
                 $saved_version = get_option( 'ninja_forms_version' );
-                // If this is a fresh install... (The version has never been saved.)
-                if ( ! $saved_version ) {
-                    // Assume we have clean data.
-                    update_option( 'ninja_forms_data_is_clean', 'true' );
-                }
                 // If we have a recorded version...
                 // AND that version is less than our current version...
                 if ( $saved_version && version_compare( $saved_version, self::VERSION, '<' ) ) {
+                    // *IMPORTANT: Filter to delete old bad data.
+                    // Leave this here until at least 3.4.0.
+                    if ( version_compare( $saved_version, '3.3.7', '<' ) && version_compare( $saved_version, '3.3.4', '>' ) ) {
+                        delete_option( 'nf_sub_expiration' );
+                    }
                     // We just upgraded the plugin.
                     $plugin_upgrade = true;
                 } else {
@@ -221,9 +236,33 @@ if( get_option( 'ninja_forms_load_deprecated', FALSE ) && ! ( isset( $_POST[ 'nf
                 update_option( 'ninja_forms_version', self::VERSION );
                 // If we've not recorded our db version...
                 if ( ! get_option( 'ninja_forms_db_version' ) ) {
-                    // Set it to the baseline (1.0).
-                    add_option( 'ninja_forms_db_version', '1.0', '', 'no' );
+					// If this isn't a fresh install...
+					// AND If we're upgrading from a version before 3.3.0...
+					if ( $saved_version && version_compare( $saved_version, '3.3.0', '<' ) ) {
+                    	// Set it to the baseline (1.0) so that our upgrade process will run properly.
+						add_option( 'ninja_forms_db_version', '1.0', '', 'no' );
+					} // OR If this isn't a fresh install...
+                    elseif ( $saved_version ) {
+                        // Set it to the expected (1.1) so that our upgrade process will handle that.
+                        add_option( 'ninja_forms_db_version', '1.1', '', 'no' );
+                    } // Otherwise... (This is a fresh install.)
+					else {
+						// Set it to the current DB version.
+                        add_option( 'ninja_forms_db_version', self::DB_VERSION, '', 'no' );
+                        // Establish that our upgrades don't need to take place.
+                        $required_updates = Ninja_Forms()->config( 'RequiredUpdates' );
+                        $updated = array();
+                        // Get a timestamp.
+                        date_default_timezone_set( 'UTC' );
+                        $now = date( "Y-m-d H:i:s" );
+                        foreach( $required_updates as $slug => $update ) {
+                            $updated[ $slug ] = $now;
+                        }
+                        update_option( 'ninja_forms_required_updates', $updated );
+					}
                 }
+                // Set our static db version.
+                self::$db_version = get_option( 'ninja_forms_db_version', self::$db_version );
 
                 /*
                  * Register our autoloader
@@ -249,8 +288,9 @@ if( get_option( 'ninja_forms_load_deprecated', FALSE ) && ! ( isset( $_POST[ 'nf
                  * AJAX Controllers
                  */
                 self::$instance->controllers[ 'form' ]          = new NF_AJAX_Controllers_Form();
-                self::$instance->controllers[ 'batch_process' ]          = new
-                NF_AJAX_REST_BatchProcess();
+                self::$instance->controllers[ 'fields' ]    = new NF_AJAX_Controllers_Fields();
+                self::$instance->controllers[ 'batch_process' ] = new NF_AJAX_REST_BatchProcess();
+                self::$instance->controllers[ 'required_updates' ] = new NF_AJAX_REST_RequiredUpdate();
                 self::$instance->controllers[ 'preview' ]       = new NF_AJAX_Controllers_Preview();
                 self::$instance->controllers[ 'submission' ]    = new NF_AJAX_Controllers_Submission();
                 self::$instance->controllers[ 'savedfields' ]   = new NF_AJAX_Controllers_SavedFields();
@@ -275,6 +315,7 @@ if( get_option( 'ninja_forms_load_deprecated', FALSE ) && ! ( isset( $_POST[ 'nf
                  */
                 require_once Ninja_Forms::$dir . 'includes/Libraries/BackgroundProcessing/wp-background-processing.php';
                 self::$instance->requests[ 'update-fields' ] = new NF_AJAX_Processes_UpdateFields();
+
 
                 /*
                  * WP-CLI Commands
@@ -362,6 +403,9 @@ if( get_option( 'ninja_forms_load_deprecated', FALSE ) && ! ( isset( $_POST[ 'nf
                  */
                 self::$instance->tracking = new NF_Tracking();
 
+
+                self::$instance->submission_expiration_cron = new NF_Database_SubmissionExpirationCron();
+
                 /*
                  * JS Exception Handler
                  *
@@ -376,6 +420,13 @@ if( get_option( 'ninja_forms_load_deprecated', FALSE ) && ! ( isset( $_POST[ 'nf
                 register_activation_hook( __FILE__, array( self::$instance, 'activation' ) );
 
                 self::$instance->metaboxes[ 'append-form' ] = new NF_Admin_Metaboxes_AppendAForm();
+
+                /*
+                 * Email Telemetry
+                 */
+
+                $email_telemetry = new NF_EmailTelemetry( get_option( 'ninja_forms_optin_reported' ) );
+                $email_telemetry->setup();
 
                 /*
                  * Require EDD auto-update file
@@ -428,11 +479,32 @@ if( get_option( 'ninja_forms_load_deprecated', FALSE ) && ! ( isset( $_POST[ 'nf
             }
 
             add_filter( 'ninja_forms_dashboard_menu_items', array( $this, 'maybe_hide_dashboard_items' ) );
+
+			// Remove already completed updates from our filtered list of required updates.
+            add_filter( 'ninja_forms_required_updates', array( $this, 'remove_completed_updates' ), 99 );
+            add_filter( 'ninja_forms_required_updates', array( $this, 'remove_bad_updates' ), 99 );
             
-            // If we don't have clean data...
-            if ( ! get_option( 'ninja_forms_data_is_clean' ) ) {
-                // Register a new notice.
-                add_filter( 'ninja_forms_admin_notices', array( $this, 'data_cleanup_notice' ) );
+
+			// Get our list of required updates.
+            $required_updates = Ninja_Forms()->config( 'RequiredUpdates' );
+            global $wpdb;
+            $sql = "SELECT COUNT( `id` ) AS total FROM `{$wpdb->prefix}nf3_forms`;";
+            $result = $wpdb->get_results( $sql, 'ARRAY_A' );
+            $threshold = 10; // Threshold percentage for our required updates.
+            // If we got back a list of updates...
+            // AND If we have any forms on the site...
+            // AND If the gate is open...
+            // To avoid errors on older upgrades, ignore the gatekeeper if the db version is the baseline (1.0)...
+            if ( ! empty( $required_updates ) 
+                && 0 < $result[ 0 ][ 'total' ]
+                &&  ( WPN_Helper::gated_release( $threshold )
+                || '1.0' == self::$db_version ) ) {
+				// Record that we have updates to run.
+				update_option( 'ninja_forms_needs_updates', 1 );
+			} // Otherwise... (Sanity check)
+            else {
+                // Record that there are no required updates.
+                update_option( 'ninja_forms_needs_updates', 0 );
             }
         }
 
@@ -447,6 +519,7 @@ if( get_option( 'ninja_forms_load_deprecated', FALSE ) && ! ( isset( $_POST[ 'nf
 		        wp_kses_post( wpautop( $content, false) ) );
 
         }
+
 
 	    /**
 	     * Return the default suggested privacy policy content.
@@ -504,9 +577,18 @@ if( get_option( 'ninja_forms_load_deprecated', FALSE ) && ! ( isset( $_POST[ 'nf
             if ( apply_filters( 'ninja_forms_disable_marketing', $disable_marketing ) ) {
                 unset(
                     $items[ 'apps' ],
-                    $items[ 'memberships' ]
+                    $items[ 'memberships' ],
+                    $items[ 'services' ]
                 );
             }
+			if ( 1 == get_option( 'ninja_forms_needs_updates' ) ) {
+				unset(
+                    $items[ 'widgets' ],
+                    $items[ 'apps' ],
+                    $items[ 'memberships' ],
+                    $items[ 'services' ]
+				);
+			}
             return $items;
         }
 
@@ -820,8 +902,9 @@ if( get_option( 'ninja_forms_load_deprecated', FALSE ) && ! ( isset( $_POST[ 'nf
 
             if( Ninja_Forms()->form()->get_forms() ) return;
 
-            // Assume we're on a clean installation.
-            update_option( 'ninja_forms_data_is_clean', 'true' );
+            // Go ahead and create our randomn number for gated releases in the future
+            $zuul = WPN_Helper::get_zuul();
+
             $form = Ninja_Forms::template( 'formtemplate-contactform.nff', array(), TRUE );
             Ninja_Forms()->form()->import_form( $form );
         }
@@ -855,24 +938,101 @@ if( get_option( 'ninja_forms_load_deprecated', FALSE ) && ! ( isset( $_POST[ 'nf
                 }
             }
         }
+		
+		/**
+		 * Function to deregister already completed updates from the list of required updates.
+		 * 
+		 * @since 3.3.14
+		 * 
+		 * @param $updates (Array) Our array of required updates.
+		 * @return $updates (Array) Our array of required updates.
+		 */
+		public function remove_completed_updates( $updates ) {
+			$processed = get_option( 'ninja_forms_required_updates', array() );
+			// For each update in our list...
+			foreach ( $updates as $slug => $update ) {
+				// If we have already processed it...
+				if ( isset( $processed[ $slug ] ) ) {
+					// Remove it from the list.
+					unset( $updates[ $slug ] );
+				}
+			}			
+			return $updates;
+        }
         
         /**
-         * Function to register an admin notice if we detect that this installation has "unclean" Ninja Forms data.
-         * 
-         * @since 3.3.1
-         * 
-         * @param $notices (Array) Our array of admin notices.
-         * @return $notices (Array) Our array of admin notices.
+         * Function to deregister updates that have required updates that either
+         * don't exist, or are malformed
+		 * 
+		 * @since UPDATE_TO_LATEST version
+		 * 
+		 * @param $updates (Array) Our array of required updates.
+		 * @return $updates (Array) Our array of required updates. 
          */
-        public function data_cleanup_notice( $notices ) {
-            $notices[ 'data_cleanup' ] = array(
-                'title' => __( 'Data Cleanup', 'ninja-forms' ),
-                'msg' => sprintf( __( 'Ninja Forms has detected data on your site leftover from old forms or Ninja Forms versions.%sWe would like to run a quick cleanup process to remove this old data. Your forms will not be impacted by this process, but it may take several minutes to complete.%sPlease %sclick here%s to begin.', 'ninja-forms' ), '<br />', '<br /><br />', '<a href="' . admin_url( 'admin.php?page=ninja-forms&action=cleanup' ) . '">', '</a>' ),
-                'int' => 0,
-                'ignore_spam' => true,
-                'dismiss' => 0
-            );
-            return $notices;
+        public function remove_bad_updates( $updates ) {
+
+            $processed = get_option( 'ninja_forms_required_updates', array() );
+
+            $sorted = array();
+            $queue = array();
+            // While we have not finished removing bad updates...
+            while ( count( $sorted ) < count( $updates ) ) {
+                // For each update we wish to run...
+                foreach ( $updates as $slug => $update ) {
+                    // Migrate the slug to a property.
+                    $update[ 'slug' ] = $slug;
+                    // If we've not already added this to the sorted list...
+                    if ( ! in_array( $update, $sorted ) ) {
+                        // If it has requirements...
+                        if ( ! empty( $update[ 'requires' ] ) ) {
+                            $enqueued = 0;
+                            // For each requirement...
+                            foreach ( $update[ 'requires' ] as $requirement ) {
+                                // If the requirement doesn't exist...
+                                if ( ! isset( $updates[ $requirement ] ) ) {
+                                    // unset the update b/c we are missing requirements
+                                    unset( $updates[ $slug ] );
+
+                                    $nf_bad_update_transient = get_transient( 'nf_bad_update_requirement' );
+
+                                    if( ! $nf_bad_update_transient ) { 
+                                        // send telemetry so we can keep up with these
+                                        Ninja_Forms()->dispatcher()->send( 'incomplete_update',
+                                            array( 
+                                                    'update' => $slug,
+                                                    'missing_requirement' => $requirement 
+                                                )
+                                        );
+
+                                        set_transient( 'nf_bad_update_requirement', $requirement, 30 * 3600 );
+                                    }
+                                }
+                                // If the requirement has already been added to the stack...
+                                if ( in_array( $requirement, $queue ) ) {
+                                    $enqueued++;
+                                } // OR If the requirement has already been processed...
+                                elseif ( isset( $processed[ $requirement ] ) ) {
+                                    $enqueued++;
+                                }
+                            }
+                            // If all requirement are met...
+                            if ( $enqueued == count( $update[ 'requires' ] ) ) {
+                                // Add it to the list.
+                                array_push( $sorted, $update );
+                                // Record that we enqueued it.
+                                array_push( $queue, $slug );
+                            }
+                        } // Otherwise... (It has no requirements.)
+                        else {
+                            // Add it to the list.
+                            array_push( $sorted, $update );
+                            // Record that we enqueued it.
+                            array_push( $queue, $slug );
+                        }
+                    }
+                }
+            }
+            return $sorted;
         }
 
     } // End Class Ninja_Forms
@@ -935,11 +1095,23 @@ if( get_option( 'ninja_forms_load_deprecated', FALSE ) && ! ( isset( $_POST[ 'nf
     }
     add_action( 'nf_optin_cron', 'nf_optin_update_environment_vars' );
 
-    // Custom Cron Recurrences
+    /**
+     * Function to register our Custom Cron Recurrences.
+     * 
+     * @param $schedules (Array) The available cron recurrences.
+     * @return (Array) The filtered cron recurrences.
+     * 
+     * @since 
+     * @updated 3.3.17
+     */
     function nf_custom_cron_job_recurrence( $schedules ) {
         $schedules[ 'nf-monthly' ] = array(
             'display' => __( 'Once per month', 'ninja-forms' ),
             'interval' => 2678400,
+        );
+        $schedules[ 'nf-weekly' ] = array(
+            'display' => __( 'Once per week', 'ninja-forms' ),
+            'interval' => 604800,
         );
         return $schedules;
     }
@@ -951,6 +1123,42 @@ if( get_option( 'ninja_forms_load_deprecated', FALSE ) && ! ( isset( $_POST[ 'nf
             wp_schedule_event( current_time( 'timestamp' ), 'nf-monthly', 'nf_optin_cron' );
         }
     }
-
     add_action( 'wp', 'nf_optin_send_admin_email_cron_job' );
+    
+    /**
+     * Function called via weekly wp_cron to update our marketing feeds.
+     * 
+     * @since 3.3.17
+     */
+    function nf_update_marketing_feed() {
+        // Fetch our membership data.
+        $data = wp_remote_get( 'http://api.ninjaforms.com/feeds/?fetch=memberships' );
+        // If we got a valid response...
+        if ( 200 == $data[ 'response' ][ 'code' ] ) {
+            // Save the data to our option.
+            $data = wp_remote_retrieve_body( $data );
+            update_option( 'ninja_forms_memberships_feed', $data, false );
+        }
+        // Fetch our addon data.
+        $data = wp_remote_get( 'http://api.ninjaforms.com/feeds/?fetch=addons' );
+        // If we got a valid response...
+        if ( 200 == $data[ 'response' ][ 'code' ] ) {
+            // Save the data to our option.
+            $data = wp_remote_retrieve_body( $data );
+            update_option( 'ninja_forms_addons_feed', $data, false );
+        }
+    }
+    add_action( 'nf_marketing_feed_cron', 'nf_update_marketing_feed' );
+
+    /**
+     * Function called by our marketing feed cron.
+     * 
+     * @since 3.3.17
+     */
+    function nf_marketing_feed_cron_job() {
+        if ( ! wp_next_scheduled( 'nf_marketing_feed_cron' ) ) {
+            wp_schedule_event( current_time( 'timestamp' ), 'nf-weekly', 'nf_marketing_feed_cron' );
+        }
+    }
+    add_action( 'wp', 'nf_marketing_feed_cron_job' );
 }

@@ -171,8 +171,7 @@
 				}
 
 				FLBuilder._closePanel();
-				FLBuilder._showLightbox();
-				FLBuilder._setLightboxContent( template( config ) );
+				FLBuilder._showLightbox( template( config ) );
 			} else {
 				config.lightbox.setContent( template( config ) );
 			}
@@ -237,7 +236,7 @@
 				value 			 = null,
 				isMultiple       = false,
 				responsive		 = null,
-				responsiveFields = [ 'dimension', 'unit' ],
+				responsiveFields = [ 'align', 'border', 'dimension', 'unit', 'photo', 'select', 'typography' ],
 				settings		 = ! settings ? this.config.settings : settings,
 				globalSettings   = FLBuilderConfig.global;
 
@@ -247,6 +246,11 @@
 				isMultiple 		 	= field.multiple ? true : false;
 				supportsResponsive 	= $.inArray( field['type'], responsiveFields ) > -1,
 				value 			 	= ! _.isUndefined( settings[ name ] ) ? settings[ name ] : '';
+
+				// Make sure this field has a type, if not the sky falls.
+				if ( ! field.type ) {
+					continue;
+				}
 
 				// Use a default value if not set in the settings.
 				if ( _.isUndefined( settings[ name ] ) && field['default'] ) {
@@ -269,7 +273,7 @@
 					responsive		 : responsive,
 					rowClass		 : field['row_class'] ? ' ' + field['row_class'] : '',
 					isMultiple     	 : isMultiple,
-					supportsMultiple : 'editor' !== field.type && 'photo' !== field.type && 'service' !== field.type,
+					supportsMultiple : 'editor' !== field.type && 'service' !== field.type,
 					settings 		 : settings,
 					globalSettings   : globalSettings,
 					template		 : $( '#tmpl-fl-builder-field-' + field.type )
@@ -445,8 +449,39 @@
 			// Field extras
 			for ( name in data.extras ) {
 				field = $( '#fl-field-' + name ).find( '.fl-field-control-wrapper' );
-				field.prepend( data.extras[ name ].before );
-				field.append( data.extras[ name ].after );
+				if ( data.extras[ name ].multiple ) {
+					field.each( function( i, field_item ) {
+						if ( ( i in data.extras[ name ].before ) && ( data.extras[ name ].before[ i ] != "" ) ) {
+							$( this ).prepend(
+								'<div class="fl-form-field-before">' +
+								data.extras[ name ].before[ i ] +
+								'</div>'
+							);
+						}
+						if ( ( i in data.extras[ name ].after ) && ( data.extras[ name ].after[ i ] != "" ) ) {
+							$( this ).append(
+								'<div class="fl-form-field-after">' +
+								data.extras[name].after[ i ] +
+								'</div>'
+							);
+						}
+					});
+				} else {
+					if ( data.extras[ name ].before != "" ) {
+						field.prepend(
+							'<div class="fl-form-field-before">' +
+							data.extras[name].before +
+							'</div>'
+						);
+					}
+					if ( data.extras[ name ].after != "" ) {
+						field.append(
+							'<div class="fl-form-field-after">' +
+							data.extras[name].after +
+							'</div>'
+						);
+					}
+				}
 			}
 
 			// Sections
@@ -468,6 +503,7 @@
 				this.settings = FLBuilder._getSettingsForChangedCheck( this.config.nodeId, form );
 
 				if ( FLBuilder.preview ) {
+					this.settings = $.extend( this.settings, FLBuilder.preview._savedSettings );
 					FLBuilder.preview._savedSettings = this.settings;
 				}
 			}
@@ -643,6 +679,7 @@
 			// Apply templates
 			FLBuilder.addHook( 'didApplyTemplateComplete', this.updateOnApplyTemplate.bind( this ) );
 			FLBuilder.addHook( 'didApplyRowTemplateComplete', this.updateOnApplyTemplate.bind( this ) );
+			FLBuilder.addHook( 'didApplyColTemplateComplete', this.updateOnApplyTemplate.bind( this ) );
 			FLBuilder.addHook( 'didSaveGlobalNodeTemplate', this.updateOnApplyTemplate.bind( this ) );
 			FLBuilder.addHook( 'didRestoreRevisionComplete', this.updateOnApplyTemplate.bind( this ) );
 		},

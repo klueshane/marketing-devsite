@@ -6,7 +6,7 @@
  * @copyright (c) 2017 WP Ninjas
  * @since 3.2
  */
-define( [ 'views/sections/widgets.js', 'views/sections/services.js', 'views/sections/apps.js', 'views/sections/memberships.js', 'views/oauth.js', 'views/promotion.js' ], function( WidgetView, ServicesView, AppsView, MembershipsView, OAuthView, PromotionView ) {
+define( [ 'views/sections/widgets.js', 'views/sections/services.js', 'views/sections/apps.js', 'views/sections/memberships.js', 'views/oauth.js', 'views/promotion.js', 'views/sections/requiredUpdates.js' ], function( WidgetView, ServicesView, AppsView, MembershipsView, OAuthView, PromotionView, RequiredUpdatesView ) {
     var view = Marionette.View.extend( {
         template: "#tmpl-nf-dashboard",
 
@@ -20,33 +20,49 @@ define( [ 'views/sections/widgets.js', 'views/sections/services.js', 'views/sect
 
         events: {
             'click .widgets a': function(e){
-                this.showChildView( 'content', new WidgetView() );
-                jQuery( '.' + this.currentView).find( 'a' ).removeClass( 'active' );
-                e.target.classList.add( 'active' );
-                this.currentView = 'widgets';
+                if( "1" != nfAdmin.requiredUpdates ) {
+                    this.showChildView( 'content', new WidgetView() );
+                    jQuery( '.' + this.currentView).find( 'a' ).removeClass( 'active' );
+                    e.target.classList.add( 'active' );
+                    this.currentView = 'widgets';
+                }
             },
             'click .services a': function(e){
-                this.showChildView( 'content', new ServicesView() );
-                jQuery( '.' + this.currentView).find( 'a' ).removeClass( 'active' );
-                e.target.classList.add( 'active' );
-                this.currentView = 'services';
+                if( "1" != nfAdmin.requiredUpdates ) {
+                    this.showChildView( 'content', new ServicesView() );
+                    jQuery( '.' + this.currentView).find( 'a' ).removeClass( 'active' );
+                    e.target.classList.add( 'active' );
+                    this.currentView = 'services';
+                }
             },
             'click .apps a': function(e){
-                this.showChildView( 'content', new AppsView() );
-                jQuery( '.' + this.currentView).find( 'a' ).removeClass( 'active' );
-                e.target.classList.add( 'active' );
-                this.currentView = 'apps';
+                if( "1" != nfAdmin.requiredUpdates ) {
+                    this.showChildView( 'content', new AppsView() );
+                    jQuery( '.' + this.currentView).find( 'a' ).removeClass( 'active' );
+                    e.target.classList.add( 'active' );
+                    this.currentView = 'apps';
+                }
             },
             'click .memberships a': function(e){
-                this.showChildView( 'content', new MembershipsView() );
-                jQuery( '.' + this.currentView).find( 'a' ).removeClass( 'active' );
-                e.target.classList.add( 'active' );
-                this.currentView = 'memberships';
+                if( "1" != nfAdmin.requiredUpdates ) {
+                    this.showChildView( 'content', new MembershipsView() );
+                    jQuery( '.' + this.currentView).find( 'a' ).removeClass( 'active' );
+                    e.target.classList.add( 'active' );
+                    this.currentView = 'memberships';
+                }
             },
         },
 
         initialize: function() {
 
+            if( "1" === nfAdmin.requiredUpdates ) {
+                // if we have required updates, redirect them
+                window.location.hash = '#requiredUpdates';
+            } else if ( '#requiredUpdates' === window.location.hash ) {
+                // if no updates, but someone hits update url, give the the dashboard
+                window.location.hash = '';
+            }
+            
             switch( window.location.hash ) {
                 case '#apps':
                     this.currentView = 'apps';
@@ -56,6 +72,9 @@ define( [ 'views/sections/widgets.js', 'views/sections/services.js', 'views/sect
                     break;
                 case '#memberships':
                     this.currentView = 'memberships';
+                    break;
+                case '#requiredUpdates':
+                    this.currentView = 'requiredUpdates';
                     break;
                 case '#widgets':
                 default:
@@ -67,29 +86,43 @@ define( [ 'views/sections/widgets.js', 'views/sections/services.js', 'views/sect
              * TODO: Clean this up.
              */
             nfRadio.channel( 'dashboard' ).reply( 'show:widgets', function(){
-                this.showChildView('content', new WidgetView() );
-                jQuery( 'nav.sections a.active' ).removeClass( 'active' );
-                jQuery( 'nav.sections .widgets a' ).addClass( 'active' );
-                this.currentView = 'widgets';
+                if( "1" != nfAdmin.requiredUpdates ) {
+                    this.showChildView('content', new WidgetView() );
+                    jQuery( 'nav.sections a.active' ).removeClass( 'active' );
+                    jQuery( 'nav.sections .widgets a' ).addClass( 'active' );
+                    this.currentView = 'widgets';
+                }
             }, this );
             nfRadio.channel( 'dashboard' ).reply( 'show:services', function(){
-                this.showChildView('content', new ServicesView() );
-                jQuery( 'nav.sections a.active' ).removeClass( 'active' );
-                jQuery( 'nav.sections .services a' ).addClass( 'active' );
-                this.currentView = 'services';
+                if( "1" != nfAdmin.requiredUpdates ) {
+                    this.showChildView('content', new ServicesView() );
+                    jQuery( 'nav.sections a.active' ).removeClass( 'active' );
+                    jQuery( 'nav.sections .services a' ).addClass( 'active' );
+                    this.currentView = 'services';
+                }
             }, this );
             nfRadio.channel( 'dashboard' ).reply( 'show:apps', function(){
-                this.showChildView('content', new AppsView() );
-                jQuery( 'nav.sections a.active' ).removeClass( 'active' );
-                jQuery( 'nav.sections .apps a' ).addClass( 'active' );
-                this.currentView = 'apps';
+                if( "1" != nfAdmin.requiredUpdates ) {
+                    this.showChildView('content', new AppsView() );
+                    jQuery( 'nav.sections a.active' ).removeClass( 'active' );
+                    jQuery( 'nav.sections .apps a' ).addClass( 'active' );
+                    this.currentView = 'apps';
+                }
             }, this );
         },
 
         onRender: function() {
 
           if( useServices ) this.showChildView( 'notices', new OAuthView() );
-          if( useServices ) this.showChildView( 'promotions', new PromotionView() );
+          if( useServices && '1' !== nfAdmin.requiredUpdates ) {
+              this.showChildView( 'promotions', new PromotionView() );
+          }
+
+          // if no updates and someone hits the update url, give them the dashboard
+          if( '0' === nfAdmin.requiredUpdates 
+            && '#requiredUpdates' === window.location.hash ) {
+                window.location.hash = '';
+          }
 
             switch( window.location.hash ) {
                 case '#apps':
@@ -100,6 +133,9 @@ define( [ 'views/sections/widgets.js', 'views/sections/services.js', 'views/sect
                     break;
                 case '#services':
                     var childView = new ServicesView();
+                    break;
+                case '#requiredUpdates':
+                    var childView = new RequiredUpdatesView();
                     break;
                 case '#widgets':
                 default:
@@ -242,70 +278,7 @@ define( [ 'views/sections/widgets.js', 'views/sections/services.js', 'views/sect
                     } );            
                 } );
             } // If we've been told to run cleanup...
-            else if ( '1' == nfAdmin.doingCleanup ) {
-                var cleanupModal = new jBox( 'Modal', {
-                    closeOnEsc:     false,
-                    closeOnClick:   false,
-                    width:          400
-                } );
-                var that = this;
-                // Define the modal content.
-                var content = document.createElement( 'div' );
-                content.classList.add( 'message' );
-                content.style.padding = '0px 20px 20px 20px';
-                content.innerHTML = nfi18n.cleanupContent;
-                var bar = document.createElement( 'div' );
-                bar.id = 'nf-progress-bar';
-                bar.classList.add( 'nf-progress-bar' );
-                bar.style.display = 'none';
-                var progress = document.createElement( 'div' );
-                progress.classList.add( 'nf-progress-bar-slider' );
-                bar.appendChild( progress );
-                content.appendChild( bar );
-                var loading = document.createElement( 'p' );
-                loading.id = 'nf-loading-text';
-                loading.style.color = '#1ea9ea';
-                loading.style.fontWeight = 'bold';
-                loading.innerHTML = nfi18n.cleanupLoading;
-                loading.style.display = 'none';
-                content.appendChild( loading );
-                var actions = document.createElement( 'div' );
-                actions.id = 'nf-action-buttons';
-                actions.classList.add( 'buttons' );
-                var cancel = document.createElement( 'div' );
-                cancel.id = 'nf-cancel';
-                cancel.classList.add( 'nf-button', 'secondary' );
-                cancel.innerHTML = nfi18n.cleanupSecondary;
-                actions.appendChild( cancel );
-                var confirm = document.createElement( 'button' );
-                confirm.id = 'nf-confirm';
-                confirm.classList.add( 'nf-button', 'primary', 'pull-right' );
-                confirm.innerHTML = nfi18n.cleanupPrimary;
-                actions.appendChild( confirm );
-                content.appendChild( actions );
-                // Set the options for the modal and open it.
-                cleanupModal.setContent( document.createElement( 'div' ).appendChild( content ).innerHTML );
-                cleanupModal.open();
-                // Setup the cancel click event.
-                jQuery( '#nf-cancel' ).click( function( e ) {
-                    cleanupModal.close();
-                } );                
-                // Setup the confirm click event.
-                jQuery( '#nf-confirm' ).click( function( e ) {
-                    // Prevent the user from leaving without firing an alert.
-                    jQuery( window ).bind( 'beforeunload', function() { 
-                        return 'Are you sure? Leaving before the process completes could cause damage to your data.';
-                    } );
-                    // Hide the buttons.
-                    jQuery( '#nf-cancel' ).hide();
-                    jQuery( '#nf-confirm' ).hide();
-                    // Show the progress bar.
-                    jQuery( '#nf-progress-bar' ).show();
-                    jQuery( '#nf-loading-text' ).show();
-                    // Begin our cleanup process.
-                    that.cleanupProcess( that, -1, cleanupModal );
-                } );
-            }
+
             // If form telemetry is defined...
             // AND if we should run it...
             if ( 'undefined' !== typeof nfAdmin.formTelemetry && 1 == nfAdmin.formTelemetry ) {
@@ -338,62 +311,6 @@ define( [ 'views/sections/widgets.js', 'views/sections/services.js', 'views/sect
                 },
             }
         },
-        
-        /**
-         * Function to manage our data cleanup batch process response.
-         * 
-         * @since 3.3.1
-         * 
-         * @param context (this) The context at the time of function definition.
-         * @param steps (int) The total number of steps in this process.
-         * @param modal (jBox) A reference to the modal where this process is running.
-         */
-        cleanupProcess: function( context, steps, modal ) {
-            var data = {
-                action: 'nf_batch_process',
-                batch_type: 'data_cleanup',
-                security: nfAdmin.ajaxNonce
-            };
-            jQuery.post( ajaxurl, data, function( response ) {
-                response = JSON.parse( response );
-                // If we're done...
-                if ( response.batch_complete ) {
-                    // Push our progress bar to 100%.
-                    jQuery( '.nf-progress-bar-slider' ).css( 'width', '100%' );
-                    // Allow the user to leave the page now.
-                    jQuery( window ).unbind( 'beforeunload' );
-                    modal.close();
-                    // Exit.
-                    return false;
-                }
-                // If we do not yet have a determined number of steps...
-                if ( -1 == steps ) {
-                    // If step_toal is defined...
-                    if ( 'undefined' != typeof response.step_total ) {
-                        // Use the step_total.
-                        steps = response.step_total;
-                    } // Otherwise... (step_total is not defined)
-                    else {
-                        // Use step_remaining.
-                        steps = response.step_remaining;
-                    }
-                }
-                // Calculate our current step.
-                var step = steps - response.step_remaining;
-                // Calculate our maximum progress for this step.
-                var maxProgress = Math.round( step / steps * 100 );
-                // Get our current progress for this step.
-                var currentProgress = Math.round( jQuery( '.nf-progress-bar-slider' ).width() / jQuery( '.nf-progress-bar-slider' ).parent().width() * 100 );
-                // If our maximum progress is more than our current progress...
-                if ( maxProgress > currentProgress ) {
-                    // Increment our progress bar.
-                    currentProgress = Number( currentProgress ) + 1;
-                    jQuery( '.nf-progress-bar-slider' ).css( 'width', currentProgress + '%' );
-                }
-                // Recall our function...
-                context.cleanupProcess( context, steps, modal );
-            } );
-        }
     } );
     return view;
 } );

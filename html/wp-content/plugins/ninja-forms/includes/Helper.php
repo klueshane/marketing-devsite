@@ -260,12 +260,235 @@ final class WPN_Helper
         }
         return $original;
     }
+    
+    /**
+     * Function to fetch our cache from the upgrades table (if it exists there).
+     * 
+     * @param $id (int) The form ID.
+     * 
+     * @since 3.3.7
+     */
+    public static function get_nf_cache( $id ) {
+        // See if we have the data in our table already.
+        global $wpdb;
+        $sql = "SELECT cache FROM `{$wpdb->prefix}nf3_upgrades` WHERE id = " . intval( $id );
+        $result = $wpdb->get_results( $sql, 'ARRAY_A' );
+        // If so...
+        if ( ! empty( $result ) ) {
+            // Unserialize the result.
+            $value = WPN_Helper::maybe_unserialize( $result[ 0 ][ 'cache' ] );
+            // Return it.
+            return $value;
+        } // Otherwise... (We don't have the data.)
+        else {
+            // Get it from the options table.
+            return get_option( 'nf_form_' . $id );
+        }
+    }
+    
+    /**
+     * Function to insert or update our cache in the upgrades table (if it exists).
+     * 
+     * @param $id (int) The form ID.
+     * @param $data (string) The form cache.
+     * @param $stage (int) The target stage of this update. Default to the current max stage.
+     * 
+     * @since 3.3.7
+     * @updated 3.4.0
+     */
+    public static function update_nf_cache( $id, $data, $stage = 0 ) {
+        $stage = ( $stage ) ? $stage : WPN_Helper::get_stage();
+        // Serialize our data.
+        $cache = serialize( $data );
+        global $wpdb;
+        // See if we've already got a record.
+        $sql = "SELECT id FROM `{$wpdb->prefix}nf3_upgrades` WHERE id = " . intval( $id );
+        $result = $wpdb->get_results( $sql, 'ARRAY_A' );
+        // If we don't already have the data...
+        if ( empty( $result ) ) {
+            // Insert it.
+            $sql = $wpdb->prepare( "INSERT INTO `{$wpdb->prefix}nf3_upgrades` (id, cache, stage) VALUES (%d, %s, %s)", intval( $id ), $cache, intval( $stage ) );
+        } // Otherwise... (We do have the data.)
+        else {
+            // Update the existing record.
+            $sql = $wpdb->prepare( "UPDATE `{$wpdb->prefix}nf3_upgrades` SET cache = %s, stage = %d WHERE id = %d", $cache, intval( $stage ), intval( $id ) );
+        }
+        $wpdb->query( $sql );
+    }
+
+    /**
+     * Function to retrieve our upgrade stage.
+     * Remove this after the cache has been resolved.
+     * 
+     * @return int
+     * 
+     * @since 3.4.0
+     */
+    public static function get_stage() {
+        $ver = Ninja_Forms::$db_version;
+        $stack = explode( '.', $ver );
+        return intval( array_pop( $stack ) );
+    }
+        
+    /**
+     * Function to build our form cache from the table.
+     * 
+     * @param $id (int) The form ID.
+     * @since 3.3.18
+     * @return  $form_cache Array of form data.
+     * @updated 3.4.0
+     */
+    public static function build_nf_cache( $id ) {
+        $form = Ninja_Forms()->form( $id )->get();
+
+        $form_cache = array(
+            'id'        => $id,
+            'fields'    => array(),
+            'actions'   => array(),
+            'settings'  => $form->get_settings(),
+        );
+        
+        $fields = Ninja_Forms()->form( $id )->get_fields();
+        
+        foreach( $fields as $field ){
+            // If the field is set.
+            if ( ! is_null( $field ) && ! empty( $field ) ) {
+                array_push( $form_cache[ 'fields' ], array( 'settings' => $field->get_settings(), 'id' => $field->get_id() ) );
+            }
+        }
+
+        $actions = Ninja_Forms()->form( $id )->get_actions();
+
+        foreach( $actions as $action ){
+            // If the action is set.
+            if ( ! is_null( $action ) && ! empty( $action ) ) {
+                array_push( $form_cache[ 'actions' ], array( 'settings' => $action->get_settings(), 'id' => $action->get_id() ) );
+            }
+        }
+        
+        WPN_Helper::update_nf_cache( $id, $form_cache );
+
+        return $form_cache;
+    }
+    
+    /**
+     * Function to delete our cache.
+     * 
+     * @param $id (int) The form ID.
+     * 
+     * @since 3.3.7
+     */
+    public static function delete_nf_cache( $id ) {
+        global $wpdb;
+        $sql = "DELETE FROM `{$wpdb->prefix}nf3_upgrades` WHERE id = " . intval( $id );
+        $wpdb->query( $sql );
+        delete_option( 'nf_form_' . intval( $id ) );
+    }
 
     private static function parse_utf8_serialized( $matches )
     {
         if ( isset( $matches[2] ) ){
             return 's:'.strlen($matches[2]).':"'.$matches[2].'";';
         }
+    }
+
+    /**
+     * This funtion gets/creates the Ninja Forms gate keeper( a random integer 
+     * between 1 and 100 ). We will use this number when deciding whether a
+     * particular install is eligible for an upgrade or whatever else we decide
+     * to use it for
+     * 
+     * @return int $zuul
+     * 
+     * @since 3.4.0
+     */
+    public static function get_zuul() {
+        $zuul = get_option( 'ninja_forms_zuul', -1 );
+
+        if( -1 === $zuul ) {
+            $zuul = rand( 1, 100 );
+            update_option( 'ninja_forms_zuul', $zuul, false );
+        }
+
+        return $zuul;
+    }
+
+    /**
+     * This function will return true/false based on an option( ninja_forms_zuul )
+     * and a threshold that we set. We can use this to limit updates
+     * 
+     * @param $threshold
+     * 
+     * @return bool
+     * 
+     * @since 3.4.0
+     */
+    public static function gated_release( $threshold = 0 ) {
+        $gatekeeper = $threshold >= self::get_zuul();
+        $gatekeeper = apply_filters( 'ninja_forms_gatekeeper', $gatekeeper );
+        
+        return $gatekeeper;
+    }
+
+    /**
+     * Is Maintenance
+     *
+     * Checks the upgrades table to see if the form the user is viewing
+     * is under maintenance mode.
+     *
+     * @since 3.4.0
+     *
+     * @param $form_id - The ID of the form we are checking.
+     *
+     * @return boolean
+     */
+    public static function form_in_maintenance( $form_id ) {
+        global $wpdb;
+
+        $db_version = get_option( 'ninja_forms_db_version' );
+
+        if( ! $db_version ) return false;
+
+        // Exit early if the column doesn't exist.
+        if( version_compare( '1.3', $db_version, '>' ) ) return false;
+
+        // Get our maintenance value from the DB and return it at the zero position.
+        $maintenance = $wpdb->get_row(
+            "SELECT `maintenance` FROM `{$wpdb->prefix}nf3_upgrades` WHERE `id` = {$form_id}", 'ARRAY_A'
+        );
+
+        /*
+         *  If maintenance isn't empty and basic on maintenance's value
+         *  return a boolean value.
+         */
+        if( ! empty( $maintenance ) && 1 == $maintenance[ 'maintenance' ] ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * This function either put all forms in maintenance mode or remove maintenance
+     * mode for all forms. Depending on the input parameters
+     * 
+     * @since 3.4.0
+     * 
+     * @param $mode - Default 0 ( Take all forms out of maintenance mode )
+     */
+    public static function set_forms_maintenance_mode( $mode = 0 ) {
+        global $wpdb;
+
+        // default is 0, so if we get passed bad data, just use 0
+        if( ! in_array( $mode, array( 0, 1 ) ) ) {
+            $mode = 0;
+        }
+
+        // set maintenance flag to $mode (0 or 1)
+        $sql = $wpdb->prepare( "UPDATE `{$wpdb->prefix}nf3_upgrades` SET "
+            . "maintenance = %d", intval( $mode ) );
+        
+        $wpdb->query( $sql );
     }
 
 } // End Class WPN_Helper

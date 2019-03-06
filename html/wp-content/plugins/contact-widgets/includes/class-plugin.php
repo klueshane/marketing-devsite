@@ -24,6 +24,8 @@ class Plugin {
 
 		add_action( 'widgets_init', [ get_called_class(), 'register_widgets' ] );
 
+		new Content_Blocks();
+
 	}
 
 	/**

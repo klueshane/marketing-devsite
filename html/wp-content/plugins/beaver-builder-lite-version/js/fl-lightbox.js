@@ -503,6 +503,12 @@
 					lightbox.removeClass( 'fl-lightbox-width-slim' );
 				}
 
+				if ( boxWidth < 450 ) {
+					lightbox.addClass( 'fl-lightbox-width-micro' );
+				} else {
+					lightbox.removeClass( 'fl-lightbox-width-micro' );
+				}
+
 				this._resizeEditors();
 			}
 
@@ -683,8 +689,15 @@
 		{
 			var lightbox = this._node.find( '.fl-lightbox' ),
 				settings = this._getPositionSettings();
-
 			if ( settings ) {
+				wleft  = parseInt( settings.left );
+				wtop   = parseInt( settings.top );
+				if( wleft > screen.width ) {
+					settings.left = '100px'
+				}
+				if( wtop > screen.height ) {
+					settings.top = '100px'
+				}
 				lightbox.css( settings );
 			} else {
 				lightbox.css( {
@@ -715,7 +728,7 @@
 				return false;
 			}
 
-			var winHeight = $( window ).height(),
+			var winHeight = window.innerHeight,
 				height = parseInt( settings.height );
 
 			if ( height > winHeight && winHeight > 546 ) {

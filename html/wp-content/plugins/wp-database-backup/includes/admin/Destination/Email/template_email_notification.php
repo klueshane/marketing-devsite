@@ -19,38 +19,38 @@ $message = '<div bgcolor="#e3e3e3" style="font-family:Arial;color:#707070;font-s
         <div>
     Dear <strong style="font-family:Arial;margin:0px;padding:0px">WP Database Backup User</strong>, <br><br>
 
-   Database Backup Created Successfully on ' . $site_url . '.      
+   Database Backup Created Successfully on ' . $site_url . '.
 
-    <br><br>   
-     ' .$remove_local_backup_Message. '. 
-    <br><br>   
+    <br><br>
+     ' .$remove_local_backup_Message. '.
+    <br><br>
             <h3 style="font-family:Arial;font-size:14px;font-weight:bold;margin:0 0 5px 5px;padding:0px">Details as follow</h3>
 
-                 
+
             <table width="100%" cellspacing="0" cellpadding="0" style="font-family:Arial;width:100%;border-collapse:collapse;border-spacing:0;margin:0px;padding:0px">
-                <tbody><tr style="font-family:Arial;margin:0px;padding:0px">   
+                <tbody><tr style="font-family:Arial;margin:0px;padding:0px">
 					<th bgcolor="#007bad" align="center" style="width:30px;font-family:Arial;text-align:center;color:#ffffff;font-size:11px;background-color:#007bad;margin:0px;padding:5px 2px;border:1px solid #007bad">#</th>
                     <th bgcolor="#007bad" align="center" style="width:250px;font-family:Arial;text-align:center;color:#ffffff;font-size:11px;background-color:#007bad;margin:0px;padding:5px 2px;border:1px solid #007bad">File Name</th>
                     <th bgcolor="#007bad" align="center" style="font-family:Arial;text-align:center;color:#ffffff;font-size:11px;background-color:#007bad;margin:0px;padding:5px 2px;border:1px solid #007bad">Size</th>
-					
-                </tr>				
-                    <tr style="font-family:Arial;margin:0px;padding:0px">                   
+
+                </tr>
+                    <tr style="font-family:Arial;margin:0px;padding:0px">
 					<td style="font-family:Arial;margin:0px;padding:2px 5px;border:1px solid #007bad;text-align:right">1</td>
                     <td style="font-family:Arial;margin:0px;padding:2px 5px;border:1px solid #007bad">' . $filename . '</td>
                     <td style="font-family:Arial;margin:0px;padding:2px 5px;border:1px solid #007bad">' . WPDBBackupEmail::wp_db_backup_format_bytes($filesze) . '</td>
-					
+
                 </tr>
-                             
+
                             </tbody></table><br>
                              <p>' . $args[2] . '</p>
-    
+
     <br>
-    
+
     Thank you for using WP Database Backup Plugin.
     <br>
-    If you like this plugin then Give <a href="http://wordpress.org/support/view/plugin-reviews/wp-database-backup" title="Rating" target="_blank" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=http://wordpress.org/support/view/plugin-reviews/wp-database-backup&amp;source=gmail&amp;ust=1466360448038000&amp;usg=AFQjCNHxdc3F079wMTbRqbs8hw7tYkR6ww">rating </a>
+    If you like <b>WP Database Backup</b> please leave us a <a href="http://wordpress.org/support/view/plugin-reviews/wp-database-backup" title="Rating" target="_blank" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=http://wordpress.org/support/view/plugin-reviews/wp-database-backup&amp;source=gmail&amp;ust=1466360448038000&amp;usg=AFQjCNHxdc3F079wMTbRqbs8hw7tYkR6ww">rating </a>
       on <a href="http://wordpress.org/support/view/plugin-reviews/wp-database-backup" title="Rating" target="_blank" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=http://wordpress.org/support/view/plugin-reviews/wp-database-backup&amp;source=gmail&amp;ust=1466360448038000&amp;usg=AFQjCNHxdc3F079wMTbRqbs8hw7tYkR6ww">WordPress.org</a>
-            
+
 </div>
 
 
@@ -80,23 +80,23 @@ $message = '<div bgcolor="#e3e3e3" style="font-family:Arial;color:#707070;font-s
                            Pro Features
                         </dt>
                         <dd style="font-family:Arial;font-weight:normal;font-size:12px;margin:0 0 0 15px;padding:0px">
-                            www.wpseeds.com/product/wp-all-backup/                         
+                            www.wpseeds.com/product/wp-all-backup/
                         </dd>
                         <dt style="font-family:Arial;font-size:13px;font-weight:bold;margin:0px;padding:0px">
                             General Info/Inquiry:
                         </dt>
                         <dd style="font-family:Arial;font-weight:normal;font-size:12px;margin:0 0 0 15px;padding:0px">
                           <a target="_blank" style="font-family:Arial;color:#336699;font-weight:normal;text-decoration:underline;margin:0px;padding:0px" href="mailto:info@wpseeds.com">info@wpseeds.com</a>
-                        </dd>                     
+                        </dd>
 
-                       
+
                     </dl>
                 </td>
-               
+
             </tr>
         </tbody></table>
 
-        <div style="font-family:Arial;margin:0px;padding:0px">Get Flat 25% off on <a target="_blank" href="http://www.wpseeds.com/product/wp-all-backup/">WP All Backup Plugin.</a> Use Coupon code <strong> WPSEEDS25</strong>
+        <div style="font-family:Arial;margin:0px;padding:0px">Get Flat 25% off on <a target="_blank" href="http://www.wpseeds.com/product/wp-all-backup/">Pro Version.</a> Use Coupon code <strong> WPSEEDS25</strong>
         </div>
     </div>
 

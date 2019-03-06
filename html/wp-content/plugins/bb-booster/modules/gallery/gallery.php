@@ -118,8 +118,7 @@ class FLGalleryModule extends FLBuilderModule {
 					} else {
 						$data->src = $photo->sizes->full->url;
 					}
-				} // End if().
-				else {
+				} else {
 
 					if ( isset( $photo->sizes->thumbnail ) ) {
 						$data->src = $photo->sizes->thumbnail->url;
@@ -137,8 +136,8 @@ class FLGalleryModule extends FLBuilderModule {
 
 				// Push the photo data
 				$photos[ $id ] = $data;
-			}// End if().
-		}// End foreach().
+			}
+		}
 
 		return $photos;
 	}
@@ -193,6 +192,7 @@ class FLGalleryModule extends FLBuilderModule {
 
 					// Photo data object.
 					$data = new stdClass();
+					$data->id = $item->guid;
 					$data->alt = $item->title;
 					$data->caption = $item->title;
 					$data->description = $item->title;
@@ -204,9 +204,9 @@ class FLGalleryModule extends FLBuilderModule {
 
 					// Push the photo data.
 					array_push( $photos, $data );
-				}// End if().
-			}// End foreach().
-		}// End if().
+				}
+			}
+		}
 
 		return $photos;
 	}
@@ -303,9 +303,19 @@ FLBuilder::register_module('FLGalleryModule', array(
 							'lightbox'      => __( 'Lightbox', 'bb-booster' ),
 							'link'          => __( 'Photo Link', 'bb-booster' ),
 						),
+						'toggle'		=> array(
+							'lightbox'		=> array(
+								'fields' => array( 'lightbox_image_size' ),
+							),
+						),
 						'preview'       => array(
 							'type'          => 'none',
 						),
+					),
+					'lightbox_image_size' => array(
+						'type' 			=> 'photo-sizes',
+						'label'			=> __( 'Lightbox Photo Size', 'bb-booster' ),
+						'default'		=> 'large',
 					),
 				),
 			),

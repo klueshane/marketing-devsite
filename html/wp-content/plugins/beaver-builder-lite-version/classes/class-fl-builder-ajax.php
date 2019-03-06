@@ -55,7 +55,7 @@ final class FLBuilderAJAX {
 		self::$actions[ $action ] = array(
 			'action' => $action,
 			'method' => $method,
-			'args'	 => $args,
+			'args'   => $args,
 		);
 	}
 
@@ -109,10 +109,11 @@ final class FLBuilderAJAX {
 		// FLBuilderAJAXLayout
 		self::add_action( 'render_layout', 'FLBuilderAJAXLayout::render' );
 		self::add_action( 'render_node', 'FLBuilderAJAXLayout::render', array( 'node_id' ) );
-		self::add_action( 'render_new_row', 'FLBuilderAJAXLayout::render_new_row', array( 'cols', 'position', 'template_id', 'template_type' ) );
+		self::add_action( 'render_new_row', 'FLBuilderAJAXLayout::render_new_row', array( 'cols', 'position', 'module' ) );
+		self::add_action( 'render_new_row_template', 'FLBuilderAJAXLayout::render_new_row_template', array( 'position', 'template_id', 'template_type' ) );
 		self::add_action( 'copy_row', 'FLBuilderAJAXLayout::copy_row', array( 'node_id', 'settings', 'settings_id' ) );
-		self::add_action( 'render_new_column_group', 'FLBuilderAJAXLayout::render_new_column_group', array( 'node_id', 'cols', 'position' ) );
-		self::add_action( 'render_new_columns', 'FLBuilderAJAXLayout::render_new_columns', array( 'node_id', 'insert', 'type', 'nested' ) );
+		self::add_action( 'render_new_column_group', 'FLBuilderAJAXLayout::render_new_column_group', array( 'node_id', 'cols', 'position', 'module' ) );
+		self::add_action( 'render_new_columns', 'FLBuilderAJAXLayout::render_new_columns', array( 'node_id', 'insert', 'type', 'nested', 'module' ) );
 		self::add_action( 'render_new_col_template', 'FLBuilderAJAXLayout::render_new_col_template', array( 'template_id', 'parent_id', 'position', 'template_type' ) );
 		self::add_action( 'copy_col', 'FLBuilderAJAXLayout::copy_col', array( 'node_id', 'settings', 'settings_id' ) );
 		self::add_action( 'render_new_module', 'FLBuilderAJAXLayout::render_new_module', array( 'parent_id', 'position', 'type', 'alias', 'template_id', 'template_type' ) );
@@ -138,6 +139,8 @@ final class FLBuilderAJAX {
 		// FLBuilderAutoSuggest
 		self::add_action( 'fl_builder_autosuggest', 'FLBuilderAutoSuggest::init' );
 		self::add_action( 'get_autosuggest_values', 'FLBuilderAutoSuggest::get_values', array( 'fields' ) );
+
+		self::add_action( 'save_browser_stats', 'FLBuilderUsage::browser_stats', array( 'browser_data' ) );
 	}
 
 	/**
@@ -183,7 +186,10 @@ final class FLBuilderAJAX {
 			return;
 		}
 
-		// Allow developers to modify actions before they are called.
+		/**
+		 * Allow developers to modify actions before they are called.
+		 * @see fl_ajax_before_call_action
+		 */
 		do_action( 'fl_ajax_before_call_action', $action );
 
 		// Make sure the action exists.
@@ -192,9 +198,9 @@ final class FLBuilderAJAX {
 		}
 
 		// Get the action data.
-		$action 	= self::$actions[ $action ];
-		$args   	= array();
-		$keys_args  = array();
+		$action    = self::$actions[ $action ];
+		$args      = array();
+		$keys_args = array();
 
 		// Build the args array.
 		foreach ( $action['args'] as $arg ) {
@@ -207,13 +213,24 @@ final class FLBuilderAJAX {
 			define( 'DOING_AJAX', true );
 		}
 
-		// Allow developers to hook before the action runs.
+		/**
+		 * Allow developers to hook before the action runs.
+		 * @see fl_ajax_before_
+		 * @link https://kb.wpbeaverbuilder.com/article/116-plugin-action-reference
+		 */
 		do_action( 'fl_ajax_before_' . $action['action'], $keys_args );
 
-		// Call the action and allow developers to filter the result.
+		/**
+		 * Call the action and allow developers to filter the result.
+		 * @see fl_ajax_
+		 */
 		$result = apply_filters( 'fl_ajax_' . $action['action'], call_user_func_array( $action['method'], $args ), $keys_args );
 
-		// Allow developers to hook after the action runs.
+		/**
+		 * Allow developers to hook after the action runs.
+		 * @see fl_ajax_after_
+		 * @link https://kb.wpbeaverbuilder.com/article/116-plugin-action-reference
+		 */
 		do_action( 'fl_ajax_after_' . $action['action'], $keys_args );
 
 		// JSON encode the result.
@@ -231,8 +248,8 @@ final class FLBuilderAJAX {
 	 * @return bool
 	 */
 	static private function verify_nonce() {
-		$post_data 	= FLBuilderModel::get_post_data();
-		$nonce 		= false;
+		$post_data = FLBuilderModel::get_post_data();
+		$nonce     = false;
 
 		if ( isset( $post_data['_wpnonce'] ) ) {
 			$nonce = $post_data['_wpnonce'];
