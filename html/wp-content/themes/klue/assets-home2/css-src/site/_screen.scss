@@ -82,7 +82,7 @@ textarea {
    ========================================================================== */
 
 body {
-  font-family: "roboto", sans-serif;
+  font-family: "proxima-nova", sans-serif;
 }
 
 .nav-overlay--on body { overflow: hidden; }
@@ -229,8 +229,6 @@ body {
     color: $light-purple;
     justify-content: center;
     text-transform: uppercase;
-    font-weight: 500;
-    font-size: .9em;
     display: none;
 
     @media (max-width: $breakpoint-tablet) {
