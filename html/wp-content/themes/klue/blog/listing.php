@@ -25,7 +25,7 @@
 ?>
                     </p>
                     <?php the_title( sprintf( '<h1 class="blogfeatured__title"><a class="" href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h1>' ); ?>
-                    <p class="blogfeatured__content"><?php the_excerpt(); ?></p>
+                    <p class="blogfeatured__content"><?php $excerpt = get_the_excerpt(); echo $excerpt; ?></p>
                     <a class="blogfeatured__more" href="<?php echo esc_url( get_permalink() ); ?>">Read</a>
                   </div>
                   <div class="blogfeatured__image" style="background-image: url(<?php echo $thumb_url[0]; ?>);"></div>
@@ -51,7 +51,7 @@
                   <?php the_title( sprintf( '<h1 class="blogitem__blogtitle"><a class="blogtitle__bloglink" href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h1>' ); ?>
                   <span class="blogitem__color blogitem__color--green"></span>
                 </div>
-                <p class="blogitem__content" style="min-height: 0;"><?php the_excerpt(); ?></p>
+                <p class="blogitem__content" style="min-height: 0;"><?php $excerpt = get_the_excerpt(); echo $excerpt; ?></p>
                 <a class="blogitem__more" href="<?php echo esc_url( get_permalink() ); ?>">Read</a>
                 <!--a href="<?php echo esc_url( get_permalink() ); ?>" rel="bookmark"><img style="margin-bottom:0;display:block;" src="" /></a-->
               <?php } ?>
