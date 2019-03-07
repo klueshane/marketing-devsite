@@ -17,6 +17,7 @@ $KLUE_APP_DOMAIN = 'https://app.klue.com';
 // Hotfix for Jason - add press release video template
 // TODO: remove
 add_theme_support( 'post-formats', array( 'video' ) );
+add_post_type_support( 'page', 'excerpt' );
 
 if(WP_DEBUG) {
   // Allow outputing debug info about fields usage: (?debug=fields)
